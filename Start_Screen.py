@@ -1,6 +1,4 @@
-import pygame
-
-class startscreen:
+class Start_Screen:
 
     def __init__(self, startbutton, background, title, leaderboard, font):
         self.font = font
@@ -13,9 +11,7 @@ class startscreen:
         self.leaderboard = leaderboard
 
         def drawStartScreen(self):
-            
+            pass
+
         def startGame(self):
-            
-
-
-    
+            pass
