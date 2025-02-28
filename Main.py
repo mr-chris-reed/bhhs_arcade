@@ -4,7 +4,9 @@
 # our code.
 
 import pygame
+from pygame.locals import *
 from Asset_Reader import Asset_Reader
+from End_Screen import End_Screen
 
 # constants
 WIDTH = 1106
@@ -18,7 +20,10 @@ running = True
 CANVAS = pygame.display.set_mode((WIDTH, HEIGHT))
 
 pygame.init()
-
+# testing object creation
+end_screen = End_Screen(1,2,3,4,5)
 # main game loop
 while running:
-    pass
+    for event in pygame.event.get():
+        if event.type == QUIT: 
+            running = False
