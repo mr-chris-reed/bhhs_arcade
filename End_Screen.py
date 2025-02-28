@@ -1,3 +1,8 @@
+
+
+import pygame
+
+
 class End_Screen:
     def __init__(self, runtime, leaderboard, homeButton, gameOverMessage, backgroundGraphic, credits):
         self.runtime = runtime
@@ -13,6 +18,7 @@ class End_Screen:
     def inputName(self):
         pass
 
+
     def drawEndScreen(self):
         #fills screen black
         screen.fill((0,0,0))
@@ -22,3 +28,4 @@ class End_Screen:
     
         #updates screen?
         pygame.display.flip()
+
