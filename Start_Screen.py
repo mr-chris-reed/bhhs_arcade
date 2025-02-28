@@ -1,3 +1,5 @@
+import pygame
+
 class Start_Screen:
 
     def __init__(self, startbutton, background, title, leaderboard, font):
