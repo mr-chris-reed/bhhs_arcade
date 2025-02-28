@@ -1,4 +1,6 @@
-class endscreen:
+import pygame
+
+class End_Screen:
     def __init__(self, runtime, leaderboard, homeButton, gameOverMessage, backgroundGraphic, credits):
         self.runtime = runtime
         self.leaderboard = leaderboard
