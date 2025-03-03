@@ -31,7 +31,8 @@ class endscreen:
         pass
 
     def inputName(self):
-        pass
+        
+
 
     def drawEndScreen(self):
         #fills screen black
@@ -41,7 +42,7 @@ class endscreen:
         canvas.blit(self.backgroundGraphic, (0,0))
 
         #update screen
-        pygame.canvas.flip()
+        pygame.display.flip()
 
 end_screen = endscreen(backgroundGraphic=background_image)
 # import assets

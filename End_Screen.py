@@ -29,4 +29,17 @@ class End_Screen:
         pass
 
 
+
+    def drawEndScreen(self):
+        #fills screen black
+        screen.fill((0,0,0))
+        
+        #displays graphic
+        screen.blit(self.backgroundGraphic, (0,0))
+    
+        #updates screen?
+        pygame.display.flip()
+        
+
    # screen drawing goes in main aparently
+
