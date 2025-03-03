@@ -21,12 +21,26 @@ class End_Screen:
         self.gameOverMessage = gameOverMessage
         self.backgroundGraphic = Asset_Reader("gameover.png", 1, 1).get_asset_list()
         self.credits = credits
+        
 
     def goHome(self):
         pass
 
     def inputName(self):
-        pass
+        name = input("input your name")
 
+
+
+    def drawEndScreen(self):
+        #fills screen black
+        screen.fill((0,0,0))
+        
+        #displays graphic
+        screen.blit(self.backgroundGraphic, (0,0))
+    
+        #updates screen?
+        pygame.display.flip()
+        
 
    # screen drawing goes in main aparently
+

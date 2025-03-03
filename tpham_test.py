@@ -31,7 +31,8 @@ class endscreen:
         pass
 
     def inputName(self):
-        pass
+      pass  
+
 
     def drawEndScreen(self):
         #fills screen black
@@ -41,7 +42,7 @@ class endscreen:
         canvas.blit(self.backgroundGraphic, (0,0))
 
         #update screen
-        pygame.canvas.flip()
+        pygame.display.flip()
 
 end_screen = endscreen(backgroundGraphic=background_image)
 # import assets
@@ -111,6 +112,7 @@ while running:
     # check to see if any of the keys are w, a, s, or d
     # and perform an action
     if keys[pygame.K_w]:
+        print(pygame.W_w)
         sprite_y_pos -= sprite_y_delta
     if keys[pygame.K_s]:
         sprite_y_pos += sprite_y_delta
