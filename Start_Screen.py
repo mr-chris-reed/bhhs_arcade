@@ -1,8 +1,9 @@
 import pygame
+from Asset_Reader import Asset_Reader
 
 class Start_Screen:
 
-    def __init__(self, startbutton, background, title, leaderboard, font):
+    def __init__(self, startbutton, background, title, leaderboard, font, scale_factor):
         self.font = font
         font = pygame.font.SysFont('times new roman', 40)
         self.startbutton = startbutton
