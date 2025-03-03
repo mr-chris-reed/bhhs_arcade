@@ -39,12 +39,9 @@ def main():
             # Handle keypress for moving between backgrounds
             #if event.type == pygame.KEYDOWN:
                 #if event.key == pygame.K_RIGHT:  # Move to the next background
-                    #bg.moveToNext()
+                    #background1.moveToNext()
                 #elif event.key == pygame.K_LEFT:  # Move to the previous background
                     #bg.moveToPrev()
 
         pygame.display.flip()  # Update the display
         clock.tick(60)  # Limit the frame rate to 60 FPS
-
-if __name__ == '__main__':
-    main()
