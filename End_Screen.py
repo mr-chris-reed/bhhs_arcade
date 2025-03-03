@@ -21,12 +21,13 @@ class End_Screen:
         self.gameOverMessage = gameOverMessage
         self.backgroundGraphic = Asset_Reader("gameover.png", 1, 1).get_asset_list()
         self.credits = credits
+        
 
     def goHome(self):
         pass
 
     def inputName(self):
-        pass
+        name = input("input your name")
 
 
 
