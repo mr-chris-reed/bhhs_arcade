@@ -1,3 +1,4 @@
+
 import pygame
 from Asset_Reader import Asset_Reader
  
@@ -41,3 +42,16 @@ class player:
         #actions
         def up()
 
+
+        #actions
+        def up():
+            pass
+        
+        def down():
+            pass
+
+        def left():
+            pass
+
+        def right():
+            pass
