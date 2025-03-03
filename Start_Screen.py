@@ -14,12 +14,12 @@ class Start_Screen:
         self.title = font.render("CapyBarda", True, (255, 255, 255))
         self.leaderboard = [] #Empty list of strings
 
-        # prob has to go in main loop 
-        # def drawStartScreen(self):
-            #screen.fill = self.background
+    # prob has to go in main loop 
+    # def drawStartScreen(self):
+        #screen.fill = self.background
 
-        def drawStartButton(self):
-            pass
+    def drawStartButton(self):
+        pass
 
-        def startGame(self):
-            pass
+    #Probably also needs to go in main bc we need to import joytick
+    #def startGame(self):
