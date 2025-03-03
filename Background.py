@@ -1,8 +1,8 @@
 from Asset_Reader import Asset_Reader
 
 class Background:
-    def __init__(self, background, x, y):
-        self.background_list = Asset_Reader(background, 1, 1).get_asset_list()  # Load the backgrounds
+    def __init__(self, background, num_images, x, y, scale_factor):
+        self.background_list = Asset_Reader(background, num_images, scale_factor).get_asset_list()  # Load the backgrounds
         self.current_index = 0  # Track current background
         self.x = x
         self.y = y

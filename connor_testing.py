@@ -17,9 +17,9 @@ def main():
 
     # backgrounds = [background1, background2, background3]
 
-    screen = pygame.display.set_mode((800, 600))
+    screen = pygame.display.set_mode((1280, 1024))
     pygame.display.set_caption('Background Test')
-    background1 = Background("assets/background1.png", 0, 0)
+    background1 = Background("assets/background1.png", 1, 0, 0, 2.1)
 
     clock = pygame.time.Clock()
 
