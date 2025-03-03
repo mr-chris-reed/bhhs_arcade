@@ -10,8 +10,8 @@ from End_Screen import End_Screen
 from Start_Screen import Start_Screen
 
 # constants
-WIDTH = 1106
-HEIGHT = 1021
+WIDTH = 1280
+HEIGHT = 1024
 FPS = 30
 
 # global variables
