@@ -1,22 +1,22 @@
 import pygame
+from Asset_Reader import Asset_Reader
 
 class Start_Screen:
 
-    def __init__(self, startbutton, background, title, leaderboard, font):
-        self.font = font
-        font = pygame.font.SysFont('times new roman', 40)
-        self.startbutton = startbutton
-        startbutton = font.render("Start", True, (255, 255, 255))
-        self.background = background
-        background = (0, 0, 0) #For now
-        self.title = title
-        title = font.render("CapyBarda", True, (255, 255, 255))
-        self.leaderboard = leaderboard
-        leaderboard = [] #Empty list of strings
+    def __init__(self, startmessage, background, title, leaderboard, font, scale_factor, x, y):
+        self.x = x
+        self.y = y
+        self.scale_factor = scale_factor
+        self.font = pygame.font.SysFont('times new roman', 40)
+        self.startmessage = font.render("Press the A Button to Start!", True, (255, 255, 255))
+        self.background = (0,0,0) #dosent work yet no file but thats the concept
+        #Asset_Reader("Start_Screen.png", 1, 1)
+        self.title = font.render("CapyBarda", True, (255, 255, 255))
+        self.leaderboard = [] #Empty list of strings
 
-        def drawStartScreen(self):
-            pass
-            screen.fill = self.background
+        # prob has to go in main loop 
+        # def drawStartScreen(self):
+            #screen.fill = self.background
 
         def drawStartButton(self):
             pass

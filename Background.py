@@ -1,20 +1,26 @@
+from Asset_Reader import Asset_Reader
 
 class Background:
-    def __init__(self, backgrounds, x, y, width, height):
-        self.backgrounds = backgrounds  # List of backgrounds
-        self.currentIndex = 0  # Index of the current background
+    def __init__(self, background, num_images, x, y, scale_factor):
+        self.background_list = Asset_Reader(background, num_images, scale_factor).get_asset_list()  # Load the backgrounds
+        self.current_index = 0  # Track current background
         self.x = x
         self.y = y
-        self.width = width
-        self.height = height
 
     def moveToNext(self):
-        if self.currentIndex < len(self.backgrounds) - 1:  # Check if there is a next background
-            self.currentIndex += 1
+        """Move to the next background, looping if at the end."""
+        if self.current_index < len(self.background_list) - 1:
+            self.current_index += 1
+        else:
+            self.current_index = 0  # Loop back to the start
 
     def moveToPrev(self):
-        if self.currentIndex > 0:  # Check if there is a previous background
-            self.currentIndex -= 1
+        """Move to the previous background, looping if at the beginning."""
+        if self.current_index > 0:
+            self.current_index -= 1
+        else:
+            self.current_index = len(self.background_list) - 1  # Loop to the last background
 
-    def getCurrentBackground(self):
-        return self.backgrounds[self.currentIndex]  # Get the current background
+    def get_current_background(self):
+        """Returns the current background image."""
+        return self.background_list[self.current_index]
