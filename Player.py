@@ -11,9 +11,6 @@
         #self.ss_right = ss_right
         #self.ss_interact = ss_interact
         #self.ss_attack = ss_attack
-
-        #actions
-        def up()
             
     
 
@@ -42,3 +39,16 @@ class player:
         #self.interact_list
         #self.attack_list
 
+
+        #actions
+        def up():
+            pass
+        
+        def down():
+            pass
+
+        def left():
+            pass
+
+        def right():
+            pass
