@@ -4,7 +4,7 @@ from Asset_Reader import Asset_Reader
  
 class player:
 
-     def __init__(self,x_coord, y_coord, ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack, num_images, scale):
+    def __init__(self,x_coord, y_coord, ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack, num_images, scale,speed):
         self.health = 5
         self.gold = 0
         self.damage = 5
@@ -39,19 +39,17 @@ class player:
         #self.ss_interact = ss_interact
         #self.ss_attack = ss_attack
 
-        #actions
-        def up()
 
 
         #actions
-        def up():
-            pass
+        def up(self):
+            self.y_coord -= 1
         
-        def down():
-            pass
+        def down(self):
+            self.y_coord += 1
 
-        def left():
-            pass
+        def left(self):
+            self.x_coord -= 1
 
-        def right():
-            pass
+        def right(self):
+            self.x_coord += 1
