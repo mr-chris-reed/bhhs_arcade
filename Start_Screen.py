@@ -18,7 +18,7 @@ class Start_Screen:
         self.scale_factor = scale_factor
         #self.font = pygame.font.SysFont('times new roman', 40)
         #self.startmessage = font.render("Press the A Button to Start!", True, (255, 255, 255))
-        self.background = Asset_Reader("bhhs_arcade/assets/gameover.png", 1, 1).get_asset_list()
+        self.background = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
         #self.title = font.render("CapyBarda", True, (255, 255, 255))
         self.leaderboard = [] #Empty list of strings
 
