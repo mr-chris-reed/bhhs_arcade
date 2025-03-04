@@ -5,11 +5,12 @@ from pygame.locals import *
 # canvas variables
 width = 1920 # adjust for width of canvas
 height =1080 # adjust for height of canvas
-
+#colors
+BLUE = (0,0,255)
 # frame rate
 fps = 60
 #background image
-background_image = pygame.image.load('gameover.png')
+#background_image = pygame.image.load('gameover.png')
 # colors
 background_color = (255,255,255)
 
@@ -18,33 +19,56 @@ pygame.init()
 canvas = pygame.display.set_mode((width, height))
 pygame.display.set_caption("<YOUR DISPLAY CAPTION GOES HERE (STRING)>") # add a caption for your canvas
 
-class endscreen:
-    def __init__(self,backgroundGraphic):
-        #self.runtime = runtime
-       # self.leaderboard = leaderboard
-        #self.homeButton = homeButton
-        self.gameOverMessage = "gane"
-        self.backgroundGraphic = backgroundGraphic
-        #self.credits = credits
-
+class End_Screen:
+    ###
+    # NOTES: You might consider blitting the runtime, leaderboard, gameOverMessage
+    # onto the backgroundGraphic before returning the end screen. We could make a
+    # leaderboard class, which is responsible for holding an array of top scores.
+    # The leaderboard could hold its data in a list of lists or dictionary.  We
+    # would want it to hold position, player's initials, and time to complete.
+    # We would also want a message to tell players how to get back to the start.
+    ###
+    def __init__(
+            self,
+            x,
+            y,
+            scale_factor,
+            runtime, 
+            leaderboard, 
+            gameOverMessage,
+            backgroundGraphic,
+            credits,
+        ):
+        self.x = x
+        self.y = y
+        self.scale_factor = scale_factor
+        self.runtime = runtime
+        self.leaderboard = leaderboard
+        self.gameOverMessage = gameOverMessage
+        #self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
+        self.credits = credits
+        self.input_box = pygame.Rect(200,150,140,32)
+        
     def goHome(self):
         pass
 
     def inputName(self):
-      pass  
-
+       # name = input("input your name")
+       # alphabet = ("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
+        pygame.draw.rect(canvas,BLUE,self.input_box,2 )
+        pygame.display.update()
 
     def drawEndScreen(self):
         #fills screen black
-        canvas.fill((0,0,0))
+        screen.fill((0,0,0))
         
         #displays graphic
-        canvas.blit(self.backgroundGraphic, (0,0))
-
-        #update screen
+        screen.blit(self.backgroundGraphic, (0,0))
+    
+        #updates screen?
         pygame.display.flip()
+#end_screen = endscreen(backgroundGraphic=background_image)
 
-end_screen = endscreen(backgroundGraphic=background_image)
 # import assets
 sprite_sheet = pygame.image.load("Eggsby_2.png").convert_alpha() # add the path/name of your sprite sheet file
 
@@ -140,7 +164,18 @@ while running:
     sprite_rect = pygame.Rect(sprite_x_pos, sprite_y_pos, sprite_width, sprite_height)
     if sprite_rect.colliderect(wall):
         print("1")
-        end_screen.drawEndScreen()
+        #end_screen.drawEndScreen()
+        end_Screen = End_Screen(
+        x=0,
+        y=0,
+        scale_factor=1,
+        runtime=0,
+        leaderboard=None,
+        gameOverMessage="Game Over",
+        backgroundGraphic=None,  # Assuming you don't need a background for now
+        credits="Some credits")
+        end_Screen.inputName()
+        pygame.display.update()
         if keys[pygame.K_a]:
             sprite_x_pos += sprite_x_delta  # Prevent moving left into the wall
         if keys[pygame.K_d]:
