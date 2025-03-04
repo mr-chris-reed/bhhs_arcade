@@ -4,7 +4,16 @@ from Asset_Reader import Asset_Reader
  
 class player:
 
+
     def __init__(self,x_coord, y_coord, ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack, num_images, scale,speed):
+
+        ###
+        # NOTES: For movement, you could use the instance variables x_speed and y_speed.
+        # You could fill in the methods you wrote below to move the character like
+        # self.x_coord += self.x_speed, self.x_coord -= self.x_coord, etc.
+        # What do we want the attack to be?  Projectile or melee? Would there be extra
+        # animations for this?  Are we going to have animations for interact?
+        ###
         self.health = 5
         self.gold = 0
         self.damage = 5
