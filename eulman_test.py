@@ -14,7 +14,7 @@ def main():
     screen = pygame.display.set_mode((1280, 1024))
     pygame.display.set_caption('End Screen Test')
     background1 = End_Screen(0,0,1,0,0,0,0,0)
-
+    alphabet = ("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
     clock = pygame.time.Clock()
 
     # Game loop
@@ -22,20 +22,18 @@ def main():
         screen.fill((0, 0, 0))  # Fill the screen with black
         
         # Display the current background
-        screen.blit(background1.backgroundGraphic,(0,0))
-
+        screen.blit(background1.backgroundGraphic[0],(0,0))
+        pygame.draw.rect(screen, [255,0,0], (500,800,900,200))
         # Event handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-            # Handle keypress for moving between backgrounds
-            #if event.type == pygame.KEYDOWN:
-                #if event.key == pygame.K_RIGHT:  # Move to the next background
-                    #bg.moveToNext()
-                #elif event.key == pygame.K_LEFT:  # Move to the previous background
-                    #bg.moveToPrev()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:  # Move to the next background
+                    pass
+                
 
         pygame.display.flip()  # Update the display
         clock.tick(60)  # Limit the frame rate to 60 FPS
