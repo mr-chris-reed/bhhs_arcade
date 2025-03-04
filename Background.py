@@ -6,13 +6,11 @@ class Background:
         self.current_index = 0  # Track current background
         self.x = x
         self.y = y
+        index = 0
 
     def moveToNext(self):
-        """Move to the next background, looping if at the end."""
-        if self.current_index < len(self.background_list) - 1:
-            self.current_index += 1
-        else:
-            self.current_index = 0  # Loop back to the start
+        """Move to the next background in the list, looping back if needed."""
+        self.index = (self.index + 1) % len(self.backgrounds)
 
     def moveToPrev(self):
         """Move to the previous background, looping if at the beginning."""
