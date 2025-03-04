@@ -27,18 +27,16 @@ class End_Screen:
         self.runtime = runtime
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
-        self.backgroundGraphic = Asset_Reader("gameover.png", 1, 1).get_asset_list()
+        self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
         self.credits = credits
         
-
     def goHome(self):
         pass
 
     def inputName(self):
         name = input("input your name")
-
-
-
+        alphabet = ("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
+        
     def drawEndScreen(self):
         #fills screen black
         screen.fill((0,0,0))
