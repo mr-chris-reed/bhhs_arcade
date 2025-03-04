@@ -16,18 +16,16 @@ class Start_Screen:
         self.x = x
         self.y = y
         self.scale_factor = scale_factor
-        self.font = pygame.font.SysFont('times new roman', 40)
-        self.startmessage = font.render("Press the A Button to Start!", True, (255, 255, 255))
-        self.background = (0,0,0) #dosent work yet no file but thats the concept
-        #Asset_Reader("Start_Screen.png", 1, 1)
-        self.title = font.render("CapyBarda", True, (255, 255, 255))
+        #self.font = pygame.font.SysFont('times new roman', 40)
+        #self.startmessage = font.render("Press the A Button to Start!", True, (255, 255, 255))
+        self.background = Asset_Reader("bhhs_arcade/assets/gameover.png", 1, 1).get_asset_list()
+        #self.title = font.render("CapyBarda", True, (255, 255, 255))
         self.leaderboard = [] #Empty list of strings
 
-    # prob has to go in main loop 
-    # def drawStartScreen(self):
-        #screen.fill = self.background
+    def drawStartScreen(self):
+        screen.fill = self.background
 
-    def drawStartButton(self):
+    def drawStartMessage(self):
         pass
 
     #Probably also needs to go in main bc we need to import joytick
