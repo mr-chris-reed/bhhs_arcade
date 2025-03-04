@@ -29,6 +29,8 @@ class End_Screen:
         self.gameOverMessage = gameOverMessage
         self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
         self.credits = credits
+        self.input_box = pygame.Rect(200,150,140,32)
+        self.text = ''
         
     def goHome(self):
         pass
@@ -36,7 +38,11 @@ class End_Screen:
     def inputName(self):
         name = input("input your name")
         alphabet = ("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
-        
+        pygame.draw.rect(canvas,BLUE,self.input_box,2 )
+        pygame.display.update()
+
+    def handleInput(self):
+        pass
     def drawEndScreen(self):
         #fills screen black
         screen.fill((0,0,0))
