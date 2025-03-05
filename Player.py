@@ -8,7 +8,7 @@ class Player:
                 x_coord, y_coord, 
                 ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack,
                 num_up, num_down, num_down, num_left, num_right, num_interact, num_attack,
-                scale)
+                scale,x_speed, y_speed)
         ###
         # NOTES: For movement, you could use the instance variables x_speed and y_speed.
         # You could fill in the methods you wrote below to move the character like
