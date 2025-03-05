@@ -16,10 +16,7 @@ class Start_Screen:
         self.x = x
         self.y = y
         self.scale_factor = scale_factor
-        #self.font = pygame.font.SysFont('times new roman', 40)
-        #self.startmessage = font.render("Press the A Button to Start!", True, (255, 255, 255))
         self.background = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
-        #self.title = font.render("CapyBarda", True, (255, 255, 255))
         self.leaderboard = [] #Empty list of strings
 
     def drawStartScreen(self):
@@ -30,3 +27,21 @@ class Start_Screen:
 
     #Probably also needs to go in main bc we need to import joytick
     #def startGame(self):
+
+    def display_menu(self):
+    
+        White = (255, 255, 255)
+        font_title = pygame.font.Font('Arial', 64, White)
+        #font_leaderboard = pygame.font.Font('Arial', 32, White)
+        font_startmessage = pygame.font.Font('Arial', 48, White)
+
+    # Title
+        title_text = font_title.render("CappyBarda", True, White)
+        screen.blit(title_text, (WIDTH // 2 - title_text.get_width() // 2, 50))
+
+    # Start message
+        start_message = font_start.render("Press Enter to Start", True, White)
+        screen.blit(start_message, (WIDTH // 2 - start_message.get_width() // 2, HEIGHT - 100))
+
+
+#class Leaderboard:
