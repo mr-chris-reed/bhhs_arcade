@@ -22,8 +22,9 @@ class Start_Screen:
     def drawStartScreen(self):
         screen.fill = self.background
 
-    def drawStartMessage(self):
-        pass
+    def drawText(self, text, font, text_col, x, y):
+        img = font.render(text, True, text_col)
+        canvas.blit(img, (x, y))
 
     #Probably also needs to go in main bc we need to import joytick
     #def startGame(self):
@@ -36,7 +37,7 @@ class Start_Screen:
         font_startmessage = pygame.font.Font('Arial', 48, White)
 
     # Title
-        title_text = font_title.render("CappyBarda", True, White)
+        title_text = font_title.render("CapyBarda", True, White)
         screen.blit(title_text, (WIDTH // 2 - title_text.get_width() // 2, 50))
 
     # Start message

@@ -1,5 +1,5 @@
-import pygame
-import sys
+import pygame, sys
+from pygame.locals import *
 from Start_Screen import Start_Screen
 
 
@@ -7,14 +7,15 @@ pygame.init()
 
 screen = pygame.display.set_mode((1280, 1024))
 pygame.display.set_caption('Start_Screen Test')
-start_screen = Start_Screen("Press A to Start", "assets/gameover.png", "CapyBarda", [], "Futura", 1, 0, 0)
+start_screen = Start_Screen("Press A to Start", "assets/CapyBarda_Start_Screen.png", "CapyBarda", [], "Futura", 1, 0, 0)
 
 clock = pygame.time.Clock()
 
 # Game loop
 while True:
     screen.fill((0, 0, 0))  # Fill the screen with black
-    
+    start_screen.display_menu()
+
     # Display the current background
     screen.blit(start_screen.background[0], (-300,0))
 
