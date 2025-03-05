@@ -136,7 +136,7 @@ while running:
     # check to see if any of the keys are w, a, s, or d
     # and perform an action
     if keys[pygame.K_w]:
-        print(pygame.W_w)
+        print(pygame.K_w)
         sprite_y_pos -= sprite_y_delta
     if keys[pygame.K_s]:
         sprite_y_pos += sprite_y_delta
