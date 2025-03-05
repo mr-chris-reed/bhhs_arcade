@@ -33,8 +33,8 @@ class End_Screen:
             x,
             y,
             scale_factor,
-            runtime, 
-            leaderboard, 
+            runtime,
+            leaderboard,
             gameOverMessage,
             backgroundGraphic,
             credits,
@@ -45,26 +45,34 @@ class End_Screen:
         self.runtime = runtime
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
-        #self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
+      # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
         self.credits = credits
         self.input_box = pygame.Rect(200,150,140,32)
-        
+        self.text = ''
+        self.currentLetter = 0
     def goHome(self):
         pass
 
     def inputName(self):
        # name = input("input your name")
-       # alphabet = ("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
+        alphabet = ("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
         pygame.draw.rect(canvas,BLUE,self.input_box,2 )
         pygame.display.update()
+
+    def handleInput(self):
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                key_name = pygame.key.name(event.key)
+                self.text = (key_name)
+                print(key_name)
 
     def drawEndScreen(self):
         #fills screen black
         screen.fill((0,0,0))
-        
+
         #displays graphic
         screen.blit(self.backgroundGraphic, (0,0))
-    
+
         #updates screen?
         pygame.display.flip()
 #end_screen = endscreen(backgroundGraphic=background_image)
@@ -114,29 +122,42 @@ def spritePicker():
 
 # clock to set FPS
 clock = pygame.time.Clock()
-wall = pygame.Rect(300, 200, 200, 50) 
+wall = pygame.Rect(300, 200, 200, 50)
 # variable to control state of entire game
 running = True
-#game over
-game=False
+
+# main varible thing to test the class
+end_Screen = End_Screen(
+        x=0,
+        y=0,
+        scale_factor=1,
+        runtime=0,
+        leaderboard=None,
+        gameOverMessage="Game Over",
+        backgroundGraphic=None,  # Assuming you don't need a background for now
+        credits="Some credits")
+
+
+
 # main game loop
 while running:
     # paint the canvas with background color
     canvas.fill(background_color)
-
+    #trying to recrod inputs and prints in console
+    end_Screen.handleInput()
     # poll for events
     for event in pygame.event.get():
         # if 'X' is clicked on the canvas
         if event.type == QUIT:
             running = False
     pygame.draw.rect(canvas, (0, 0, 0), wall)
-    # get all keys that are currently pressed    
+    # get all keys that are currently pressed
     keys = pygame.key.get_pressed()
 
     # check to see if any of the keys are w, a, s, or d
     # and perform an action
     if keys[pygame.K_w]:
-        print(pygame.W_w)
+        print(pygame.K_w)
         sprite_y_pos -= sprite_y_delta
     if keys[pygame.K_s]:
         sprite_y_pos += sprite_y_delta
@@ -163,17 +184,9 @@ while running:
     # Check for collision with the wall and stop movement if there's a collision
     sprite_rect = pygame.Rect(sprite_x_pos, sprite_y_pos, sprite_width, sprite_height)
     if sprite_rect.colliderect(wall):
-        print("1")
+        
         #end_screen.drawEndScreen()
-        end_Screen = End_Screen(
-        x=0,
-        y=0,
-        scale_factor=1,
-        runtime=0,
-        leaderboard=None,
-        gameOverMessage="Game Over",
-        backgroundGraphic=None,  # Assuming you don't need a background for now
-        credits="Some credits")
+
         end_Screen.inputName()
         pygame.display.update()
         if keys[pygame.K_a]:
@@ -186,7 +199,7 @@ while running:
             sprite_y_pos -= sprite_y_delta   # Prevent moving down into the wall
        #canvas.blit(bg_image, (0, 0))
         #pygame.display.update()
-     
+
 # close pygame down
 pygame.quit()
 sys.exit()

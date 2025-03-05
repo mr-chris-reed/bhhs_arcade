@@ -17,6 +17,9 @@ while True:
     
     # Display the current background
     screen.blit(start_screen.background[0], (0,0))
+    font_title = pygame.font.SysFont('Arial', 64)
+    title_text = font_title.render("CappyBarda", True, (255, 255, 255))
+    screen.blit(title_text, (WIDTH // 2 - title_text.get_width() // 2, 50))
 
     # Event handling
     for event in pygame.event.get():

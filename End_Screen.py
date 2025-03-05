@@ -40,9 +40,13 @@ class End_Screen:
         alphabet = ("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
         pygame.draw.rect(canvas,BLUE,self.input_box,2 )
         pygame.display.update()
-
+        
     def handleInput(self):
-        pass
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                key_name = pygame.key.name(event.key)
+                self.text = (key_name)
+            print(key_name)
     def drawEndScreen(self):
         #fills screen black
         screen.fill((0,0,0))

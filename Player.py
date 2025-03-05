@@ -2,11 +2,20 @@
 import pygame
 from Asset_Reader import Asset_Reader
  
+
 class player:
 
 
     def __init__(self,x_coord, y_coord, ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack, num_images, scale,x_speed,y_speed):
 
+class Player:
+
+
+     def __init__(self, 
+                x_coord, y_coord, 
+                ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack,
+                num_up, num_down, num_down, num_left, num_right, num_interact, num_attack,
+                scale,x_speed, y_speed)
         ###
         # NOTES: For movement, you could use the instance variables x_speed and y_speed.
         # You could fill in the methods you wrote below to move the character like
@@ -26,12 +35,12 @@ class player:
         self.ss_left = ss_left
         self.ss_right = ss_right
         self.ss_interact = ss_interact
-        self.up_list = Asset_Reader(ss_up, num_images, scale).get_asset_list()
-        self.down_list = Asset_Reader(ss_down, num_images, scale).get_asset_list()
-        self.left_list = Asset_Reader(ss_left, num_images, scale).get_asset_list()
-        self.right_list = Asset_Reader(ss_right, num_images, scale).get_asset_list()
-        self.interact_list = Asset_Reader(ss_interact, num_images, scale).get_asset_list()
-        self.attack_list = Asset_Reader(ss_attack, num_images, scale).get_asset_list()
+        self.up_list = Asset_Reader(ss_up, num_up, scale).get_asset_list()
+        self.down_list = Asset_Reader(ss_down, num_down, scale).get_asset_list()
+        self.left_list = Asset_Reader(ss_left, num_left, scale).get_asset_list()
+        self.right_list = Asset_Reader(ss_right, num_right, scale).get_asset_list()
+        self.interact_list = Asset_Reader(ss_interact, num_interact, scale).get_asset_list()
+        self.attack_list = Asset_Reader(ss_attack, num_attack, scale).get_asset_list()
 
 
         #actions
