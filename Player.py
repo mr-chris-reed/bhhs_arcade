@@ -2,7 +2,14 @@
 import pygame
 from Asset_Reader import Asset_Reader
  
+
+class player:
+
+
+    def __init__(self,x_coord, y_coord, ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack, num_images, scale,x_speed,y_speed):
+
 class Player:
+
 
      def __init__(self, 
                 x_coord, y_coord, 
@@ -36,31 +43,15 @@ class Player:
         self.attack_list = Asset_Reader(ss_attack, num_attack, scale).get_asset_list()
 
 
-
-        # Player file
-
-# Tasks for cshook - ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack, up, down, left, right
-
-    #update with Rowan's code 
-
-        #self.ss_up = ss_up
-        #self.ss_down = ss_down
-        #self.ss_left = ss_left
-        #self.ss_right = ss_right
-        #self.ss_interact = ss_interact
-        #self.ss_attack = ss_attack
-
-
-
         #actions
         def up(self):
-            self.y_coord -= 1
+            self.y_coord -= self.y_speed
         
         def down(self):
-            self.y_coord += 1
+            self.y_coord += self.y_speed
 
         def left(self):
-            self.x_coord -= 1
+            self.x_coord -= self.x_speed
 
         def right(self):
-            self.x_coord += 1
+            self.x_coord += self.x_speed
