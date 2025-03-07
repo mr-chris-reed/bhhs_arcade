@@ -1,7 +1,6 @@
-import pygame
-import sys
+import pygame, sys, time
+from Asset_Reader import Asset_Reader
 from Start_Screen import Start_Screen
-
 
 pygame.init()
 
@@ -10,6 +9,10 @@ pygame.display.set_caption('Start_Screen Test')
 start_screen = Start_Screen("bhhs_arcade/assets/gameover.png", 1, 0, 0, 2.1, 1, 0, 0)
 
 clock = pygame.time.Clock()
+running = True
+visible = True
+flash_timer = 0
+flash_interval = 500
 
 # Game loop
 while True:
@@ -17,9 +20,14 @@ while True:
     
     # Display the current background
     screen.blit(start_screen.background[0], (0,0))
-    font_title = pygame.font.SysFont('Arial', 64)
-    title_text = font_title.render("CappyBarda", True, (255, 255, 255))
-    screen.blit(title_text, (WIDTH // 2 - title_text.get_width() // 2, 50))
+    
+    current_time = pygame.time.get_ticks()
+    if current_time - flash_timer > flash_interval:
+        visible = not visible
+        flash_timer = current_time
+        
+    start_screen.draw_text("CapyBarda", None, (255, 255, 255), 36, 400, 300, visible)
+    start_screen.draw_text("Press A to Start!", None, (255, 255, 255), 36, 500, 400, visible)
 
     # Event handling
     for event in pygame.event.get():
