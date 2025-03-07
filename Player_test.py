@@ -2,7 +2,6 @@
 # We can use this file to declare and modify 
 # global variables and create objects and test
 # our code.
-
 import pygame
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
@@ -26,7 +25,10 @@ canvas = pygame.display.set_mode((width, height))
 pygame.display.set_caption("maD egg lol") # add a caption for your canvas
 
 # import assets
-egg = Player(50,50, eggsby_4.png, eggsby.png, eggsby_3.png, eggsby_2.png, eggsby_dance.png, eggsby_attack.png, 2,2,2,2,4,6,5,5) 
+egg = Player(
+            50,50,
+            "assets/Eggsby_4.png", "assets/Eggsby.png", "assets/Eggsby_3.png", "assets/Eggsby_2.png", "assets/Eggsby-dance.png", "assets/Eggsby-attack.png", 
+            2,2,2,2,4,6,1,5,5) 
 
 # clock to set FPS
 clock = pygame.time.Clock()
@@ -48,26 +50,19 @@ while running:
     # get all keys that are currently pressed    
     keys = pygame.key.get_pressed()
 
-    """
+    
     # check to see if any of the keys are w, a, s, or d
     # and perform an action
     if keys[pygame.K_w]:
-
-        egg.y_coord -= 10
-        i=-1
-        for i in range(up_list.length):
-
-        egg.up_list
-    
+        egg.up()
     if keys[pygame.K_s]:
-        egg.y_coord += 10
+         egg.down()
     if keys[pygame.K_a]:
-        egg.x_coord -= 10
+        egg.left()
     if keys[pygame.K_d]:
-        egg.x_coord += 10
-     if keys[pygame.K_d]:
-        egg.x_coord += 10
-    """
+        egg.right()
+
+    
 
 # close pygame down
 pygame.quit()
