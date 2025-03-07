@@ -17,7 +17,7 @@ class Start_Screen:
         self.x = x
         self.y = y
         self.scale_factor = scale_factor
-        self.background = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
+        self.background = Asset_Reader("assets/CapyBarda_Start_Screen.png", 1, 1).get_asset_list()
         self.leaderboard = [] #Empty list of strings
 
     def drawStartScreen(self):
@@ -30,6 +30,8 @@ class Start_Screen:
             text_surface = font.render(text, True, color)
             text_rect = text_surface.get_rect(center=(x, y))
             screen.blit(text_surface, text_rect)
+
+            #We might need to make another function for blinking text.
 
     #Probably also needs to go in main bc we need to import joytick
     #def startGame(self):
