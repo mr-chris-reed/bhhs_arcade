@@ -18,12 +18,11 @@ class Start_Screen:
         self.y = y
         self.scale_factor = scale_factor
         self.background = Asset_Reader("assets/CapyBarda_Start_Screen.png", 1, 1).get_asset_list()
-        self.leaderboard = [] #Empty list of strings
+        self.leaderboard = [] #Empty list of strings. Maybe not for the Alpha test if time does not allow.
 
     def drawStartScreen(self):
         screen.fill = self.background
 
-            #We might need to make another function for blinking text.
     
     def draw_text(self, text, font_name, color, size, x, y, visible):
         if visible:
