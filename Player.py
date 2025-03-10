@@ -51,4 +51,21 @@ class Player:
         def right(self):
             self.x_coord += self.x_speed
 
+        def interact(self):
+
+        
+        
+        sprite_index = 0
+        counter = 0
+        def spritePicker(self):
+            global sprite_index
+            if counter % 20 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
+                if sprite_index == total_sprites - 1:
+                    sprite_index = 0
+                else:
+                    sprite_index += 1
+            counter += 1
+            return sprite_index
+
         #def interact(self):
+

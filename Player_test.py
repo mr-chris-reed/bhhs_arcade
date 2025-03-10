@@ -54,15 +54,25 @@ while running:
     # check to see if any of the keys are w, a, s, or d
     # and perform an action
     if keys[pygame.K_w]:
+        egg.sprite_index = 0
+        for i in range egg.up_list.length:
+            canvas.blit(egg.up_list[egg.sprite_picker()], (x_coord, y_coord))
         egg.up()
     if keys[pygame.K_s]:
-         egg.down()
+        egg.sprite_index = 0
+        for i in range egg.down_list.length:
+            canvas.blit(egg.down_list[egg.sprite_picker()], (x_coord, y_coord))
+        egg.down()
     if keys[pygame.K_a]:
+        egg.sprite_index = 0
+        for i in range egg.left_list.length:
+            canvas.blit(egg.left_list[egg.sprite_picker()], (x_coord, y_coord))
         egg.left()
     if keys[pygame.K_d]:
+        egg.sprite_index = 0
+        for i in range egg.right_list.length:
+            canvas.blit(egg.right_list[egg.sprite_picker()], (x_coord, y_coord))
         egg.right()
-
-    
 
 # close pygame down
 pygame.quit()
