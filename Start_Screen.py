@@ -23,33 +23,19 @@ class Start_Screen:
     def drawStartScreen(self):
         screen.fill = self.background
 
+            #We might need to make another function for blinking text.
+    
     def draw_text(self, text, font_name, color, size, x, y, visible):
         if visible:
             pygame.font.init()
-            font = pygame.font.Font(font_name, size)
+            font = pygame.font.Font(font_name if font_name else None, size)
             text_surface = font.render(text, True, color)
             text_rect = text_surface.get_rect(center=(x, y))
             screen.blit(text_surface, text_rect)
-
-            #We might need to make another function for blinking text.
 
     #Probably also needs to go in main bc we need to import joytick
     #def startGame(self):
 
     #def display_menu(self):
-    
-        #White = (255, 255, 255)
-        #font_title = pygame.font.Font('Arial', 64, White)
-        #font_leaderboard = pygame.font.Font('Arial', 32, White)
-        #font_startmessage = pygame.font.Font('Arial', 48, White)
-
-    # Title
-        #title_text = font_title.render("CapyBarda", True, White)
-        #screen.blit(title_text, (WIDTH // 2 - title_text.get_width() // 2, 50))
-
-    # Start message
-        #start_message = font_start.render("Press Enter to Start", True, White)
-        #screen.blit(start_message, (WIDTH // 2 - start_message.get_width() // 2, HEIGHT - 100))
-
 
 #class Leaderboard:
