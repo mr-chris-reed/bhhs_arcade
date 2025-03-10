@@ -66,3 +66,6 @@ class Player:
                     sprite_index += 1
             counter += 1
             return sprite_index
+
+        #def interact(self):
+

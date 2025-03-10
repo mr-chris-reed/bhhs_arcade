@@ -1,5 +1,23 @@
-import pygame
-from Asset_Reader import Asset_Reader
+# imports for pygame
+import pygame, sys
+from pygame.locals import *
+
+# canvas variables
+width = 800 # adjust for width of canvas
+height =600 # adjust for height of canvas
+#colors
+BLUE = (0,0,255)
+# frame rate
+fps = 60
+#background image
+#background_image = pygame.image.load('gameover.png')
+# colors
+background_color = (0,0,0)
+
+# initializing pygame, setting up the surface (canvas)
+pygame.init()
+canvas = pygame.display.set_mode((width, height))
+pygame.display.set_caption("<YOUR DISPLAY CAPTION GOES HERE (STRING)>") # add a caption for your canvas
 
 class End_Screen:
     ###
@@ -67,7 +85,30 @@ class End_Screen:
 
         #updates screen?
         pygame.display.flip()
-        
+#end_screen = endscreen(backgroundGraphic=background_image)
 
-   # screen drawing goes in main aparently
+end_Screen = End_Screen(
+        x=0,
+        y=0,
+        scale_factor=1,
+        runtime=0,
+        leaderboard=None,
+        gameOverMessage="Game Over",
+        backgroundGraphic=None,  # Assuming you don't need a background for now
+        credits="Some credits")
+running = True
 
+visible = True
+
+while running:
+    canvas.fill((255,255,255))
+   
+    keys = pygame.key.get_pressed()
+    end_Screen.handleInput()
+    end_Screen.inputName(canvas)
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+           running = False
+
+    pygame.display.flip()
