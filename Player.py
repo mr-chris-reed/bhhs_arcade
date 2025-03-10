@@ -51,4 +51,4 @@ class Player:
         def right(self):
             self.x_coord += self.x_speed
 
-        def interact(self):
+        #def interact(self):
