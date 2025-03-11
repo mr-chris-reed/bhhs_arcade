@@ -72,17 +72,18 @@ class End_Screen:
     def handleInput(self):
         #cycles through the alphabet when the arrows keys are moved and prints, will be changed once joystick is added
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:  # If Right Arrow key is pressed, move to the next letter
-                    self.currentLetter = (self.currentLetter + 1) % len(self.alphabet)
-                    self.currentLetterString = self.alphabet[self.currentLetter]
-                elif event.key == pygame.K_LEFT:  # If Left Arrow key is pressed, move to the previous letter
-                    self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
-                    self.currentLetterString = self.alphabet[self.currentLetter]
-                elif event.key == pygame.K_RETURN: # when enter is pressed, add it to the name instance variable
-                    self.name += self.currentLetterString
+            if len(self.name) < 3:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RIGHT:  # If Right Arrow key is pressed, move to the next letter
+                        self.currentLetter = (self.currentLetter + 1) % len(self.alphabet)
+                        self.currentLetterString = self.alphabet[self.currentLetter]
+                    elif event.key == pygame.K_LEFT:  # If Left Arrow key is pressed, move to the previous letter
+                        self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
+                        self.currentLetterString = self.alphabet[self.currentLetter]
+                    elif event.key == pygame.K_RETURN: # when enter is pressed, add it to the name instance variable
+                        self.name += self.currentLetterString
 
-                print(f"Current input: {self.currentLetterString}")
+                    print(f"Current input: {self.currentLetterString}")
 
     def drawEndScreen(self):
         #fills screen black
