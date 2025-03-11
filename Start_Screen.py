@@ -35,6 +35,4 @@ class Start_Screen:
     #Probably also needs to go in main bc we need to import joytick
     #def startGame(self):
 
-    #def display_menu(self):
-
 #class Leaderboard:
