@@ -52,7 +52,27 @@ class Player:
         def right(self):
             self.x_coord += self.x_speed
 
-        #def interact(self):
+        #def interact(self, item_group):
+            #for item in item_group:
+                #if pygame.sprite.collide_rect(self, item) and key
+                   # item.collect(self)  
+
+        
+        
+        sprite_index = 0 # <== Make this an instance variable
+        counter = 0 # <== see note below
+        def spritePicker(self): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
+            global sprite_index
+            if counter % 20 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
+                if sprite_index == total_sprites - 1:
+                    sprite_index = 0
+                else:
+                    sprite_index += 1
+            counter += 1
+            return sprite_index
+
+      
+   
 
         
         
@@ -63,4 +83,5 @@ class Player:
             else:
                 sprite_index += 1
         return sprite_index
+
 
