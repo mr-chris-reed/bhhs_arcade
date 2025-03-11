@@ -46,7 +46,7 @@ class End_Screen:
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
       # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
-        self.credits = credits
+        self.credits = "names"
         self.input_box = pygame.Rect(200,150,140,32)
         self.currentLetter = 0 
         self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  
@@ -76,6 +76,11 @@ class End_Screen:
 
                 print(f"Current input: {self.text}")
 
+    def drawCredits(self,canvas):
+        #will handle to drawing of credits, static for now, potentially add scrolling (if possible)
+        text_surface = self.font.render(self.credits, True, (0, 0, 0))  # Render the current text
+        canvas.blit(text_surface, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
+        pygame.display.update()
     def drawEndScreen(self):
         #fills screen black
         screen.fill((0,0,0))
@@ -87,25 +92,26 @@ class End_Screen:
         pygame.display.flip()
 #end_screen = endscreen(backgroundGraphic=background_image)
 
-end_Screen = End_Screen(
-        x=0,
-        y=0,
-        scale_factor=1,
-        runtime=0,
-        leaderboard=None,
-        gameOverMessage="Game Over",
-        backgroundGraphic=None,  # Assuming you don't need a background for now
-        credits="Some credits")
+end_Screen = End_Screen( x=0,y=0,scale_factor=1,runtime=0,leaderboard=None,gameOverMessage="Game Over",backgroundGraphic=None,credits='')  # Assuming you don't need a background for now credits='')
+
 running = True
-
 visible = True
-
+keys = pygame.key.get_pressed()
 while running:
+    if visible == True:
+        end_Screen.drawCredits(canvas)
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            visible=False
+                
     canvas.fill((255,255,255))
    
-    keys = pygame.key.get_pressed()
-    end_Screen.handleInput()
-    end_Screen.inputName(canvas)
+   
+   # end_Screen.handleInput()
+   # while visible:
+       # end_Screen.drawCredits(canvas)
+    
+    #end_Screen.inputName(canvas)
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

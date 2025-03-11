@@ -6,7 +6,7 @@ from Asset_Reader import Asset_Reader
 class Player:
 
 
-     def __init__(self, 
+    def __init__(self, 
                 x_coord, y_coord, 
                 ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack,
                 num_up, num_down, num_left, num_right, num_interact, num_attack,
@@ -36,6 +36,7 @@ class Player:
         self.right_list = Asset_Reader(ss_right, num_right, scale).get_asset_list()
         self.interact_list = Asset_Reader(ss_interact, num_interact, scale).get_asset_list()
         self.attack_list = Asset_Reader(ss_attack, num_attack, scale).get_asset_list()
+        self.sprite_index = 0
 
 
         #actions
@@ -70,5 +71,17 @@ class Player:
             counter += 1
             return sprite_index
 
+      
+   
+
         
+        
+    def spritePicker(self, counter): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
+        if counter % 20 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
+            if sprite_index == total_sprites - 1:
+                sprite_index = 0
+            else:
+                sprite_index += 1
+        return sprite_index
+
 
