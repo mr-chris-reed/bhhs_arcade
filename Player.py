@@ -55,9 +55,9 @@ class Player:
 
         
         
-        sprite_index = 0
-        counter = 0
-        def spritePicker(self):
+        sprite_index = 0 # <== Make this an instance variable
+        counter = 0 # <== see note below
+        def spritePicker(self): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
             global sprite_index
             if counter % 20 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
                 if sprite_index == total_sprites - 1:
