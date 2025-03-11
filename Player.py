@@ -51,7 +51,10 @@ class Player:
         def right(self):
             self.x_coord += self.x_speed
 
-        def interact(self):
+        #def interact(self, item_group):
+            #for item in item_group:
+                #if pygame.sprite.collide_rect(self, item) and key
+                   # item.collect(self)  
 
         
         
@@ -67,5 +70,5 @@ class Player:
             counter += 1
             return sprite_index
 
-        #def interact(self):
+        
 
