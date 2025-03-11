@@ -15,6 +15,7 @@ height = 1000 # adjust for height of canvas
 
 # frame rate
 fps = 60
+counter = 0
 
 # colors
 background_color = (255,0,255)
@@ -41,6 +42,7 @@ while running:
     # paint the canvas with background color
     canvas.fill(background_color)
 
+    counter += 1
     # poll for events
     for event in pygame.event.get():
         # if 'X' is clicked on the canvas
@@ -55,23 +57,23 @@ while running:
     # and perform an action
     if keys[pygame.K_w]:
         egg.sprite_index = 0
-        for i in range egg.up_list.length:
-            canvas.blit(egg.up_list[egg.sprite_picker()], (x_coord, y_coord))
+        for i in range(egg.up_list.__len__()):
+            canvas.blit(egg.up_list[egg.spritePicker(counter)], (x_coord, y_coord))
         egg.up()
     if keys[pygame.K_s]:
         egg.sprite_index = 0
-        for i in range egg.down_list.length:
-            canvas.blit(egg.down_list[egg.sprite_picker()], (x_coord, y_coord))
+        for i in range (egg.down_list.__len__()):
+            canvas.blit(egg.down_list[egg.spritePicker(counter)], (x_coord, y_coord))
         egg.down()
     if keys[pygame.K_a]:
         egg.sprite_index = 0
-        for i in range egg.left_list.length:
-            canvas.blit(egg.left_list[egg.sprite_picker()], (x_coord, y_coord))
+        for i in range (egg.left_list.__len__()):
+            canvas.blit(egg.left_list[egg.spritePicker(counter)], (x_coord, y_coord))
         egg.left()
     if keys[pygame.K_d]:
         egg.sprite_index = 0
-        for i in range egg.right_list.length:
-            canvas.blit(egg.right_list[egg.sprite_picker()], (x_coord, y_coord))
+        for i in range (egg.right_list.__len__()):
+            canvas.blit(egg.right_list[egg.spritePicker(counter)], (x_coord, y_coord))
         egg.right()
 
 # close pygame down
