@@ -1,6 +1,7 @@
 import pygame, sys, time
 from Asset_Reader import Asset_Reader
 from Start_Screen import Start_Screen
+from pygame.locals import *
 
 pygame.init()
 #initialise the joystick module
@@ -36,22 +37,25 @@ while True:
 
     # Event handling
     for event in pygame.event.get():
+        if event.type == pygame.JOYDEVICEADDED:
+            joy = pygame.joystick.Joystick(event.device_index)
+            joysticks.append(joy)
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 
-        if event.type == pygame.JOYDEVICEADDED:
-            joy = pygame.joystick.Joystick(event.device_index)
-            joysticks.append(joy)
+
+    #show number of connected joysticks
+    start_screen.draw_text("Controllers: " + str(pygame.joystick.get_count()), None, pygame.Color("azure"), 25, 900, 20, True)
+    for joystick in joysticks:
+        start_screen.draw_text("Battery Level: " + str(joystick.get_power_level()), None, pygame.Color("azure"), 25, 900, 40, True)
+        start_screen.draw_text("Controller Type: " + str(joystick.get_name()), None, pygame.Color("azure"), 25, 900, 60, True)
+        #draw_text("Number of axes: " + str(joystick.get_numaxes()), font, pygame.Color("azure"), 10, 85)
+
     #button
     for joystick in joysticks:
-        if joystick.get_button(11) and start_screen.background == Asset_Reader("assets/CapyBarda_Start_Screen.png", 1, 1).get_asset_list():
-            start_screen == Asset_Reader("assets/background1.png", 1, 1).get_asset_list()
-            print(True)
-            pygame.time.wait(100)
-        elif joystick.get_button(11) and start_screen == "bhhs_arcade/assets/background1.png":
-            start_screen.background == "bhhs_arcade/assets/CapyBarda_Start_Screen.png"
-            pygame.time.wait(100)
+        if joystick.get_button(11):
+            start_screen.background == Asset_Reader("assets/background1.png", 1, 1).get_asset_list()
 
     pygame.display.update()  # Update the display
     clock.tick(60)  # Limit the frame rate to 60 FPS
