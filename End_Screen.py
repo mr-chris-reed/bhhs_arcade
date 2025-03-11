@@ -28,7 +28,7 @@ class End_Screen:
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
       # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
-        self.credits = credits
+        self.credits = "Names"
         self.input_box = pygame.Rect(200,150,140,32)
         self.currentLetter = 0 
         self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  
@@ -57,6 +57,10 @@ class End_Screen:
                 self.text = self.alphabet[self.currentLetter]
 
                 print(f"Current input: {self.text}")
+
+    def drawCredits(self):
+        #will handle to drawing of credits, static for now, potentially add scrolling (if possible)
+        
 
     def drawEndScreen(self):
         #fills screen black
