@@ -13,7 +13,6 @@ class Background:
         # transitions to the next background.  Does it happen automatically when minions/boss is
         # destroyed or is there a door?
         ###
-        main
         self.background_list = Asset_Reader(background, num_images, scale_factor).get_asset_list()  # Load the backgrounds
         self.x = x
         self.y = y
