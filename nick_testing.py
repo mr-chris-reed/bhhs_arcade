@@ -1,12 +1,13 @@
 import pygame, sys, time
 from Asset_Reader import Asset_Reader
 from Start_Screen import Start_Screen
+from Background import Background
 
 pygame.init()
 
 screen = pygame.display.set_mode((1280, 1024))
-pygame.display.set_caption('Start_Screen Test')
-start_screen = Start_Screen("assets/CapyBarda_Start_Screen.png", 1, 0, 0, 2.1, 1, 0, 0).get_asset_list()
+forest_path_background = Start_Screen("assets/forest_path_background.png", 1, 0, 0, 1.0, 0, 0, 0)
+start_screen = Start_Screen("assets/CapyBarda_Start_Screen.png", 1, 0, 0, 2.1, 1, 0, 0)
 
 clock = pygame.time.Clock()
 visible = True
@@ -29,11 +30,9 @@ for joystick in joysticks:
             start_screen.background == "bhhs_arcade/assets/CapyBarda_Start_Screen.png"
             pygame.time.wait(100)
 
-# Game loop
 while True:
-    screen.fill((0, 0, 0))  # Fill the screen with black
+    screen.fill((0, 0, 0))
     
-    # Display the current background
     screen.blit(start_screen.background[0], (0,0))
 
     current_time = pygame.time.get_ticks()
@@ -59,11 +58,11 @@ while True:
             joysticks.append(joy)
         
         if event.type == pygame.JOYBUTTONDOWN:
-            if event.button == 11:
-                start_screen.background[0,0] = Asset_Reader("assets/Forest path.png", 1, 1).get_asset_list()
+            for joystick in joysticks:
+                if joystick.get_button(11):
+                    screen.blit(start_screen.background[0], (0,0))
 
-
-    pygame.display.flip()  # Update the display
-    clock.tick(60)  # Limit the frame rate to 60 FPS
+    pygame.display.flip() 
+    clock.tick(60)
     
 
