@@ -17,6 +17,8 @@ background_color = (0,0,0)
 
 # initializing pygame, setting up the surface (canvas)
 pygame.init()
+pygame.joystick.init()
+joysticks = []
 canvas = pygame.display.set_mode((width, height))
 pygame.display.set_caption("<YOUR DISPLAY CAPTION GOES HERE (STRING)>") # add a caption for your canvas
 
@@ -80,6 +82,9 @@ class End_Screen:
                     elif event.key == pygame.K_LEFT:  # If Left Arrow key is pressed, move to the previous letter
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
+                    elif event.key == pygame.JOYBUTTONUP:  # If button is up, move to the previous letter
+                        self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
+                        self.currentLetterString = self.alphabet[self.currentLetter]
                     elif event.key == pygame.K_RETURN: # when enter is pressed, add it to the name instance variable
                         self.name += self.currentLetterString
 
@@ -111,14 +116,20 @@ visible = True
 
 while running:
     canvas.fill((255,255,255))
-   
+    
     keys = pygame.key.get_pressed()
     #end_Screen.drawEndScreen
     end_Screen.handleInput()
     end_Screen.inputName(canvas)
     
     for event in pygame.event.get():
+        
         if event.type == pygame.QUIT:
            running = False
 
+        if event.type == pygame.JOYDEVICEADDED:
+            joy = pygame.joystick.Joystick(event.device_index)
+            joysticks.append(joy)
+            print("joystick?")
+        
     pygame.display.flip()
