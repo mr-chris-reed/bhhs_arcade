@@ -28,7 +28,7 @@ class End_Screen:
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
       # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
-        self.credits = "Names"
+        self.credits = ""
         self.input_box = pygame.Rect(200,150,140,32)
         self.currentLetter = 0 
         self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  

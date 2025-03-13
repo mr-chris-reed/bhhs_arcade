@@ -39,10 +39,16 @@ class Player:
         self.sprite_index = 0
 
 
+
     #actions
     def up(self):
         self.y_coord -= self.y_speed
     
+
+        #actions
+    def up(self):
+        self.y_coord -= self.y_speed
+        
     def down(self):
         self.y_coord += self.y_speed
 
