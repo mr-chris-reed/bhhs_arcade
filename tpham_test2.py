@@ -7,6 +7,7 @@ width = 800 # adjust for width of canvas
 height =600 # adjust for height of canvas
 #colors
 BLUE = (0,0,255)
+
 # frame rate
 fps = 60
 #background image
@@ -46,12 +47,13 @@ class End_Screen:
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
       # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
-        self.credits = "names"
+        self.credits = "asd"
         self.input_box = pygame.Rect(200,150,140,32)
         self.currentLetter = 0 
         self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  
         self.text = "" 
         self.font = pygame.font.SysFont("Arial", 32)  
+        self.visible = True
     def goHome(self):
         pass
 
@@ -63,7 +65,7 @@ class End_Screen:
         pygame.display.update()
         
 
-    def handleInput(self):
+    def handleInput(self,canvas):
         #cycles through the alphabet when the arrows keys are moved and prints, will be changed once joystick is added
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -78,43 +80,30 @@ class End_Screen:
 
     def drawCredits(self,canvas):
         #will handle to drawing of credits, static for now, potentially add scrolling (if possible)
-        text_surface = self.font.render(self.credits, True, (0, 0, 0))  # Render the current text
-        canvas.blit(text_surface, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
-        pygame.display.update()
+        text_surface2 = self.font.render(self.credits, True, (0, 0, 0))  # Render the current text
+        canvas.blit(text_surface2, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
+        
     def drawEndScreen(self):
         #fills screen black
-        screen.fill((0,0,0))
+        canvas.fill((100,0,0))
+        #draws credits
+        if self.visible == True:
+            end_Screen.drawCredits(canvas)
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    self.visible=False
+                    end_Screen.handleInput(canvas)
+        pygame.display.update()
 
-        #displays graphic
-        screen.blit(self.backgroundGraphic, (0,0))
 
-        #updates screen?
-        pygame.display.flip()
-#end_screen = endscreen(backgroundGraphic=background_image)
-
-end_Screen = End_Screen( x=0,y=0,scale_factor=1,runtime=0,leaderboard=None,gameOverMessage="Game Over",backgroundGraphic=None,credits='')  # Assuming you don't need a background for now credits='')
-
+end_Screen = End_Screen( x=0,y=0,scale_factor=1,runtime=0,leaderboard=None,gameOverMessage="Game Over",backgroundGraphic=None,credits="cred")  # Assuming you don't need a background for now credits='')
 running = True
-visible = True
+
 keys = pygame.key.get_pressed()
 while running:
-    if visible == True:
-        end_Screen.drawCredits(canvas)
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            visible=False
-                
-    canvas.fill((255,255,255))
-   
-   
-   # end_Screen.handleInput()
-   # while visible:
-       # end_Screen.drawCredits(canvas)
-    
-    #end_Screen.inputName(canvas)
-    
+    end_Screen.drawEndScreen()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-           running = False
-
+            running = False
+            
     pygame.display.flip()
