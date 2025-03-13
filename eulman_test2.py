@@ -10,6 +10,7 @@ BLUE = (0,0,255)
 RED = (255,0,0)
 # frame rate
 fps = 60
+count = 0
 #background image
 #background_image = pygame.image.load('gameover.png')
 # colors
@@ -57,6 +58,7 @@ class End_Screen:
         self.currentLetterString = "" 
         self.name = ""
         self.font = pygame.font.SysFont("Arial", 32)
+        self.vert_move = 0
     def goHome(self):
         pass
 
@@ -73,7 +75,6 @@ class End_Screen:
 
     def handleInput(self):
         #cycles through the alphabet when the arrows keys are moved and prints, will be changed once joystick is added
-        for event in pygame.event.get():
             if len(self.name) < 3:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RIGHT:  # If Right Arrow key is pressed, move to the next letter
@@ -82,12 +83,14 @@ class End_Screen:
                     elif event.key == pygame.K_LEFT:  # If Left Arrow key is pressed, move to the previous letter
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
-                    elif event.key == pygame.JOYBUTTONUP:  # If button is up, move to the previous letter
-                        self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
-                        self.currentLetterString = self.alphabet[self.currentLetter]
                     elif event.key == pygame.K_RETURN: # when enter is pressed, add it to the name instance variable
                         self.name += self.currentLetterString
-
+                if abs(vert_move) > 0.5:
+                    if count % fps == 0:
+                        if vert_move > 0.5:  # If button is up, move to the previous letter
+                            print("work?")
+                            self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
+                            self.currentLetterString = self.alphabet[self.currentLetter]
                     print(f"Current input: {self.currentLetterString}")
 
     def drawEndScreen(self):
@@ -116,20 +119,26 @@ visible = True
 
 while running:
     canvas.fill((255,255,255))
+    count += 1
     
-    keys = pygame.key.get_pressed()
     #end_Screen.drawEndScreen
-    end_Screen.handleInput()
-    end_Screen.inputName(canvas)
     
     for event in pygame.event.get():
-        
-        if event.type == pygame.QUIT:
+        keys = pygame.key.get_pressed()
+
+        if event.type == QUIT:
            running = False
 
-        if event.type == pygame.JOYDEVICEADDED:
+        if event.type == JOYDEVICEADDED:
             joy = pygame.joystick.Joystick(event.device_index)
             joysticks.append(joy)
             print("joystick?")
         
+        if vert_move != joysticks[0].get_axis(1):
+           vert_move != joysticks[0].get_axis(1) 
+        
+        print(vert_move)
+        end_Screen.handleInput()
+        end_Screen.inputName(canvas)
+    
     pygame.display.flip()
