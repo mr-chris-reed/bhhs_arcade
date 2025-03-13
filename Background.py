@@ -26,6 +26,7 @@ class Background:
         # screens.  This will occur when the player reaches the right-hand side of the screen (like going
         # through a door).
         ###
+    def __init__(self, background, num_images, x, y, scale_factor, origin_x, origin_y, width, height):
         self.background_list = Asset_Reader(background, num_images, scale_factor).get_asset_list()  # Load the backgrounds
         self.x = x
         self.y = y
@@ -76,3 +77,43 @@ class Background:
             return True
         else:
             return False
+
+    def get_current_background(self): # Returns the current background
+        return self.background_list[self.current_index]
+    
+    def get_boundary_x(self): # Returns the x coordinate of the boundary
+        return self.boundary_x
+    
+    def get_boundary_y(self): # Returns the y coordinate of the boundary
+        return self.boundary_y
+    
+    def get_boundary_width(self): # Returns the width of the boundary
+        return self.boundary_width
+    
+    def get_boundary_height(self): # Returns the height of the boundary
+        return self.boundary_height
+    
+    def get_next_x(self):
+        return self.next_x
+    
+    def get_next_y(self):
+        return self.next_y
+    
+    def get_next_width(self):
+        return self.next_width
+    
+    def get_next_height(self):
+        return self.next_height
+    
+    def get_prev_x(self):
+        return self.prev_x
+    
+    def get_prev_y(self):
+        return self.prev_y
+    
+    def get_prev_width(self):
+        return self.prev_width
+    
+    def get_prev_height(self):
+        return self.prev_height
+    
