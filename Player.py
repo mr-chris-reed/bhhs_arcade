@@ -40,22 +40,22 @@ class Player:
 
 
         #actions
-        def up(self):
-            self.y_coord -= self.y_speed
+    def up(self):
+        self.y_coord -= self.y_speed
         
-        def down(self):
-            self.y_coord += self.y_speed
+    def down(self):
+        self.y_coord += self.y_speed
 
-        def left(self):
-            self.x_coord -= self.x_speed
+    def left(self):
+        self.x_coord -= self.x_speed
 
-        def right(self):
-            self.x_coord += self.x_speed
+    def right(self):
+        self.x_coord += self.x_speed
 
-        #def interact(self, item_group):
-            #for item in item_group:
-                #if pygame.sprite.collide_rect(self, item) and key
-                   # item.collect(self)  
+    #def interact(self, item_group):
+        #for item in item_group:
+            #if pygame.sprite.collide_rect(self, item) and key
+                # item.collect(self)  
 
         
         
