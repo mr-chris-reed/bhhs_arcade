@@ -5,8 +5,6 @@
 import pygame
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
-from End_Screen import End_Screen
-from Start_Screen import Start_Screen
 from Player import Player
 
 # canvas variables
@@ -57,24 +55,28 @@ while running:
     # and perform an action
     if keys[pygame.K_w]:
         egg.sprite_index = 0
-        for i in range(egg.up_list.__len__()):
-            canvas.blit(egg.up_list[egg.spritePicker(counter)], (x_coord, y_coord))
+        for i in range(len(egg.up_list)):
+            canvas.blit(egg.up_list[egg.spritePicker(counter, len(egg.up_list))], (egg.x_coord, egg.y_coord))
         egg.up()
     if keys[pygame.K_s]:
         egg.sprite_index = 0
-        for i in range (egg.down_list.__len__()):
-            canvas.blit(egg.down_list[egg.spritePicker(counter)], (x_coord, y_coord))
+        for i in range (len(egg.down_list)):
+            canvas.blit(egg.down_list[egg.spritePicker(counter, len(egg.down_list))], (egg.x_coord, egg.y_coord))
         egg.down()
     if keys[pygame.K_a]:
         egg.sprite_index = 0
-        for i in range (egg.left_list.__len__()):
-            canvas.blit(egg.left_list[egg.spritePicker(counter)], (x_coord, y_coord))
+        for i in range (len(egg.left_list)):
+            canvas.blit(egg.left_list[egg.spritePicker(counter, len(egg.left_list))], (egg.x_coord, egg.y_coord))
         egg.left()
     if keys[pygame.K_d]:
         egg.sprite_index = 0
-        for i in range (egg.right_list.__len__()):
-            canvas.blit(egg.right_list[egg.spritePicker(counter)], (x_coord, y_coord))
+        for i in range (len(egg.right_list)):
+            canvas.blit(egg.right_list[egg.spritePicker(counter, len(egg.right_list))], (egg.x_coord, egg.y_coord))
         egg.right()
+    
+
+    pygame.display.update()
+    clock.tick(fps)
 
 # close pygame down
 pygame.quit()
