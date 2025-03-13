@@ -55,7 +55,7 @@ while True:
     #button
     for joystick in joysticks:
         if joystick.get_button(11):
-            start_screen.background == Asset_Reader("assets/background1.png", 1, 1).get_asset_list()
+            start_screen.draw_text("Game has definitely, 100 percent started!", None, (255, 255, 255), 80, 620, 500, True)
 
     pygame.display.update()  # Update the display
     clock.tick(60)  # Limit the frame rate to 60 FPS
