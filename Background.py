@@ -117,3 +117,15 @@ class Background:
     def get_prev_height(self):
         return self.prev_height
     
+    def get_next_flag(self):
+        return self.next_flag
+    
+    def get_prev_flag(self):
+        return self.prev_flag
+    
+    def set_next_flag(self, tof):
+        self.next_flag = tof
+
+    def set_prev_flag(self, tof):
+        self.prev_flag = tof
+    
