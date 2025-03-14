@@ -45,7 +45,7 @@ class End_Screen:
         pygame.display.update()
         
 
-    def handleInput(self):
+     def handleInput(self,canvas):
         #cycles through the alphabet when the arrows keys are moved and prints, will be changed once joystick is added
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -58,20 +58,24 @@ class End_Screen:
 
                 print(f"Current input: {self.text}")
 
-    def drawCredits(self):
+    def drawCredits(self,canvas):
         #will handle to drawing of credits, static for now, potentially add scrolling (if possible)
+        text_surface2 = self.font.render(self.credits, True, (0, 0, 0))  # Render the current text
+        canvas.blit(text_surface2, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
         
-
     def drawEndScreen(self):
         #fills screen black
-        screen.fill((0,0,0))
-
-        #displays graphic
-        screen.blit(self.backgroundGraphic, (0,0))
-
-        #updates screen?
-        pygame.display.flip()
-        
-
-   # screen drawing goes in main aparently
+        canvas.fill((100,0,0))
+        #draws credits, if a button is pressed displays input name selection
+        if self.visible == True:
+            end_Screen.drawCredits(canvas)
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    self.visible=False
+                    self.inputVisible = True
+                    self.text="A"
+        if self.inputVisible == True:
+            end_Screen.inputName(canvas)
+            end_Screen.handleInput(canvas)
+        pygame.display.update()
 
