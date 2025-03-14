@@ -12,9 +12,9 @@ pygame.init()
 screen = pygame.display.set_mode((1280, 1024))
 pygame.display.set_caption('Background Test')
 
-hell_background = Background("assets/hell_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100)
-forest_path_background = Background("assets/forest_path_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100)
-background2 = Background("assets/background2.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100 ,100)
+hell_background = Background("assets/hell_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100, 100, 100, 100, 100, False, False)
+forest_path_background = Background("assets/forest_path_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100, 100, 100, 100, 100, False, False)
+background2 = Background("assets/background2.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100 ,100, 100, 100, 100, 100, False, False)
 
 backgrounds = [forest_path_background, hell_background, background2]
 background_index = 0
@@ -28,11 +28,6 @@ circle_speed = 20
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
-
-
-# Flag to prevent continuous background switching
-next_triggered = False
-prev_triggered = False
 
 # Game loop
 running = True
@@ -77,28 +72,29 @@ while running:
     # Check if the circle is inside the next zone
     if (backgrounds[background_index].get_next_x() <= circle_x <= backgrounds[background_index].get_next_x() + backgrounds[background_index].get_next_width() and
             backgrounds[background_index].get_next_y() <= circle_y <= backgrounds[background_index].get_next_y() + backgrounds[background_index].get_next_height()):
-        if not next_triggered:  # Only change background if not already triggered
+        if not backgrounds[background_index].get_next_flag():  # Only change background if not already triggered
             if background_index < len(backgrounds) - 1:
                 background_index += 1
-            next_triggered = True
+            backgrounds[background_index].set_next_flag(True)
     else:
-        next_triggered = False  # Reset flag when leaving the next box
+        backgrounds[background_index].set_next_flag(False)  # Reset flag when leaving the next box
 
 
 # Check if the circle is inside the prev zone
     if (backgrounds[background_index].get_prev_x() <= circle_x <= backgrounds[background_index].get_prev_x() + backgrounds[background_index].get_prev_width() and
             backgrounds[background_index].get_prev_y() <= circle_y <= backgrounds[background_index].get_prev_y() + backgrounds[background_index].get_prev_height()):
-        if not prev_triggered:  # Only change background if not already triggered
+        if not backgrounds[background_index].get_prev_flag():  # Only change background if not already triggered
             if background_index > 0:
                 background_index -= 1
-            prev_triggered = True
+            backgrounds[background_index].set_prev_flag(True)
     else:
-        prev_triggered = False  # Reset flag when leaving the prev box
+        backgrounds[background_index].set_prev_flag(False)  # Reset flag when leaving the prev box
 
 
     # Draw boundary, trigger box, and circle
     pygame.draw.rect(screen, BLACK, (backgrounds[background_index].get_boundary_x(), backgrounds[background_index].get_boundary_y(), backgrounds[background_index].get_boundary_width(), backgrounds[background_index].get_boundary_height()), 2)  # Draw boundary
     pygame.draw.rect(screen, BLACK, (backgrounds[background_index].get_next_x(), backgrounds[background_index].get_next_y(), backgrounds[background_index].get_next_width(), backgrounds[background_index].get_next_height()), 2)  # Draw trigger box
+    pygame.draw.rect(screen, BLACK, (backgrounds[background_index].get_prev_x(), backgrounds[background_index].get_prev_y(), backgrounds[background_index].get_prev_width(), backgrounds[background_index].get_prev_height()), 2)  # Draw trigger box
     pygame.draw.circle(screen, BLUE, (circle_x, circle_y), circle_radius)
 
     pygame.display.update()  # Update the display
