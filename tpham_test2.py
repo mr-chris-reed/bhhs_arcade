@@ -47,13 +47,14 @@ class End_Screen:
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
       # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
-        self.credits = "asd"
+        self.credits = "Credits: eli the emu, tyler the phyler"
         self.input_box = pygame.Rect(200,150,140,32)
-        self.currentLetter = 0 
+        self.currentLetter = 0
         self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  
         self.text = "" 
         self.font = pygame.font.SysFont("Arial", 32)  
         self.visible = True
+        self.inputVisible=False
     def goHome(self):
         pass
 
@@ -86,13 +87,17 @@ class End_Screen:
     def drawEndScreen(self):
         #fills screen black
         canvas.fill((100,0,0))
-        #draws credits
+        #draws credits, if a button is pressed displays input name selection
         if self.visible == True:
             end_Screen.drawCredits(canvas)
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     self.visible=False
-                    end_Screen.handleInput(canvas)
+                    self.inputVisible = True
+                    self.text="A"
+        if self.inputVisible == True:
+            end_Screen.inputName(canvas)
+            end_Screen.handleInput(canvas)
         pygame.display.update()
 
 
@@ -102,6 +107,8 @@ running = True
 keys = pygame.key.get_pressed()
 while running:
     end_Screen.drawEndScreen()
+    
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
