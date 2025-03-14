@@ -11,6 +11,7 @@ RED = (255,0,0)
 # frame rate
 fps = 60
 count = 0
+previous_count = 0
 #background image
 #background_image = pygame.image.load('gameover.png')
 # colors
@@ -20,6 +21,7 @@ background_color = (0,0,0)
 pygame.init()
 pygame.joystick.init()
 joysticks = []
+vert_move = 0
 canvas = pygame.display.set_mode((width, height))
 pygame.display.set_caption("<YOUR DISPLAY CAPTION GOES HERE (STRING)>") # add a caption for your canvas
 
@@ -86,12 +88,14 @@ class End_Screen:
                     elif event.key == pygame.K_RETURN: # when enter is pressed, add it to the name instance variable
                         self.name += self.currentLetterString
                 if abs(vert_move) > 0.5:
-                    if count % fps == 0:
-                        if vert_move > 0.5:  # If button is up, move to the previous letter
-                            print("work?")
-                            self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
-                            self.currentLetterString = self.alphabet[self.currentLetter]
-                    print(f"Current input: {self.currentLetterString}")
+                    if vert_move > 0.5:  # If button is up, move to the previous letter
+                        self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
+                        self.currentLetterString = self.alphabet[self.currentLetter]
+                        print(vert_move)
+                    if vert_move < 0.5:  # If button is up, move to the previous letter
+                        self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
+                        self.currentLetterString = self.alphabet[self.currentLetter]
+                        print(vert_move)
 
     def drawEndScreen(self):
         #fills screen black
@@ -120,7 +124,6 @@ visible = True
 while running:
     canvas.fill((255,255,255))
     count += 1
-    
     #end_Screen.drawEndScreen
     
     for event in pygame.event.get():
@@ -133,11 +136,15 @@ while running:
             joy = pygame.joystick.Joystick(event.device_index)
             joysticks.append(joy)
             print("joystick?")
-        
+        '''
+        if count > previous_count + 60:
+            previous_count = count
+            vert_move = joysticks[0].get_axis(1)
+        '''
         if vert_move != joysticks[0].get_axis(1):
-           vert_move != joysticks[0].get_axis(1) 
+           vert_move = round(joysticks[0].get_axis(1)) 
         
-        print(vert_move)
+        
         end_Screen.handleInput()
         end_Screen.inputName(canvas)
     
