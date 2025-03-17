@@ -13,6 +13,15 @@ class Background:
         # transitions to the next background.  Does it happen automatically when minions/boss is
         # destroyed or is there a door?
         ###
+
+        ###
+        # NOTES - 3/17/25 - You need to work on moving code that you currently have in the connor_teting
+        # file to this class.  In the testing class, which will ultimately be our main driving file,
+        # you could have 3 constructor calls to the Background class creating 3 backgrounds. Then in
+        # the main game loop (your connner_testing file / main) you can write the logic for changing
+        # screens.  This will occur when the player reaches the right-hand side of the screen (like going
+        # through a door).
+        ###
         self.background_list = Asset_Reader(background, num_images, scale_factor).get_asset_list()  # Load the backgrounds
         self.x = x
         self.y = y

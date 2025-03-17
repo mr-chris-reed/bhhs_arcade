@@ -16,14 +16,40 @@ FPS = 30
 
 # global variables
 running = True
-game_state = "start_screen"
 
 # canvas
 CANVAS = pygame.display.set_mode((WIDTH, HEIGHT))
 
 pygame.init()
+
 # testing object creation
-start_screen = Start_Screen("GO!!!", "assets/CapyBarda_Start_Screen.png", "CapyBarda", "Leaderboard", "Arial", 1, 0, 0)
+"""
+start_screen = Start_Screen(
+                            "Press button to start",
+                            "assets/CapyBarda_Start_Screen.png",
+                            "CapyBarda",
+                            "Leaderboard",
+                            "fonts/PirataOne-Regular.ttf",
+                            1,
+                            0,
+                            0,
+)
+"""
+cb = Player(
+            0,
+            0,
+            "assets/badger_walking_RIGHT.png",
+            "assets/badger_walking_LEFT.png",
+            "assets/badger_walking_LEFT.png",
+            "assets/badger_walking_RIGHT.png",
+            "assets/badger_slashing_RIGHT.png",
+            "assets/badger_slashing_LEFT.png",
+            1,
+            5,
+            5,
+)
+
+
 
 # main game loop
 while running:
@@ -31,7 +57,7 @@ while running:
         if event.type == QUIT: 
             running = False
 
-    pygame.blit(start_screen[0], (start_screen[0].x, start_screen[0].y))
+    CANVAS.blit(start_screen[0], (start_screen[0].x, start_screen[0].y))
     pygame.display.update()
 
 pygame.exit()
