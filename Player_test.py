@@ -27,7 +27,7 @@ pygame.display.set_caption("maD egg lol") # add a caption for your canvas
 egg = Player(
             50,50,
             "assets/Eggsby_4.png", "assets/Eggsby.png", "assets/Eggsby_3.png", "assets/Eggsby_2.png", "assets/Eggsby-dance.png", "assets/Eggsby-attack.png", 
-            2,2,2,2,4,5,5,5,5) 
+            2,2,2,2,4,6,1,1,1,1,2,5,5) 
 
 #
 last_sprite = egg.right_list
