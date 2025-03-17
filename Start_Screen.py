@@ -58,4 +58,5 @@ class surface_builder:
         self.surface.blit(text1_surface, (self.width // 2, 100))
         self.surface.blit(text2_surface, (self.width // 2, 300))
         return self.surface
+
 #class Leaderboard:

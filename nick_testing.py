@@ -6,7 +6,7 @@ from Background import Background
 pygame.init()
 
 screen = pygame.display.set_mode((1280, 1024))
-start_screen = surface_builder(1280, 1040, "bhhs_arcade/assets/CapyBarda_Start_Screen.png", "arial.ttf", "Test", 40, "Press A To Start!", 40)
+start_screen = surface_builder(1280, 1040, "assets/CapyBarda_Start_Screen.png", "arial.ttf", "Test", 40, "Press A To Start!", 40)
 final_surface = start_screen.generate_return_surface()
 
 clock = pygame.time.Clock()
