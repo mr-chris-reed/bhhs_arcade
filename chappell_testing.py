@@ -33,7 +33,7 @@ while True:
         flash_timer = current_time
         
     start_screen.draw_text("Press A to Start!", None, (255, 255, 255), 100, 640, 950, visible)
-    start_screen.draw_text("Leaderboard:", None, (255, 255, 255), 35, 80, 300, True)
+    start_screen.draw_text("Leaderboard:", None, (255, 255, 255), 30, 1215, 10, True)
 
     # Event handling
     for event in pygame.event.get():
