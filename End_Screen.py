@@ -45,7 +45,7 @@ class End_Screen:
         pygame.display.update()
         
 
-     def handleInput(self,canvas):
+    def handleInput(self,canvas):
         #cycles through the alphabet when the arrows keys are moved and prints, will be changed once joystick is added
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -62,7 +62,13 @@ class End_Screen:
         #will handle to drawing of credits, static for now, potentially add scrolling (if possible)
         text_surface2 = self.font.render(self.credits, True, (0, 0, 0))  # Render the current text
         canvas.blit(text_surface2, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
-        
+    
+    ###
+    # NOTES - 3/17/25: I think the event loop and the pygame.display.update() belong in the main file,
+    # which is currently your chappell_testing and tpham_test files.  I think you are on the
+    # right track for the drawEndScreen function, but make it build a composite surface with
+    # everything you want on the end screen and return it to the calling code.
+    ###
     def drawEndScreen(self):
         #fills screen black
         canvas.fill((100,0,0))

@@ -35,6 +35,10 @@ class Start_Screen:
     #Probably also needs to go in main bc we need to import joytick
     #def startGame(self):
 
+### NOTES - 3/17/25 - should not have 2 classes in 1 file.  If you
+# want to use the surface builder idea, place the code with a function
+# inside this class
+###
 class surface_builder:
 
     def __init__(self, width, height, image, font_file, text1, text1_size, text2, text2_size):
