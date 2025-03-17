@@ -7,14 +7,14 @@ width = 800 # adjust for width of canvas
 height =600 # adjust for height of canvas
 #colors
 BLUE = (0,0,255)
-
+RED = (255,0,0)
 # frame rate
 fps = 60
 #background image
 #background_image = pygame.image.load('gameover.png')
 # colors
 background_color = (0,0,0)
-
+vert_move=0
 # initializing pygame, setting up the surface (canvas)
 pygame.init()
 canvas = pygame.display.set_mode((width, height))
@@ -49,35 +49,54 @@ class End_Screen:
       # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
         self.credits = "Credits: eli the emu, tyler the phyler"
         self.input_box = pygame.Rect(200,150,140,32)
+        self.name_box =  pygame.Rect(100,150,140,50)
         self.currentLetter = 0
         self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  
         self.text = "" 
         self.font = pygame.font.SysFont("Arial", 32)  
+        self.currentLetterString = "" 
         self.visible = True
         self.inputVisible=False
+        self.name = ""
+        
+        self.vert_move = 0
     def goHome(self):
         pass
 
     def inputName(self,canvas):
         #the text box, eventually will display the letter taken from the handle imput
         pygame.draw.rect(canvas,BLUE,self.input_box,2 )
-        text_surface = self.font.render(self.text, True, (0, 0, 0))  # Render the current text
+        text_surface = self.font.render(self.currentLetterString, True, (0, 0, 0))  # Render the current text
         canvas.blit(text_surface, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
+        pygame.draw.rect(canvas,RED,self.name_box,2 ) # Draw the red name box
+        name_surface = self.font.render(self.name, True, (0, 0, 0))  # Render the current text
+        canvas.blit(name_surface, (self.name_box.x + 10, self.name_box.y + 10))  # Draw the text inside the box
         pygame.display.update()
         
-
     def handleInput(self,canvas):
         #cycles through the alphabet when the arrows keys are moved and prints, will be changed once joystick is added
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:  # If Right Arrow key is pressed, move to the next letter
-                    self.currentLetter = (self.currentLetter + 1) % len(self.alphabet)
-                elif event.key == pygame.K_LEFT:  # If Left Arrow key is pressed, move to the previous letter
-                    self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
-                
-                self.text = self.alphabet[self.currentLetter]
+            if len(self.name) < 3:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RIGHT:  # If Right Arrow key is pressed, move to the next letter
+                        self.currentLetter = (self.currentLetter + 1) % len(self.alphabet)
+                        self.currentLetterString = self.alphabet[self.currentLetter]
+                    elif event.key == pygame.K_LEFT:  # If Left Arrow key is pressed, move to the previous letter
+                        self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
+                        self.currentLetterString = self.alphabet[self.currentLetter]
+                    elif event.key == pygame.K_RETURN: # when enter is pressed, add it to the name instance variable
+                        self.name += self.currentLetterString
+                if abs(vert_move) > 0.5:
+                    if vert_move > 0.5:  # If button is up, move to the previous letter
+                        self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
+                        self.currentLetterString = self.alphabet[self.currentLetter]
+                        print(vert_move)
+                    if vert_move < 0.5:  # If button is up, move to the previous letter
+                        self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
+                        self.currentLetterString = self.alphabet[self.currentLetter]
+                        print(vert_move)
 
-                print(f"Current input: {self.text}")
+                print("Current input:" ,{self.name})
 
     def drawCredits(self,canvas):
         #will handle to drawing of credits, static for now, potentially add scrolling (if possible)
@@ -85,20 +104,33 @@ class End_Screen:
         canvas.blit(text_surface2, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
         
     def drawEndScreen(self):
-        #fills screen black
-        canvas.fill((100,0,0))
-        #draws credits, if a button is pressed displays input name selection
-        if self.visible == True:
+    # Fills screen black
+        canvas.fill((100, 0, 0))
+
+    # draw cred, if enter is pressed while creds are displayed it then displays the input name stuf
+        if self.visible:
             end_Screen.drawCredits(canvas)
             for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    return
+
                 if event.type == pygame.KEYDOWN:
-                    self.visible=False
-                    self.inputVisible = True
-                    self.text="A"
-        if self.inputVisible == True:
+                    # handles whether the credits are displayed or not
+                    if event.key == pygame.K_RETURN and self.visible:
+                        self.visible = False  # hid credits
+                        self.inputVisible = True  # shows input box
+                        self.text = "A" 
+                    #working on this, will make the input name stuff invisible and display something else 
+                if len(self.name) < 3: 
+                       
+                        print("fart")  
+          #draws input box and stuff if it is true
+        if self.inputVisible:
             end_Screen.inputName(canvas)
             end_Screen.handleInput(canvas)
-        pygame.display.update()
+    pygame.display.update() 
+
 
 
 end_Screen = End_Screen( x=0,y=0,scale_factor=1,runtime=0,leaderboard=None,gameOverMessage="Game Over",backgroundGraphic=None,credits="cred")  # Assuming you don't need a background for now credits='')
