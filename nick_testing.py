@@ -1,13 +1,13 @@
 import pygame, sys, time
 from Asset_Reader import Asset_Reader
-from Start_Screen import Start_Screen, surface_builder
-from Background import Background
+from Start_Screen import Start_Screen
 
 pygame.init()
 
-screen = pygame.display.set_mode((1280, 1024))
-start_screen = surface_builder(1280, 1040, "assets/CapyBarda_Start_Screen.png", "arial.ttf", "Test", 40, "Press A To Start!", 40)
-final_surface = start_screen.generate_return_surface()
+window = (1024, 1280)
+screen = pygame.display.set_mode((1024,1280))
+#start_screen = screen.generate_return_surface()
+background = pygame.Surface(1024, 1280)
 
 clock = pygame.time.Clock()
 visible = True
@@ -25,7 +25,7 @@ flash_text = {
 while True:
     screen.fill((0, 0, 0))
 
-    screen.blit(final_surface, (0, 0))
+    screen.blit(background, (0,0))
 
     current_time = pygame.time.get_ticks()
     if current_time - flash_timer > flash_interval:
