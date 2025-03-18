@@ -111,24 +111,32 @@ class End_Screen:
         if self.visible:
             end_Screen.drawCredits(canvas)
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    return
-
                 if event.type == pygame.KEYDOWN:
                     # handles whether the credits are displayed or not
                     if event.key == pygame.K_RETURN and self.visible:
                         self.visible = False  # hid credits
-                        self.inputVisible = True  # shows input box
-                        self.text = "A" 
-                    #working on this, will make the input name stuff invisible and display something else 
-                if len(self.name) < 3: 
-                       
-                        print("fart")  
+                        self.inputVisible = True  # shows input box   
+                        self.currentLetterString = "A"
+                
+                
           #draws input box and stuff if it is true
         if self.inputVisible:
             end_Screen.inputName(canvas)
             end_Screen.handleInput(canvas)
+
+            #if name has 3 characters and enter is hit, makes the input invisible             
+            
+        if len(self.name) == 3:
+            print("test 1")
+            for event in pygame.event.get():
+                print("test2")
+                if event.type== pygame.KEYDOWN:
+                     print("test3")
+                    if event.key == pygame.K_RETURN:
+                        print("test4")
+
+                    #self.inputVisible=False
+                         
     pygame.display.update() 
 
 

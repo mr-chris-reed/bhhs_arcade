@@ -103,11 +103,11 @@ class End_Screen:
                         self.inputVisible = True  # shows input box
                         self.text = "A" 
                     #working on this, will make the input name stuff invisible and display something else 
-                if len(self.name) < 3: 
+            
                        
-                        print("fart")  
           #draws input box and stuff if it is true
         if self.inputVisible:
             end_Screen.inputName(canvas)
             end_Screen.handleInput(canvas)
+            
     pygame.display.update() 
