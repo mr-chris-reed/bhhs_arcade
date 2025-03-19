@@ -1,10 +1,10 @@
 # imports for pygame
 import pygame, sys
 from pygame.locals import *
-
+from Asset_Reader import Asset_Reader
 # canvas variables
-width = 800 # adjust for width of canvas
-height =600 # adjust for height of canvas
+width = 1290 # adjust for width of canvas
+height = 1024 # adjust for height of canvas
 #colors
 BLUE = (0,0,255)
 RED = (255,0,0)
@@ -21,8 +21,10 @@ background_color = (0,0,0)
 pygame.init()
 pygame.joystick.init()
 joysticks = []
-vert_move = 0
+
 canvas = pygame.display.set_mode((width, height))
+# background = pygame.Surface((width, height))
+
 pygame.display.set_caption("<YOUR DISPLAY CAPTION GOES HERE (STRING)>") # add a caption for your canvas
 
 class End_Screen:
@@ -51,7 +53,7 @@ class End_Screen:
         self.runtime = runtime
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
-      # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
+        self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
         self.credits = credits
         self.input_box = pygame.Rect(250,150,40,50)
         self.name_box =  pygame.Rect(100,150,140,50)
@@ -61,16 +63,19 @@ class End_Screen:
         self.name = ""
         self.font = pygame.font.SysFont("Arial", 32)
         self.vert_move = 0
+        ###
+        self.background = pygame.Surface((1280, 1024))
+
     def goHome(self):
         pass
 
     def inputName(self,canvas):
         #the text box, eventually will display the letter taken from the handle imput
         pygame.draw.rect(canvas,BLUE,self.input_box,2 )
-        text_surface = self.font.render(self.currentLetterString, True, (0, 0, 0))  # Render the current text
+        text_surface = self.font.render(self.currentLetterString, True, (255, 255, 255))  # Render the current text
         canvas.blit(text_surface, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
         pygame.draw.rect(canvas,RED,self.name_box,2 ) # Draw the red name box
-        name_surface = self.font.render(self.name, True, (0, 0, 0))  # Render the current text
+        name_surface = self.font.render(self.name, True, (255, 255, 255))  # Render the current text
         canvas.blit(name_surface, (self.name_box.x + 10, self.name_box.y + 10))  # Draw the text inside the box
         pygame.display.update()
         
@@ -87,26 +92,28 @@ class End_Screen:
                         self.currentLetterString = self.alphabet[self.currentLetter]
                     elif event.key == pygame.K_RETURN: # when enter is pressed, add it to the name instance variable
                         self.name += self.currentLetterString
-                if abs(vert_move) > 0.5:
-                    if vert_move > 0.5:  # If button is up, move to the previous letter
+
+                if self.vert_move != round(joysticks[0].get_axis(1)):
+                    self.vert_move = round(joysticks[0].get_axis(1)) 
+                    if self.vert_move > 0.5:  # If button is up, move to the previous letter
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
-                        print(vert_move)
-                    if vert_move < 0.5:  # If button is up, move to the previous letter
+                        print(self.vert_move)
+                    if self.vert_move < -0.5:  # If button is up, move to the previous letter
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
-                        print(vert_move)
+                        print(self.vert_move)
 
     def drawEndScreen(self):
         #fills screen black
-        screen.fill((0,0,0))
+        self.background.fill((0,0,0))
 
         #displays graphic
-        screen.blit(self.backgroundGraphic, (0,0))
+        self.background.blit(self.backgroundGraphic[0], (0,0))
 
         #updates screen?
-        pygame.display.flip()
-        #end_screen = endscreen(backgroundGraphic=background_image)
+        #pygame.display.flip()
+        return self.background
 
 end_Screen = End_Screen(
         x=0,
@@ -117,6 +124,7 @@ end_Screen = End_Screen(
         gameOverMessage="Game Over",
         backgroundGraphic=None,  # Assuming you don't need a background for now
         credits="Some credits")
+
 running = True
 
 visible = True
@@ -124,7 +132,7 @@ visible = True
 while running:
     canvas.fill((255,255,255))
     count += 1
-    #end_Screen.drawEndScreen
+    canvas.blit(end_Screen.drawEndScreen(), (0, 0))
     
     for event in pygame.event.get():
         keys = pygame.key.get_pressed()
@@ -136,15 +144,7 @@ while running:
             joy = pygame.joystick.Joystick(event.device_index)
             joysticks.append(joy)
             print("joystick?")
-        '''
-        if count > previous_count + 60:
-            previous_count = count
-            vert_move = joysticks[0].get_axis(1)
-        '''
-        if vert_move != joysticks[0].get_axis(1):
-           vert_move = round(joysticks[0].get_axis(1)) 
-        
-        
+
         end_Screen.handleInput()
         end_Screen.inputName(canvas)
     

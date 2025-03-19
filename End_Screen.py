@@ -27,7 +27,7 @@ class End_Screen:
         self.runtime = runtime
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
-      # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
+        self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
         self.credits = "Credits: eli the emu, tyler the phyler"
         self.input_box = pygame.Rect(200,150,140,32)
         self.name_box =  pygame.Rect(100,150,140,50)
@@ -39,8 +39,9 @@ class End_Screen:
         self.visible = True
         self.inputVisible=False
         self.name = ""
-        
         self.vert_move = 0
+        
+
     def goHome(self):
         pass
 
@@ -67,15 +68,15 @@ class End_Screen:
                         self.currentLetterString = self.alphabet[self.currentLetter]
                     elif event.key == pygame.K_RETURN: # when enter is pressed, add it to the name instance variable
                         self.name += self.currentLetterString
-                if abs(vert_move) > 0.5:
-                    if vert_move > 0.5:  # If button is up, move to the previous letter
+                if abs(self.vert_move) > 0.5:
+                    if self.vert_move > 0.5:  # If button is up, move to the previous letter
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
-                        print(vert_move)
-                    if vert_move < 0.5:  # If button is up, move to the previous letter
+                        print(self.vert_move)
+                    if self.vert_move < 0.5:  # If button is up, move to the previous letter
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
-                        print(vert_move)
+                        print(self.vert_move)
 
                 print("Current input:" ,{self.name})
 
@@ -89,6 +90,12 @@ class End_Screen:
         canvas.fill((100, 0, 0))
 
     # draw cred, if enter is pressed while creds are displayed it then displays the input name stuf
+        #fills screen black
+        self.background.fill((255,0,0))
+
+        #displays graphic
+        self.background.blit(self.backgroundGraphic[0], (0,0))
+
         if self.visible:
             end_Screen.drawCredits(canvas)
             for event in pygame.event.get():
@@ -109,5 +116,5 @@ class End_Screen:
         if self.inputVisible:
             end_Screen.inputName(canvas)
             end_Screen.handleInput(canvas)
-            
+        return self.background   
     pygame.display.update() 
