@@ -30,7 +30,6 @@ egg = Player(
             2,2,2,2,4,6,1,1,1,1,2,5,5) 
 
 #
-last_sprite = egg.right_list
 canvas.blit(last_sprite[egg.spritePicker(counter, len(last_sprite))], (egg.x_coord, egg.y_coord))
 
 # clock to set FPS

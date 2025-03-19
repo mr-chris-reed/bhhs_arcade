@@ -38,6 +38,7 @@ class Player:
         self.interact_list = Asset_Reader(ss_interact, num_interact, scale).get_asset_list()
         self.attack_list = Asset_Reader(ss_attack, num_attack, scale).get_asset_list()
         self.sprite_index = 0
+        self.last_sprite = egg.right_list
 
     ###
     # NOTES - 3/17/25 - remove duplicate up function below.  I think when one of
@@ -55,15 +56,22 @@ class Player:
     def up(self):
         self.y_coord -= self.y_speed
         return spritePicker(counter, self.uplist)
+        self.last_sprite = egg.up_list
         
     def down(self):
         self.y_coord += self.y_speed
 
+        self.last_sprite = egg.down_list
+
     def left(self):
         self.x_coord -= self.x_speed
 
+        self.last_sprite = egg.left_list
+
     def right(self):
         self.x_coord += self.x_speed
+
+        self.last_sprite = egg.right_list
 
     #def interact(self, item_group):
         #for item in item_group:
