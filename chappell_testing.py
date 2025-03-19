@@ -7,9 +7,9 @@ pygame.init()
 #initialise the joystick module
 pygame.joystick.init()
 
-screen = pygame.display.set_mode((1280, 1024))
 pygame.display.set_caption('Start_Screen Test')
-start_screen = Start_Screen("bhhs_arcade/assets/CapyBarda_Start_Screen.png", 1, 0, 0, 2.1, 1, 0, 0)
+start_screen = Start_Screen("assets/CapyBarda_Start_Screen.png", 1, 0, 0, 2.1, 1, 0, 0, 1280, 1024)
+screen = pygame.display.set_mode((start_screen.height, start_screen.width))
 
 clock = pygame.time.Clock()
 running = True
@@ -34,6 +34,9 @@ while True:
         
     start_screen.draw_text("Press A to Start!", None, (255, 255, 255), 100, 640, 950, visible)
     start_screen.draw_text("Leaderboard:", None, (255, 255, 255), 30, 1215, 10, True)
+    
+    #A for loop that displays however many players on the leaderboard
+    # for string in start_screen.leaderboard:
 
     # Event handling
     for event in pygame.event.get():
@@ -55,6 +58,7 @@ while True:
     #button
     for joystick in joysticks:
         if joystick.get_button(11):
+            #This will transisiton to the first background for the Alpha
             start_screen.draw_text("Game has definitely, 100 percent started!", None, (255, 255, 255), 80, 620, 500, True)
 
     pygame.display.update()  # Update the display

@@ -51,10 +51,10 @@ class Player:
     #    rework the spritePicker function a bit.
     ###
 
-
         #actions
     def up(self):
         self.y_coord -= self.y_speed
+        return spritePicker(counter, self.uplist)
         
     def down(self):
         self.y_coord += self.y_speed
@@ -71,12 +71,12 @@ class Player:
                 # item.collect(self)  
 
                 
-    def spritePicker(self, counter, length): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
+    def spritePicker(self, counter, sprite_list): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
         if counter % 60 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
-            if self.sprite_index == length - 1:
+            if self.sprite_index == len(sprite_list) - 1:
                 self.sprite_index = 0
             else:
                 self.sprite_index += 1
-        return self.sprite_index
+        return sprite_list[sprite_index]
 
 
