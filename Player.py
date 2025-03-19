@@ -51,8 +51,6 @@ class Player:
     #    rework the spritePicker function a bit.
     ###
 
-    
-   
         #actions
     def up(self):
         self.y_coord -= self.y_speed
