@@ -130,8 +130,8 @@ class End_Screen:
             print("test 1")
             for event in pygame.event.get():
                 print("test2")
-                if event.type== pygame.KEYDOWN:
-                     print("test3")
+                if event.type == pygame.KEYDOWN:
+                    print("test3")
                     if event.key == pygame.K_RETURN:
                         print("test4")
 
