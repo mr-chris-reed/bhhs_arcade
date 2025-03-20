@@ -38,8 +38,9 @@ class Player:
         self.interact_list = Asset_Reader(ss_interact, num_interact, scale).get_asset_list()
         self.attack_list = Asset_Reader(ss_attack, num_attack, scale).get_asset_list()
         self.sprite_index = 0
-        self.last_sprite = egg.right_list
-
+        self.last_sprite_list = right_list
+        self.last_sprite = last_sprite
+        self.last_button = keys[pygame.K_d]
     ###
     # NOTES - 3/17/25 - remove duplicate up function below.  I think when one of
     # the action functions are called from the main file (currently, your testing file),
@@ -54,24 +55,39 @@ class Player:
 
         #actions
     def up(self):
+         if (self.last_button != keys[pygame.K_w]):
+            self.sprite_index = 0
         self.y_coord -= self.y_speed
-        return spritePicker(counter, self.uplist)
+        self.last_sprite_list = egg.up_list
         self.last_sprite = egg.up_list
+        self.last_button = keys[pygame.K_w]
+        return spritePicker(counter, self.up_list)
         
     def down(self):
-        self.y_coord += self.y_speed
-
+         if (self.last_button != keys[pygame.K_s]):
+            self.sprite_index = 0
+        self.y_coord -= self.y_speed
+        self.last_sprite_list = egg.down_list
         self.last_sprite = egg.down_list
+        self.last_button = keys[pygame.K_w]
+        return spritePicker(counter, self.down_list)
 
     def left(self):
-        self.x_coord -= self.x_speed
-
+         if (self.last_button != keys[pygame.K_a]):
+            self.sprite_index = 0
+        self.y_coord -= self.y_speed
+        self.last_sprite_list = egg.left_list
         self.last_sprite = egg.left_list
+        self.last_button = keys[pygame.K_w]
+        return spritePicker(counter, self.left_list)
 
     def right(self):
-        self.x_coord += self.x_speed
-
-        self.last_sprite = egg.right_list
+         if (self.last_button != keys[pygame.K_d]):
+            self.sprite_index = 0
+        self.y_coord -= self.y_speed
+        self.last_sprite_list = egg.right_list
+        self.last_button = keys[pygame.K_w]
+        self.last_sprite = spritePicker(counter, self.right_list)
 
     #def interact(self, item_group):
         #for item in item_group:
@@ -86,5 +102,3 @@ class Player:
             else:
                 self.sprite_index += 1
         return sprite_list[sprite_index]
-
-
