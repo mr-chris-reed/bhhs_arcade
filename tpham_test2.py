@@ -19,6 +19,7 @@ vert_move=0
 pygame.init()
 canvas = pygame.display.set_mode((width, height))
 pygame.display.set_caption("<YOUR DISPLAY CAPTION GOES HERE (STRING)>") # add a caption for your canvas
+#gets the key
 
 class End_Screen:
     ###
@@ -29,6 +30,7 @@ class End_Screen:
     # would want it to hold position, player's initials, and time to complete.
     # We would also want a message to tell players how to get back to the start.
     ###
+    
     def __init__(
             self,
             x,
@@ -65,7 +67,7 @@ class End_Screen:
 
     def inputName(self,canvas):
         #the text box, eventually will display the letter taken from the handle imput
-        pygame.draw.rect(canvas,BLUE,self.input_box,2 )
+        #pygame.draw.rect(canvas,BLUE,self.input_box,2 )
         text_surface = self.font.render(self.currentLetterString, True, (0, 0, 0))  # Render the current text
         canvas.blit(text_surface, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
         pygame.draw.rect(canvas,RED,self.name_box,2 ) # Draw the red name box
@@ -74,6 +76,7 @@ class End_Screen:
         pygame.display.update()
         
     def handleInput(self,canvas):
+        keys=pygame.key.get_pressed()
         #cycles through the alphabet when the arrows keys are moved and prints, will be changed once joystick is added
         for event in pygame.event.get():
             if len(self.name) < 3:
@@ -95,8 +98,8 @@ class End_Screen:
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
                         print(vert_move)
-
                 print("Current input:" ,{self.name})
+        
 
     def drawCredits(self,canvas):
         #will handle to drawing of credits, static for now, potentially add scrolling (if possible)
@@ -125,15 +128,15 @@ class End_Screen:
             end_Screen.handleInput(canvas)
 
             #if name has 3 characters and enter is hit, makes the input invisible             
-            
-        if len(self.name) == 3:
-            print("test 1")
             for event in pygame.event.get():
-                print("test2")
-                if event.type == pygame.KEYDOWN:
-                    print("test3")
-                    if event.key == pygame.K_RETURN:
-                        print("test4")
+
+                if len(self.name) == 3 and event.key==pygame.K_RETURN:
+                    print("test 1")
+                
+                    #if event.type == pygame.KEYDOWN:
+                      #  print("test3")
+                        #if event.key == pygame.K_RETURN:
+                         #   print("test4")
 
                     #self.inputVisible=False
                          
