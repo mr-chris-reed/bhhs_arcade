@@ -13,21 +13,16 @@ screen = pygame.display.set_mode((1280, 1024))
 pygame.display.set_caption('Background Test')
 
 hell_background = Background("assets/hell_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100, 100, 100, 100, 100, False, False)
-forest_path_background = Background("assets/forest_path_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100, 100, 100, 100, 100, False, False)
-background2 = Background("assets/background2.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100 ,100, 100, 100, 100, 100, False, False)
+forest_path_background = Background("assets/forest_path_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 700, 500, 100, 100, 100, 100, 100, 100, False, False)
+castle_background = Background("assets/castle_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 500, 500, 100 ,100, 100, 100, 100, 100, False, False)
 
-backgrounds = [forest_path_background, hell_background, background2]
-background_index = 0
-
+backgrounds = [forest_path_background, hell_background, castle_background]
 clock = pygame.time.Clock()
 
 # Circle properties
 circle_x, circle_y = 200, 200
 circle_radius = 20
 circle_speed = 20
-WHITE = (255, 255, 255)
-BLUE = (0, 0, 255)
-BLACK = (0, 0, 0)
 
 # Game loop
 running = True
@@ -36,21 +31,12 @@ while running:
     screen.fill((0, 0, 0))  # Fill the screen with black
 
     # Display the current background
-    screen.blit(backgrounds[background_index].background_list[0], (backgrounds[background_index].x, backgrounds[background_index].y))
+    screen.blit(backgrounds[Background.background_index].background_list[0], (backgrounds[Background.background_index].x, backgrounds[Background.background_index].y))
 
     # Event handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-        # Handle keypress for moving between backgrounds
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:  # Move to the next background
-                if background_index < len(backgrounds) - 1:
-                    background_index += 1
-            elif event.key == pygame.K_LEFT:  # Move to the previous background
-                if background_index > 0:
-                    background_index -= 1
 
     # Movement logic (should be outside event loop for continuous movement)
     keys = pygame.key.get_pressed()
@@ -65,39 +51,20 @@ while running:
         new_y += circle_speed
 
     # Check if the circle is inside the boundary before updating position
-    if (backgrounds[background_index].get_boundary_x() + circle_radius <= new_x <= backgrounds[background_index].get_boundary_x() + backgrounds[background_index].get_boundary_width() - circle_radius and
-            backgrounds[background_index].get_boundary_y() + circle_radius <= new_y <= backgrounds[background_index].get_boundary_y() + backgrounds[background_index].get_boundary_height() - circle_radius):
+    if (backgrounds[Background.background_index].boundary_x + circle_radius <= new_x <= backgrounds[Background.background_index].boundary_x + backgrounds[Background.background_index].boundary_width - circle_radius and
+            backgrounds[Background.background_index].boundary_y + circle_radius <= new_y <= backgrounds[Background.background_index].boundary_y + backgrounds[Background.background_index].boundary_height - circle_radius):
         circle_x, circle_y = new_x, new_y
 
-    # Check if the circle is inside the next zone
-    if (backgrounds[background_index].get_next_x() <= circle_x <= backgrounds[background_index].get_next_x() + backgrounds[background_index].get_next_width() and
-            backgrounds[background_index].get_next_y() <= circle_y <= backgrounds[background_index].get_next_y() + backgrounds[background_index].get_next_height()):
-        if not backgrounds[background_index].get_next_flag():  # Only change background if not already triggered
-            if background_index < len(backgrounds) - 1:
-                background_index += 1
-            backgrounds[background_index].set_next_flag(True)
-    else:
-        backgrounds[background_index].set_next_flag(False)  # Reset flag when leaving the next box
-
-
-# Check if the circle is inside the prev zone
-    if (backgrounds[background_index].get_prev_x() <= circle_x <= backgrounds[background_index].get_prev_x() + backgrounds[background_index].get_prev_width() and
-            backgrounds[background_index].get_prev_y() <= circle_y <= backgrounds[background_index].get_prev_y() + backgrounds[background_index].get_prev_height()):
-        if not backgrounds[background_index].get_prev_flag():  # Only change background if not already triggered
-            if background_index > 0:
-                background_index -= 1
-            backgrounds[background_index].set_prev_flag(True)
-    else:
-        backgrounds[background_index].set_prev_flag(False)  # Reset flag when leaving the prev box
-
+    Background.change_next_flag(backgrounds, circle_x, circle_y)
+    Background.change_prev_flag(backgrounds, circle_x, circle_y)
 
     # Draw boundary, trigger box, and circle
-    pygame.draw.rect(screen, BLACK, (backgrounds[background_index].get_boundary_x(), backgrounds[background_index].get_boundary_y(), backgrounds[background_index].get_boundary_width(), backgrounds[background_index].get_boundary_height()), 2)  # Draw boundary
-    pygame.draw.rect(screen, BLACK, (backgrounds[background_index].get_next_x(), backgrounds[background_index].get_next_y(), backgrounds[background_index].get_next_width(), backgrounds[background_index].get_next_height()), 2)  # Draw trigger box
-    pygame.draw.rect(screen, BLACK, (backgrounds[background_index].get_prev_x(), backgrounds[background_index].get_prev_y(), backgrounds[background_index].get_prev_width(), backgrounds[background_index].get_prev_height()), 2)  # Draw trigger box
-    pygame.draw.circle(screen, BLUE, (circle_x, circle_y), circle_radius)
+    pygame.draw.rect(screen, (0, 0, 0), (backgrounds[Background.background_index].boundary_x, backgrounds[Background.background_index].boundary_y, backgrounds[Background.background_index].boundary_width, backgrounds[Background.background_index].boundary_height), 2)  # Draw boundary
+    pygame.draw.rect(screen, (0, 0, 0), (backgrounds[Background.background_index].next_x, backgrounds[Background.background_index].next_y, backgrounds[Background.background_index].next_width, backgrounds[Background.background_index].next_height), 2)  # Draw trigger box
+    pygame.draw.rect(screen, (0, 0, 0), (backgrounds[Background.background_index].prev_x, backgrounds[Background.background_index].prev_y, backgrounds[Background.background_index].prev_width, backgrounds[Background.background_index].prev_height), 2)  # Draw trigger box
+    pygame.draw.circle(screen, (0, 0, 255), (circle_x, circle_y), circle_radius)
 
     pygame.display.update()  # Update the display
 
 pygame.quit()
-sys.exit()
+sys.exit() 
