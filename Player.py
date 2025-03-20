@@ -53,24 +53,24 @@ class Player:
     ###
 
         #actions
-    def up(self):
+    def up(self,counter):
         self.y_coord -= self.y_speed
-        return spritePicker(counter, self.uplist)
+        return spritePicker(counter, self.up_list)
         self.last_sprite = egg.up_list
         
-    def down(self):
+    def down(self.counter):
         self.y_coord += self.y_speed
-
+        return spritePicker(counter, self.down_list)
         self.last_sprite = egg.down_list
-
-    def left(self):
+ 
+    def left(self,counter):
         self.x_coord -= self.x_speed
-
+        return spritePicker(counter, self.left_list)
         self.last_sprite = egg.left_list
 
-    def right(self):
+    def right(self,counter):
         self.x_coord += self.x_speed
-
+        return spritePicker(counter, self.right_list)
         self.last_sprite = egg.right_list
 
     #def interact(self, item_group):
@@ -87,4 +87,4 @@ class Player:
                 self.sprite_index += 1
         return sprite_list[sprite_index]
 
-
+ 
