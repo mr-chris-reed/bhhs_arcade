@@ -1,4 +1,5 @@
 from Asset_Reader import Asset_Reader
+from Player import 
 
 class Background:
 
@@ -46,7 +47,8 @@ class Background:
             background_list[Background.background_index].next_flag = False  # Reset flag when leaving the next box
 
     # If player is inside the prev boundary, the background only changes once(flag becomes true when inside, becomes false when outside)
-    def change_prev_flag(background_list, player_x, player_y):
+    def change_prev_flag(background_list, character):
+        x = charcter.x_attrib
         if (background_list[Background.background_index].prev_x <= player_x <= background_list[Background.background_index].prev_x + background_list[Background.background_index].prev_width and
             background_list[Background.background_index].prev_y <= player_y <= background_list[Background.background_index].prev_y + background_list[Background.background_index].prev_height):
             if not background_list[Background.background_index].prev_flag:  # Only change background if not already triggered
@@ -55,3 +57,6 @@ class Background:
                 background_list[Background.background_index].prev_flag = True
         else:
             background_list[Background.background_index].prev_flag = False  # Reset flag when leaving the prev box
+
+    def checkIfInBounds(character):
+
