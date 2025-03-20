@@ -25,21 +25,6 @@ flash_text = {
 
 while True:
     screen.fill((0, 0, 0))
-
-    screen.blit(start_screen.background[0], (125, 0))
-
-    current_time = pygame.time.get_ticks()
-    if current_time - flash_timer > flash_interval:
-        visible = not visible
-        flash_timer = current_time
-    
-    if flash_enabled:
-        if current_time - flash_text["Flashing Text"]["flash_timer"] > flash_interval:
-            flash_text["Flashing Text"]["visible"] = not flash_text["Flashing Text"]["visible"]
-            flash_text["Flashing Text"]["flash_timer"] = current_time
-
-    start_screen.draw_text("Press A to Start!", None, (255, 255, 255), 100, 640, 950, visible)
-    start_screen.draw_text("Leaderboard:", None, (255, 255, 255), 30, 1150, 10, True)
     
     # Event handling
     for event in pygame.event.get():
@@ -59,9 +44,24 @@ while True:
         if game_start == True:
             #start_screen = Start_Screen("bhhs_arcade/assets/forest_path_background.png", 1, 0, 0, 2.1, 1, 0, 0, 1280, 1024)
             screen.blit(background1.get_current_background(), (125, 0))
-            print(game_start)
+        
+        if game_start == False:
+            screen.blit(start_screen.background[0], (125, 0))
 
-    pygame.display.flip() 
-    clock.tick(60)
+        current_time = pygame.time.get_ticks()
+        if current_time - flash_timer > flash_interval:
+            visible = not visible
+            flash_timer = current_time
+    
+        if flash_enabled:
+            if current_time - flash_text["Flashing Text"]["flash_timer"] > flash_interval:
+                flash_text["Flashing Text"]["visible"] = not flash_text["Flashing Text"]["visible"]
+                flash_text["Flashing Text"]["flash_timer"] = current_time
+        
+        start_screen.draw_text("Press A to Start!", None, (255, 255, 255), 100, 640, 950, visible)
+        start_screen.draw_text("Leaderboard:", None, (255, 255, 255), 30, 1150, 10, True)
+        
+        pygame.display.flip() 
+        clock.tick(60)
     
 
