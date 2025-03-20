@@ -54,6 +54,7 @@ class Player:
     ###
 
         #actions
+
     def up(self):
          if (self.last_button != keys[pygame.K_w]):
             self.sprite_index = 0
@@ -63,6 +64,7 @@ class Player:
         self.last_button = keys[pygame.K_w]
         return spritePicker(counter, self.up_list)
         
+
     def down(self):
          if (self.last_button != keys[pygame.K_s]):
             self.sprite_index = 0
@@ -81,6 +83,7 @@ class Player:
         self.last_button = keys[pygame.K_w]
         return spritePicker(counter, self.left_list)
 
+
     def right(self):
          if (self.last_button != keys[pygame.K_d]):
             self.sprite_index = 0
@@ -88,6 +91,7 @@ class Player:
         self.last_sprite_list = egg.right_list
         self.last_button = keys[pygame.K_w]
         self.last_sprite = spritePicker(counter, self.right_list)
+
 
     #def interact(self, item_group):
         #for item in item_group:
