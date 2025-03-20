@@ -34,7 +34,6 @@ while True:
         
     start_screen.draw_text("Press A to Start!", None, (255, 255, 255), 100, 640, 950, visible)
     start_screen.draw_text("Leaderboard:", None, (255, 255, 255), 30, 1215, 10, True)
-    
     #A for loop that displays however many players on the leaderboard
     # for string in start_screen.leaderboard:
 
