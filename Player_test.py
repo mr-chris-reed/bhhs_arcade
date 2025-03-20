@@ -30,7 +30,7 @@ egg = Player(
             2,2,2,2,4,6,1,1,1,1,2,5,5) 
 
 #
-canvas.blit(last_sprite[egg.spritePicker(counter, len(last_sprite))], (egg.x_coord, egg.y_coord))
+canvas.blit(last_sprite[egg.spritePicker(counter, len(egg.last_sprite_list))], (egg.x_coord, egg.y_coord))
 
 # clock to set FPS
 clock = pygame.time.Clock()
@@ -57,33 +57,16 @@ while running:
     # check to see if any of the keys are w, a, s, or d
     # and perform an action
     if keys[pygame.K_w]:
-        egg.sprite_index = 0
-        for i in range(len(egg.up_list)):
-            canvas.blit(egg.up_list[egg.spritePicker(counter, len(egg.up_list))], (egg.x_coord, egg.y_coord))
-        egg.up()
-        last_sprite = egg.up_list
+        egg.up(counter)
     elif keys[pygame.K_s]:
-        egg.sprite_index = 0
-        for i in range (len(egg.down_list)):
-            canvas.blit(egg.down_list[egg.spritePicker(counter, len(egg.down_list))], (egg.x_coord, egg.y_coord))
-        egg.down()
-        last_sprite = egg.down_list
+        egg.down(counter)
     elif keys[pygame.K_a]:
-        egg.sprite_index = 0
-        for i in range (len(egg.left_list)):
-            canvas.blit(egg.left_list[egg.spritePicker(counter, len(egg.left_list))], (egg.x_coord, egg.y_coord))
-        egg.left()
-        last_sprite = egg.left_list
+        egg.left(counter)
     elif keys[pygame.K_d]:
-        egg.sprite_index = 0
-        for i in range (len(egg.right_list)):
-            canvas.blit(egg.right_list[egg.spritePicker(counter, len(egg.right_list))], (egg.x_coord, egg.y_coord))
-        egg.right()
-        last_sprite = egg.right_list
-    else:
-         canvas.blit(last_sprite[egg.spritePicker(counter, len(last_sprite))], (egg.x_coord, egg.y_coord))
-    
+        egg.right(counter)
 
+    canvas.blit(last_sprite[egg.spritePicker(counter, len(last_sprite))], (egg.x_coord, egg.y_coord))
+    
     pygame.display.update()
     clock.tick(fps)
 
