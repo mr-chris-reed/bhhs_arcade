@@ -38,6 +38,7 @@ class Player:
         self.interact_list = Asset_Reader(ss_interact, num_interact, scale).get_asset_list()
         self.attack_list = Asset_Reader(ss_attack, num_attack, scale).get_asset_list()
         self.sprite_index = 0
+        self.last_sprite = egg.right_list
 
     ###
     # NOTES - 3/17/25 - remove duplicate up function below.  I think when one of
@@ -51,23 +52,26 @@ class Player:
     #    rework the spritePicker function a bit.
     ###
 
-    #actions
-    def up(self):
-        self.y_coord -= self.y_speed
-    
-
         #actions
     def up(self):
         self.y_coord -= self.y_speed
+        return spritePicker(counter, self.uplist)
+        self.last_sprite = egg.up_list
         
     def down(self):
         self.y_coord += self.y_speed
 
+        self.last_sprite = egg.down_list
+
     def left(self):
         self.x_coord -= self.x_speed
 
+        self.last_sprite = egg.left_list
+
     def right(self):
         self.x_coord += self.x_speed
+
+        self.last_sprite = egg.right_list
 
     #def interact(self, item_group):
         #for item in item_group:
@@ -75,12 +79,12 @@ class Player:
                 # item.collect(self)  
 
                 
-    def spritePicker(self, counter, length): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
+    def spritePicker(self, counter, sprite_list): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
         if counter % 60 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
-            if self.sprite_index == length - 1:
+            if self.sprite_index == len(sprite_list) - 1:
                 self.sprite_index = 0
             else:
                 self.sprite_index += 1
-        return self.sprite_index
+        return sprite_list[sprite_index]
 
 
