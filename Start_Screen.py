@@ -1,10 +1,12 @@
-import pygame
+import pygame, sys, time
 from Asset_Reader import Asset_Reader
+from Background import Background
+
 screen = pygame.display.set_mode((1280, 1024))
 
 class Start_Screen:
 
-    def __init__(self, startmessage, background, title, leaderboard, font, scale_factor, x, y, height, width):
+    def __init__(self, background, leaderboard, scale_factor, x, y, height, width):
         ###
         # NOTES for constructor: You might consider blitting the startmessage, title, and leaderboard
         # on to the background before returning the background.
@@ -17,13 +19,36 @@ class Start_Screen:
         self.x = x
         self.y = y
         self.scale_factor = scale_factor
-        self.background = Asset_Reader("assets/CapyBarda_Start_Screen.png", 1, 1).get_asset_list()
-        self.leaderboard = [] #Empty list of strings. Maybe not for the Alpha test if time does not allow.
-        self.height = 1280
-        self.width = 1024
+        self.background = Asset_Reader("assets/start_screen.webp", 1, 1).get_asset_list()
+        self.leaderboard = leaderboard #Maybe not for the Alpha test if time does not allow.
+        self.height = height
+        self.width = width
 
     def draw_start_screen(self):
         screen.fill = self.background
+
+    def flashing_text(self):
+        
+        visible = True
+        flash_timer = 0
+        flash_interval = 500
+        flash_enabled = True
+
+        flash_text = {
+        "Flashing Text": {"visible": True, "flash": True, "flash_timer": 0},
+        "Static Text": {"visible": True, "flash": False}
+        }
+
+        current_time = pygame.time.get_ticks()
+        if current_time - flash_timer > flash_interval:
+            visible = not visible
+            flash_timer = current_time
+        
+        if flash_enabled:
+            if current_time - flash_text["Flashing Text"]["flash_timer"] > flash_interval:
+                flash_text["Flashing Text"]["visible"] = not flash_text["Flashing Text"]["visible"]
+                flash_text["Flashing Text"]["flash_timer"] = current_time
+
 
     def draw_text(self, text, font_name, color, size, x, y, visible):
         if visible:
@@ -37,6 +62,8 @@ class Start_Screen:
         self.surface = pygame.Surface((self.width, self.height))
         self.surface.blit(self.background[0], (0,0))
         return self.surface
+    
+    
 
     #Probably also needs to go in main bc we need to import joytick
     #def startGame(self):
