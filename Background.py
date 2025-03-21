@@ -1,7 +1,11 @@
 from Asset_Reader import Asset_Reader
+from Player import Player
 
 class Background:
-    def __init__(self, background, num_images, x, y, scale_factor):
+
+    background_index = 0
+
+    def __init__(self, background, num_images, x, y, scale_factor, boundary_x, boundary_y, boundary_width, boundary_height, next_x, next_y, next_width, next_height, prev_x, prev_y, prev_width, prev_height, next_flag, prev_flag):
         ###
         # NOTES: You might consider creating instance variables that define the
         # movable space - the area where characters can move around - boundaries for background.
@@ -25,10 +29,50 @@ class Background:
         self.background_list = Asset_Reader(background, num_images, scale_factor).get_asset_list()  # Load the backgrounds
         self.x = x
         self.y = y
-        #self.origin_x = origin_x
-        #self.origin_y = origin_y
-        #self.width = width
-        #self.height = height
+        self.boundary_x = boundary_x
+        self.boundary_y = boundary_y
+        self.boundary_width = boundary_width
+        self.boundary_height = boundary_height
+        self.next_x = next_x
+        self.next_y = next_y
+        self.next_width = next_width
+        self.next_height = next_height
+        self.prev_x = prev_x
+        self.prev_y = prev_y
+        self.prev_width = prev_width
+        self.prev_height = prev_height
+        self.next_flag = next_flag
+        self.prev_flag = prev_flag
 
-    def get_current_background(self): # Returns the current background
-        return self.background_list[0]
+    # If player is inside the next boundary, the background only changes once(flag becomes true when inside, becomes false when outside)
+    def change_next_flag(background_list, player_x, player_y):
+        if (background_list[Background.background_index].next_x <= player_x <= background_list[Background.background_index].next_x + background_list[Background.background_index].next_width and
+            background_list[Background.background_index].next_y <= player_y <= background_list[Background.background_index].next_y + background_list[Background.background_index].next_height):
+            if not background_list[Background.background_index].next_flag:  # Only change background if not already triggered
+                if Background.background_index < len(background_list) - 1:
+                    Background.background_index += 1
+                background_list[Background.background_index].next_flag = True
+        else:
+            background_list[Background.background_index].next_flag = False  # Reset flag when leaving the next box
+
+    # If player is inside the prev boundary, the background only changes once(flag becomes true when inside, becomes false when outside)
+    def change_prev_flag(background_list, character):
+        x = charcter.x_attrib
+        if (background_list[Background.background_index].prev_x <= player_x <= background_list[Background.background_index].prev_x + background_list[Background.background_index].prev_width and
+            background_list[Background.background_index].prev_y <= player_y <= background_list[Background.background_index].prev_y + background_list[Background.background_index].prev_height):
+            if not background_list[Background.background_index].prev_flag:  # Only change background if not already triggered
+                if Background.background_index > 0:
+                    Background.background_index -= 1
+                background_list[Background.background_index].prev_flag = True
+        else:
+            background_list[Background.background_index].prev_flag = False  # Reset flag when leaving the prev box
+
+    # Returns true if player is inside the boundaries, returns false if not
+    def checkIfInBounds(background_list, character):
+        x = character.x_coord
+        y = character.y_coord
+        if (background_list[Background.background_index].boundary_x + x <= new_x <= background_list[Background.background_index].boundary_x + background_list[Background.background_index].boundary_width - circle_radius and
+            background_list[Background.background_index].boundary_y + y <= new_y <= background_list[Background.background_index].boundary_y + background_list[Background.background_index].boundary_height - circle_radius):
+            return True
+        else:
+            return False
