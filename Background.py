@@ -1,5 +1,4 @@
 from Asset_Reader import Asset_Reader
-from Player import Player
 
 class Background:
 
@@ -57,8 +56,7 @@ class Background:
             background_list[Background.background_index].next_flag = False  # Reset flag when leaving the next box
 
     # If player is inside the prev boundary, the background only changes once(flag becomes true when inside, becomes false when outside)
-    def change_prev_flag(background_list, character):
-        x = charcter.x_attrib
+    def change_prev_flag(background_list, player_x, player_y):
         if (background_list[Background.background_index].prev_x <= player_x <= background_list[Background.background_index].prev_x + background_list[Background.background_index].prev_width and
             background_list[Background.background_index].prev_y <= player_y <= background_list[Background.background_index].prev_y + background_list[Background.background_index].prev_height):
             if not background_list[Background.background_index].prev_flag:  # Only change background if not already triggered
@@ -69,11 +67,8 @@ class Background:
             background_list[Background.background_index].prev_flag = False  # Reset flag when leaving the prev box
 
     # Returns true if player is inside the boundaries, returns false if not
-    def checkIfInBounds(background_list, character):
-        x = character.x_coord
-        y = character.y_coord
-        if (background_list[Background.background_index].boundary_x + x <= new_x <= background_list[Background.background_index].boundary_x + background_list[Background.background_index].boundary_width - circle_radius and
-            background_list[Background.background_index].boundary_y + y <= new_y <= background_list[Background.background_index].boundary_y + background_list[Background.background_index].boundary_height - circle_radius):
+    def check_if_in_bounds(background_list, player_x, player_y, player_width, player_height):
+        if (background_list[Background.background_index].boundary_x <= player_x and background_list[Background.background_index].boundary_y <= player_y and player_x + player_width <= background_list[Background.background_index].boundary_x + background_list[Background.background_index].boundary_width and player_y + player_height <= background_list[Background.background_index].boundary_y + background_list[Background.background_index].boundary_height):
             return True
         else:
             return False
