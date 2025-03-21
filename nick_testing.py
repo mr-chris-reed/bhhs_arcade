@@ -4,7 +4,7 @@ from Background import Background
 from Start_Screen import Start_Screen
 
 pygame.init()
-start_screen = Start_Screen("assets/CapyBarda_Start_Screen.png", 1, 0, 0, 2.1, 1, 0, 0, 1280, 1024)
+start_screen = Start_Screen("assets/CapyBarda_Start_Screen.png", 1, 2.1, 1, 0, 1280, 1024)
 background1 = Background("assets/forest_path_background.png", 1, 0, 0, 1)
 screen = pygame.display.set_mode((start_screen.height, start_screen.width))
 
@@ -25,6 +25,8 @@ flash_text = {
 
 while True:
     screen.fill((0, 0, 0))
+
+    screen.blit(start_screen.background[0], (125, 0))
     
     # Event handling
     for event in pygame.event.get():
@@ -39,6 +41,7 @@ while True:
         if event.type == pygame.JOYBUTTONDOWN:
             for joystick in joysticks:
                 if joystick.get_button(11):
+                    start_screen.draw_text("Game has definitely, 100 percent started!", None, (255, 255, 255), 80, 620, 500, True)
                     game_start = True
         
         if game_start == True:
