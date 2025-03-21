@@ -5,6 +5,9 @@
 import pygame
 from Asset_Reader import Asset_Reader
 
-class Items:
+class Item:
 
-    def __init__():
+    def __init__(self, item_image, item_name, interact):
+        self.item_image = item_image
+        self.item_name = item_name
+        self.interact = interact

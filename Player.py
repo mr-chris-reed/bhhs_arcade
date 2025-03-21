@@ -6,11 +6,12 @@ from Asset_Reader import Asset_Reader
 class Player:
 
 
-     def __init__(self, 
+    def __init__(self, 
                 x_coord, y_coord, 
                 ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack,
                 num_up, num_down, num_left, num_right, num_interact, num_attack,
-                scale,x_speed, y_speed):
+                scale,up_scale,down_scale, left_scale, right_scale,
+                x_speed, y_speed):
         ###
         # NOTES: For movement, you could use the instance variables x_speed and y_speed.
         # You could fill in the methods you wrote below to move the character like
@@ -30,42 +31,78 @@ class Player:
         self.ss_left = ss_left
         self.ss_right = ss_right
         self.ss_interact = ss_interact
-        self.up_list = Asset_Reader(ss_up, num_up, scale).get_asset_list()
-        self.down_list = Asset_Reader(ss_down, num_down, scale).get_asset_list()
-        self.left_list = Asset_Reader(ss_left, num_left, scale).get_asset_list()
-        self.right_list = Asset_Reader(ss_right, num_right, scale).get_asset_list()
+        self.up_list = Asset_Reader(ss_up, num_up, up_scale).get_asset_list()
+        self.down_list = Asset_Reader(ss_down, num_down, down_scale).get_asset_list()
+        self.left_list = Asset_Reader(ss_left, num_left, left_scale).get_asset_list()
+        self.right_list = Asset_Reader(ss_right, num_right, right_scale).get_asset_list()
         self.interact_list = Asset_Reader(ss_interact, num_interact, scale).get_asset_list()
         self.attack_list = Asset_Reader(ss_attack, num_attack, scale).get_asset_list()
-
+        self.sprite_index = 0
+        self.last_sprite_list = right_list
+        self.last_sprite = last_sprite
+        self.last_button = keys[pygame.K_d]
+    ###
+    # NOTES - 3/17/25 - remove duplicate up function below.  I think when one of
+    # the action functions are called from the main file (currently, your testing file),
+    # The spritePicker function should be called from within each of the action functions.
+    # Something like:
+    # def up(self, counter):
+    #    self.y_coord -= self.y_speed
+    #    return spritePicker(counter, self.up_list) - I think the spritePicker function should return a surface
+    #    The surface it returns will be the surface at the correct sprite_index.  You'll probabaly have to
+    #    rework the spritePicker function a bit.
+    ###
 
         #actions
-        def up(self):
-            self.y_coord -= self.y_speed
+
+    def up(self):
+         if (self.last_button != keys[pygame.K_w]):
+            self.sprite_index = 0
+        self.y_coord -= self.y_speed
+        self.last_sprite_list = egg.up_list
+        self.last_sprite = egg.up_list
+        self.last_button = keys[pygame.K_w]
+        return spritePicker(counter, self.up_list)
         
-        def down(self):
-            self.y_coord += self.y_speed
 
-        def left(self):
-            self.x_coord -= self.x_speed
+    def down(self):
+         if (self.last_button != keys[pygame.K_s]):
+            self.sprite_index = 0
+        self.y_coord -= self.y_speed
+        self.last_sprite_list = egg.down_list
+        self.last_sprite = egg.down_list
+        self.last_button = keys[pygame.K_w]
+        return spritePicker(counter, self.down_list)
 
-        def right(self):
-            self.x_coord += self.x_speed
+    def left(self):
+         if (self.last_button != keys[pygame.K_a]):
+            self.sprite_index = 0
+        self.y_coord -= self.y_speed
+        self.last_sprite_list = egg.left_list
+        self.last_sprite = egg.left_list
+        self.last_button = keys[pygame.K_w]
+        return spritePicker(counter, self.left_list)
 
-        def interact(self):
 
-        
-        
-        sprite_index = 0 # <== Make this an instance variable
-        counter = 0 # <== see note below
-        def spritePicker(self): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
-            global sprite_index
-            if counter % 20 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
-                if sprite_index == total_sprites - 1:
-                    sprite_index = 0
-                else:
-                    sprite_index += 1
-            counter += 1
-            return sprite_index
+    def right(self):
+         if (self.last_button != keys[pygame.K_d]):
+            self.sprite_index = 0
+        self.y_coord -= self.y_speed
+        self.last_sprite_list = egg.right_list
+        self.last_button = keys[pygame.K_w]
+        self.last_sprite = spritePicker(counter, self.right_list)
 
-        #def interact(self):
 
+    #def interact(self, item_group):
+        #for item in item_group:
+            #if pygame.sprite.collide_rect(self, item) and key
+                # item.collect(self)  
+
+                
+    def spritePicker(self, counter, sprite_list): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
+        if counter % 60 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
+            if self.sprite_index == len(sprite_list) - 1:
+                self.sprite_index = 0
+            else:
+                self.sprite_index += 1
+        return sprite_list[sprite_index]

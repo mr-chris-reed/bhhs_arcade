@@ -5,8 +5,6 @@
 import pygame
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
-from End_Screen import End_Screen
-from Start_Screen import Start_Screen
 from Player import Player
 
 # canvas variables
@@ -15,6 +13,7 @@ height = 1000 # adjust for height of canvas
 
 # frame rate
 fps = 60
+counter = 0
 
 # colors
 background_color = (255,0,255)
@@ -28,7 +27,10 @@ pygame.display.set_caption("maD egg lol") # add a caption for your canvas
 egg = Player(
             50,50,
             "assets/Eggsby_4.png", "assets/Eggsby.png", "assets/Eggsby_3.png", "assets/Eggsby_2.png", "assets/Eggsby-dance.png", "assets/Eggsby-attack.png", 
-            2,2,2,2,4,6,1,5,5) 
+            2,2,2,2,4,6,1,1,1,1,2,5,5) 
+
+#
+canvas.blit(last_sprite[egg.spritePicker(counter, len(egg.last_sprite_list))], (egg.x_coord, egg.y_coord))
 
 # clock to set FPS
 clock = pygame.time.Clock()
@@ -41,6 +43,7 @@ while running:
     # paint the canvas with background color
     canvas.fill(background_color)
 
+    counter += 1
     # poll for events
     for event in pygame.event.get():
         # if 'X' is clicked on the canvas
@@ -54,25 +57,18 @@ while running:
     # check to see if any of the keys are w, a, s, or d
     # and perform an action
     if keys[pygame.K_w]:
-        egg.sprite_index = 0
-        for i in range egg.up_list.length:
-            canvas.blit(egg.up_list[egg.sprite_picker()], (x_coord, y_coord))
-        egg.up()
-    if keys[pygame.K_s]:
-        egg.sprite_index = 0
-        for i in range egg.down_list.length:
-            canvas.blit(egg.down_list[egg.sprite_picker()], (x_coord, y_coord))
-        egg.down()
-    if keys[pygame.K_a]:
-        egg.sprite_index = 0
-        for i in range egg.left_list.length:
-            canvas.blit(egg.left_list[egg.sprite_picker()], (x_coord, y_coord))
-        egg.left()
-    if keys[pygame.K_d]:
-        egg.sprite_index = 0
-        for i in range egg.right_list.length:
-            canvas.blit(egg.right_list[egg.sprite_picker()], (x_coord, y_coord))
-        egg.right()
+        egg.up(counter)
+    elif keys[pygame.K_s]:
+        egg.down(counter)
+    elif keys[pygame.K_a]:
+        egg.left(counter)
+    elif keys[pygame.K_d]:
+        egg.right(counter)
+
+    canvas.blit(last_sprite[egg.spritePicker(counter, len(last_sprite))], (egg.x_coord, egg.y_coord))
+    
+    pygame.display.update()
+    clock.tick(fps)
 
 # close pygame down
 pygame.quit()
