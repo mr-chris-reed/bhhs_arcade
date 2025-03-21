@@ -29,8 +29,6 @@ egg = Player(
             "assets/Eggsby_4.png", "assets/Eggsby.png", "assets/Eggsby_3.png", "assets/Eggsby_2.png", "assets/Eggsby-dance.png", "assets/Eggsby-attack.png", 
             2,2,2,2,4,6,1,1,1,1,2,5,5) 
 
-#
-canvas.blit(last_sprite[egg.spritePicker(counter, len(egg.last_sprite_list))], (egg.x_coord, egg.y_coord))
 
 # clock to set FPS
 clock = pygame.time.Clock()
@@ -64,8 +62,10 @@ while running:
         egg.left(counter)
     elif keys[pygame.K_d]:
         egg.right(counter)
+    else:
+        egg.last_sprite = egg.spritePicker(counter, egg.last_sprite_list)
 
-    canvas.blit(last_sprite[egg.spritePicker(counter, len(last_sprite))], (egg.x_coord, egg.y_coord))
+    canvas.blit(egg.last_sprite, (egg.x_coord, egg.y_coord))
     
     pygame.display.update()
     clock.tick(fps)
