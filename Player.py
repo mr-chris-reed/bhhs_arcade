@@ -1,5 +1,6 @@
 
 import pygame
+from pygame.locals import *
 from Asset_Reader import Asset_Reader
  
 
@@ -38,9 +39,9 @@ class Player:
         self.interact_list = Asset_Reader(ss_interact, num_interact, scale).get_asset_list()
         self.attack_list = Asset_Reader(ss_attack, num_attack, scale).get_asset_list()
         self.sprite_index = 0
-        self.last_sprite_list = right_list
-        self.last_sprite = last_sprite
-        self.last_button = keys[pygame.K_d]
+        self.last_sprite_list = self.right_list
+        self.last_sprite = self.right_list[0]
+        self.last_button = "k"
     ###
     # NOTES - 3/17/25 - remove duplicate up function below.  I think when one of
     # the action functions are called from the main file (currently, your testing file),
@@ -55,42 +56,47 @@ class Player:
 
         #actions
 
-    def up(self):
-         if (self.last_button != keys[pygame.K_w]):
+    def spritePicker(self, counter, sprite_list): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
+        if counter % 40 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
+            if self.sprite_index == len(sprite_list) - 1:
+                self.sprite_index = 0
+            else:
+                self.sprite_index += 1
+        return sprite_list[self.sprite_index]
+
+    def up(self, counter):
+        if (self.last_button != "k"):
             self.sprite_index = 0
         self.y_coord -= self.y_speed
-        self.last_sprite_list = egg.up_list
-        self.last_sprite = egg.up_list
-        self.last_button = keys[pygame.K_w]
-        return spritePicker(counter, self.up_list)
+        self.last_sprite_list = self.up_list
+        self.last_button ="k"
+        self.last_sprite = self.spritePicker(counter, self.up_list)
         
 
-    def down(self):
-         if (self.last_button != keys[pygame.K_s]):
+    def down(self, counter):
+        if (self.last_button != "s"):
             self.sprite_index = 0
-        self.y_coord -= self.y_speed
-        self.last_sprite_list = egg.down_list
-        self.last_sprite = egg.down_list
-        self.last_button = keys[pygame.K_w]
-        return spritePicker(counter, self.down_list)
+        self.y_coord += self.y_speed
+        self.last_sprite_list = self.down_list
+        self.last_button = "s"
+        self.last_sprite = self.spritePicker(counter, self.down_list)
 
-    def left(self):
-         if (self.last_button != keys[pygame.K_a]):
+    def left(self, counter):
+        if (self.last_button != "a"):
             self.sprite_index = 0
-        self.y_coord -= self.y_speed
-        self.last_sprite_list = egg.left_list
-        self.last_sprite = egg.left_list
-        self.last_button = keys[pygame.K_w]
-        return spritePicker(counter, self.left_list)
+        self.x_coord -= self.x_speed
+        self.last_sprite_list = self.left_list
+        self.last_button = "a"
+        self.last_sprite = self.spritePicker(counter, self.left_list)
 
 
-    def right(self):
-         if (self.last_button != keys[pygame.K_d]):
+    def right(self, counter):
+        if (self.last_button != "d"):
             self.sprite_index = 0
-        self.y_coord -= self.y_speed
-        self.last_sprite_list = egg.right_list
-        self.last_button = keys[pygame.K_w]
-        self.last_sprite = spritePicker(counter, self.right_list)
+        self.x_coord += self.x_speed
+        self.last_sprite_list = self.right_list
+        self.last_button = "d"
+        self.last_sprite = self.spritePicker(counter, self.right_list)
 
 
     #def interact(self, item_group):
@@ -99,10 +105,4 @@ class Player:
                 # item.collect(self)  
 
                 
-    def spritePicker(self, counter, sprite_list): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
-        if counter % 60 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
-            if self.sprite_index == len(sprite_list) - 1:
-                self.sprite_index = 0
-            else:
-                self.sprite_index += 1
-        return sprite_list[sprite_index]
+
