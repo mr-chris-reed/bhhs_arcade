@@ -6,7 +6,7 @@
 import pygame
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
-from End_Screen import End_Screen
+#from End_Screen import End_Screen
 from Start_Screen import Start_Screen
 
 # constants
@@ -16,15 +16,24 @@ FPS = 30
 
 # global variables
 running = True
-game_state = "start_screen"
 
 # canvas
 CANVAS = pygame.display.set_mode((WIDTH, HEIGHT))
 
+# initialize pygame and pygame joystick
 pygame.init()
+pygame.joystick.init()
+
 # testing object creation
-end_screen = End_Screen(1,2,3,4,5)
-Start_Screen = Start_Screen(1, 2, 3, 4, 5,)
+start_screen = Start_Screen(
+    "assets/capy_start_screen_NEW.png",
+    [],
+    1,
+    0,
+    0,
+    HEIGHT,
+    WIDTH,
+)
 
 # main game loop
 while running:
