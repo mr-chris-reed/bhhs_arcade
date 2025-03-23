@@ -25,8 +25,8 @@ class Player:
         self.damage = 5
         self.x_coord = x_coord
         self.y_coord = y_coord
-        self.x_speed = 5
-        self.y_speed = 5
+        self.x_speed = x_speed
+        self.y_speed = y_speed
         self.ss_up = ss_up
         self.ss_down = ss_down
         self.ss_left = ss_left
@@ -41,7 +41,7 @@ class Player:
         self.sprite_index = 0
         self.last_sprite_list = self.right_list
         self.last_sprite = self.right_list[0]
-        self.last_button = "k"
+        self.last_button = "w"
     ###
     # NOTES - 3/17/25 - remove duplicate up function below.  I think when one of
     # the action functions are called from the main file (currently, your testing file),
@@ -57,7 +57,7 @@ class Player:
         #actions
 
     def spritePicker(self, counter, sprite_list): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
-        if counter % 40 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
+        if counter % 3 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
             if self.sprite_index == len(sprite_list) - 1:
                 self.sprite_index = 0
             else:
@@ -65,11 +65,11 @@ class Player:
         return sprite_list[self.sprite_index]
 
     def up(self, counter):
-        if (self.last_button != "k"):
+        if (self.last_button != "w"):
             self.sprite_index = 0
         self.y_coord -= self.y_speed
         self.last_sprite_list = self.up_list
-        self.last_button ="k"
+        self.last_button ="w"
         self.last_sprite = self.spritePicker(counter, self.up_list)
         
 
@@ -102,7 +102,10 @@ class Player:
     #def interact(self, item_group):
         #for item in item_group:
             #if pygame.sprite.collide_rect(self, item) and key
-                # item.collect(self)  
+                # item.collect(self)
+
+    def get_sprite(self):
+        return self.last_sprite
 
                 
 
