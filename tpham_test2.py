@@ -3,11 +3,13 @@ import pygame, sys
 from pygame.locals import *
 
 # canvas variables
-width = 800 # adjust for width of canvas
-height =600 # adjust for height of canvas
+width = 1280 # adjust for width of canvas
+height =1024 # adjust for height of canvas
 #colors
 BLUE = (0,0,255)
 RED = (255,0,0)
+WHITE = (255,255,255)
+BLACK = (0,0,0)
 # frame rate
 fps = 60
 #background image
@@ -20,7 +22,8 @@ pygame.init()
 canvas = pygame.display.set_mode((width, height))
 pygame.display.set_caption("<YOUR DISPLAY CAPTION GOES HERE (STRING)>") # add a caption for your canvas
 #gets the key
-
+centerx = (1280 - 140) // 2
+centery = (1024 - 32) // 2
 class End_Screen:
     ###
     # NOTES: You might consider blitting the runtime, leaderboard, gameOverMessage
@@ -50,8 +53,8 @@ class End_Screen:
         self.gameOverMessage = gameOverMessage
       # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
         self.credits = "Credits: eli the emu, tyler the phyler"
-        self.input_box = pygame.Rect(200,150,140,32)
-        self.name_box =  pygame.Rect(100,150,140,50)
+        self.input_box = pygame.Rect(400,420,140,32)
+        self.name_box =  pygame.Rect(400,420,140,50)
         self.currentLetter = 0
         self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  
         self.text = "" 
@@ -68,10 +71,10 @@ class End_Screen:
     def inputName(self,canvas):
         #the text box, eventually will display the letter taken from the handle imput
         #pygame.draw.rect(canvas,BLUE,self.input_box,2 )
-        text_surface = self.font.render(self.currentLetterString, True, (0, 0, 0))  # Render the current text
-        canvas.blit(text_surface, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
-        pygame.draw.rect(canvas,RED,self.name_box,2 ) # Draw the red name box
-        name_surface = self.font.render(self.name, True, (0, 0, 0))  # Render the current text
+        text_surface = self.font.render(self.currentLetterString, True, WHITE)  # Render the current text
+        canvas.blit(text_surface, (self.input_box.x + 5, self.input_box.y + 5))  # Draw the text inside the box
+        pygame.draw.rect(canvas,WHITE,self.name_box,2 ) # Draw the red name box
+        name_surface = self.font.render(self.name, True, WHITE)  # Render the current text
         canvas.blit(name_surface, (self.name_box.x + 10, self.name_box.y + 10))  # Draw the text inside the box
         pygame.display.update()
         
@@ -103,27 +106,27 @@ class End_Screen:
                         print(vert_move)
                 print("Current input:" ,{self.name})
         if len(self.name)==3 :
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                    print("Enter pressed after 3 characters.")  # For debugging
+            if keys[pygame.K_a]:
                     self.inputVisible = False  # Hide the input
-                    self.enter_pressed = True  # Set the flag to prevent further changes
+                    
 
     def drawCredits(self,canvas):
         #will handle to drawing of credits, static for now, potentially add scrolling (if possible)
-        text_surface2 = self.font.render(self.credits, True, (0, 0, 0))  # Render the current text
+        text_surface2 = self.font.render(self.credits, True, WHITE)  # Render the current text
         canvas.blit(text_surface2, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
         
     def drawEndScreen(self):
     # Fills screen black
-        canvas.fill((100, 0, 0))
+        canvas.fill(BLACK)
 
     # draw cred, if enter is pressed while creds are displayed it then displays the input name stuf
         if self.visible:
             end_Screen.drawCredits(canvas)
-            
+            for event in pygame.event.get():
+                   
+                if event.type == pygame.KEYDOWN:
                     # handles whether the credits are displayed or not
-                    
+                    if event.key == pygame.K_RETURN and self.visible:
                         self.visible = False  # hid credits
                         self.inputVisible = True  # shows input box   
                         self.currentLetterString = "A"
