@@ -26,15 +26,15 @@ pygame.init()
 pygame.joystick.init()
 joysticks = []
 # testing object creation
-end_screen = End_Screen(1,1,1,1,1,1,None)
+end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
 
 
 # main game loop
 while running:
-    end_screen.drawEndScreen(CANVAS)
     for event in pygame.event.get():
         if event.type == pygame.JOYDEVICEADDED:
             joy = pygame.joystick.Joystick(event.device_index)
             joysticks.append(joy)
         if event.type == QUIT: 
             running = False
+    end_screen.drawEndScreen(CANVAS, joysticks)
