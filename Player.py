@@ -101,7 +101,7 @@ class Player:
 
     #def interact(self, item_group):
         #for item in item_group:
-            #if pygame.sprite.collide_rect(self, item) and key
+            #if pygame.sprite.collide_rect(self, item)
                 # item.collect(self)  
 
                 
