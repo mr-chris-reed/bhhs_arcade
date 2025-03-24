@@ -128,6 +128,15 @@ end_screen = End_Screen(
     "GAME OVER",
     "assets/gameover.png",
 )
+
+# sounds
+background_1_sound = pygame.mixer.Sound("sounds/Forest_Scene_Concept.mp3")
+background_1_sound.set_volume(0.1)
+background_2_sound = pygame.mixer.Sound("sounds/Castle_Scene_Concept.mp3")
+background_2_sound.set_volume(0.1)
+background_3_sound = pygame.mixer.Sound("sounds/Boss_Intro_Concept.mp3")
+background_3_sound.set_volume(0.1)
+
 # main game loop
 while running:
 
@@ -191,6 +200,14 @@ while running:
         character_1 = player.get_sprite()
         CANVAS.blit(currentFrame, (0, 0))
         CANVAS.blit(character_1, (player.x_coord, player.y_coord))
+        if backgrounds_index == 0:
+            background_1_sound.play(-1)
+        elif backgrounds_index == 1:
+            background_1_sound.stop()
+            background_2_sound.play(-1)
+        else:
+            background_2_sound.stop()
+            background_3_sound.play(-1)
     else:
         CANVAS.blit(end_screen.drawEndScreen(CANVAS, joysticks), (0, 0))
 
