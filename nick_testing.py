@@ -23,6 +23,12 @@ flash_text = {
     "Static Text": {"visible": True, "flash": False}
     }
 
+if game_start == True:
+    #start_screen = Start_Screen("bhhs_arcade/assets/forest_path_background.png", 1, 0, 0, 2.1, 1, 0, 0, 1280, 1024)
+    screen.blit(background1.get_current_background(), (125, 0))
+if game_start == False:
+    screen.blit(start_screen.background[0], (125, 0))
+
 while True:
     screen.fill((0, 0, 0))
 
@@ -43,16 +49,7 @@ while True:
                 #I noticed that theres instances where this doesn't work sometimes, but I don't know why - CC
                 #Could be bc how some of your code is set up compared to mine - CC
                 if joystick.get_button(11):
-                    start_screen.draw_text("Game has definitely, 100 percent started!", None, (255, 255, 255), 80, 620, 500, True)
                     game_start = True
-        
-        #I don't think these need to be in the for event loop, but not sure - CC
-        if game_start == True:
-            #start_screen = Start_Screen("bhhs_arcade/assets/forest_path_background.png", 1, 0, 0, 2.1, 1, 0, 0, 1280, 1024)
-            screen.blit(background1.get_current_background(), (125, 0))
-        
-        if game_start == False:
-            screen.blit(start_screen.background[0], (125, 0))
 
         current_time = pygame.time.get_ticks()
         if current_time - flash_timer > flash_interval:

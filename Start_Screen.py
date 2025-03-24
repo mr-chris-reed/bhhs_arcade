@@ -23,11 +23,12 @@ class Start_Screen:
         self.leaderboard = leaderboard #Maybe not for the Alpha test if time does not allow.
         self.height = height
         self.width = width
+        self.surface = None
 
     def draw_start_screen(self):
         screen.fill = self.background
 
-    def flashing_text(self):
+    '''def flashing_text(self):
         
         visible = True
         flash_timer = 0
@@ -48,19 +49,25 @@ class Start_Screen:
             if current_time - flash_text["Flashing Text"]["flash_timer"] > flash_interval:
                 flash_text["Flashing Text"]["visible"] = not flash_text["Flashing Text"]["visible"]
                 flash_text["Flashing Text"]["flash_timer"] = current_time
+    '''
 
-
-    def draw_text(self, text, font_name, color, size, x, y, visible):
-        if visible:
-            pygame.font.init()
+    def draw_text(self, text, font_name, color, size, x, y, counter, i): # i = 1 for solid text, 0 for flashing text
+        if i == 1:
             font = pygame.font.Font(font_name if font_name else None, size)
             text_surface = font.render(text, True, color)
             text_rect = text_surface.get_rect(center=(x, y))
-            screen.blit(text_surface, text_rect)
+            self.surface.blit(text_surface, text_rect)
+        
+        elif counter % i > 1 and counter % i < 30:
+            font = pygame.font.Font(font_name if font_name else None, size)
+            text_surface = font.render(text, True, color)
+            text_rect = text_surface.get_rect(center=(x, y))
+            self.surface.blit(text_surface, text_rect)
 
-    def generate_return_surface(self):
+    def generate_return_surface(self, counter):
         self.surface = pygame.Surface((self.width, self.height))
-        self.surface.blit(self.background[0], (0,0))
+        self.surface.blit(self.background[0], (self.x,self.y))
+        self.draw_text("Press Any Button To Start!", "fonts/PirataOne-Regular.ttf", (0,0,0), 45, 600, 890, counter, 60)
         return self.surface
     
     
