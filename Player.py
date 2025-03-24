@@ -13,20 +13,14 @@ class Player:
                 num_up, num_down, num_left, num_right, num_interact, num_attack,
                 scale,up_scale,down_scale, left_scale, right_scale,
                 x_speed, y_speed):
-        ###
-        # NOTES: For movement, you could use the instance variables x_speed and y_speed.
-        # You could fill in the methods you wrote below to move the character like
-        # self.x_coord += self.x_speed, self.x_coord -= self.x_coord, etc.
-        # What do we want the attack to be?  Projectile or melee? Would there be extra
-        # animations for this?  Are we going to have animations for interact?
-        ###
+
         self.health = 5
         self.gold = 0
         self.damage = 5
         self.x_coord = x_coord
         self.y_coord = y_coord
-        self.x_speed = 5
-        self.y_speed = 5
+        self.x_speed = x_speed
+        self.y_speed = y_speed
         self.ss_up = ss_up
         self.ss_down = ss_down
         self.ss_left = ss_left
@@ -41,7 +35,7 @@ class Player:
         self.sprite_index = 0
         self.last_sprite_list = self.right_list
         self.last_sprite = self.right_list[0]
-        self.last_button = "k"
+        self.last_button = "d"
     ###
     # NOTES - 3/17/25 - remove duplicate up function below.  I think when one of
     # the action functions are called from the main file (currently, your testing file),
@@ -65,11 +59,11 @@ class Player:
         return sprite_list[self.sprite_index]
 
     def up(self, counter):
-        if (self.last_button != "k"):
+        if (self.last_button != "w"):
             self.sprite_index = 0
         self.y_coord -= self.y_speed
         self.last_sprite_list = self.up_list
-        self.last_button ="k"
+        self.last_button ="w"
         self.last_sprite = self.spritePicker(counter, self.up_list)
         
 
