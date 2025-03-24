@@ -10,7 +10,10 @@ pygame.joystick.init()
 
 pygame.display.set_caption('Start_Screen Test')
 start_screen = Start_Screen("assets/CapyBarda_Start_Screen.png", 1, 2.1, 1, 0, 1280, 1024)
-background1 = Background("assets/forest_path_background.png", 1, 0, 0, 1)
+background1 = Background("assets/forest_path_background.png", 1, 0, 0, 1,
+#Idk about these values.
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+)
 screen = pygame.display.set_mode((start_screen.height, start_screen.width))
 
 clock = pygame.time.Clock()
@@ -41,8 +44,8 @@ while True:
         visible = not visible
         flash_timer = current_time
         
-    start_screen.draw_text("Press A to Start!", None, (255, 255, 255), 100, 640, 950, visible)
-    start_screen.draw_text("Leaderboard:", None, (255, 255, 255), 30, 1215, 10, title_screen)
+    start_screen.draw_text("Press A to Start!", None, (255, 255, 255), 100, 640, 950, 1, 1)
+    start_screen.draw_text("Leaderboard:", None, (255, 255, 255), 30, 1215, 10, 1, 1)
 
     #A for loop that displays however many players on the leaderboard
     # for string in start_screen.leaderboard:
