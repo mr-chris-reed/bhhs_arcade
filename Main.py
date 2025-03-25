@@ -27,12 +27,13 @@ running = True
 joysticks = []
 game_start = False
 counter = 0
+leaderboard = [['CMC', 7.5], ['CWJ', 7.8], ['TGP', 8.1]]
 
 # canvas
 CANVAS = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # testing object creation
-start_screen = Start_Screen("assets/capy_start_screen_NEW.png", [], 1, 0, 0, HEIGHT, WIDTH)
+start_screen = Start_Screen("assets/capy_start_screen_NEW.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
 
 # main game loop
 while running:
