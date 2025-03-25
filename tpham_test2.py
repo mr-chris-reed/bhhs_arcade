@@ -52,13 +52,14 @@ class End_Screen:
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
       # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
-        self.credits = "Credits: eli the emu, tyler the phyler"
-        self.input_box = pygame.Rect(400,420,140,32)
-        self.name_box =  pygame.Rect(400,420,140,50)
+        self.credits = "Cole, Colton, Connor, Rowan, Tyler, Nick, eli"
+        self.input_box = pygame.Rect(570,300,80,100) #intial letter cycling box
+        self.name_box =  pygame.Rect(500,480,225,125) #initals box 
         self.currentLetter = 0
         self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  
         self.text = "" 
-        self.font = pygame.font.SysFont("Arial", 32)  
+        self.font2 = pygame.font.SysFont("Arial",50)
+        self.font = pygame.font.SysFont("Arial", 100)  
         self.currentLetterString = "" 
         self.visible = True
         self.inputVisible=False
@@ -70,11 +71,11 @@ class End_Screen:
 
     def inputName(self,canvas):
         #the text box, eventually will display the letter taken from the handle imput
-        #pygame.draw.rect(canvas,BLUE,self.input_box,2 )
-        text_surface = self.font.render(self.currentLetterString, True, WHITE)  # Render the current text
+        pygame.draw.rect(canvas,BLUE,self.input_box,2 ) # makes box around the initial cylcing 
+        text_surface = self.font.render(self.currentLetterString, True, WHITE)  # cylcing letter
         canvas.blit(text_surface, (self.input_box.x + 5, self.input_box.y + 5))  # Draw the text inside the box
-        pygame.draw.rect(canvas,WHITE,self.name_box,2 ) # Draw the red name box
-        name_surface = self.font.render(self.name, True, WHITE)  # Render the current text
+        pygame.draw.rect(canvas,WHITE,self.name_box,1 ) # Draw the red name box
+        name_surface = self.font.render(self.name, True, WHITE)  # text for the name 
         canvas.blit(name_surface, (self.name_box.x + 10, self.name_box.y + 10))  # Draw the text inside the box
         pygame.display.update()
         
@@ -112,8 +113,8 @@ class End_Screen:
 
     def drawCredits(self,canvas):
         #will handle to drawing of credits, static for now, potentially add scrolling (if possible)
-        text_surface2 = self.font.render(self.credits, True, WHITE)  # Render the current text
-        canvas.blit(text_surface2, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
+        text_surface2 = self.font2.render(self.credits, True, WHITE)  #draws the credits
+        canvas.blit(text_surface2, (250,250))  ##shows up
         
     def drawEndScreen(self):
     # Fills screen black
