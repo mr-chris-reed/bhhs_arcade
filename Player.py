@@ -36,18 +36,7 @@ class Player:
         self.last_sprite_list = self.right_list
         self.last_sprite = self.right_list[0]
         self.last_button = "d"
-    ###
-    # NOTES - 3/17/25 - remove duplicate up function below.  I think when one of
-    # the action functions are called from the main file (currently, your testing file),
-    # The spritePicker function should be called from within each of the action functions.
-    # Something like:
-    # def up(self, counter):
-    #    self.y_coord -= self.y_speed
-    #    return spritePicker(counter, self.up_list) - I think the spritePicker function should return a surface
-    #    The surface it returns will be the surface at the correct sprite_index.  You'll probabaly have to
-    #    rework the spritePicker function a bit.
-    ###
-
+   
         #actions
 
     def spritePicker(self, counter, sprite_list): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
