@@ -18,8 +18,7 @@ class Start_Screen:
         ###
         self.x = x
         self.y = y
-        self.scale_factor = scale_factor
-        self.background = Asset_Reader("assets/start_screen.webp", 1, 1).get_asset_list()
+        self.background = Asset_Reader("assets/start_screen.webp", 1, scale_factor).get_asset_list()
         self.leaderboard = leaderboard #Maybe not for the Alpha test if time does not allow.
         self.height = height
         self.width = width
@@ -42,4 +41,12 @@ class Start_Screen:
         self.surface = pygame.Surface((self.width, self.height))
         self.surface.blit(self.background[0], (self.x,self.y))
         self.draw_text("Press Any Button To Start!", "fonts/PirataOne-Regular.ttf", (0,0,0), 45, 600, 890, counter, 30) # bigger numbers = slower flash
+        self.draw_leaderboard("fonts/PirataOne-Regular.ttf", (255, 255, 255), 30, 1100, 25)
         return self.surface
+
+    def draw_leaderboard(self, font_name, color, size, x, y):
+        self.draw_text("Leaderboard:", font_name, color, size, x, y, 1, 1)
+        for player in self.leaderboard:
+            y += 50
+            self.draw_text(player[0], font_name, color, size, x, y, 1, 1)
+
