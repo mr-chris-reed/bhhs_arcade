@@ -21,7 +21,7 @@ background_color = (255,0,255)
 # initializing pygame, setting up the surface (canvas)
 pygame.init()
 canvas = pygame.display.set_mode((width, height))
-pygame.display.set_caption("maD egg lol") # add a caption for your canvas
+pygame.display.set_caption("Yo, is this this the guy!?!?!?!?!?!?!?!?!?! ;3") # add a caption for your canvas
 
 # import assets
 egg = Player(
