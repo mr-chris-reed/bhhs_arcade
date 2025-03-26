@@ -26,8 +26,8 @@ pygame.display.set_caption("Yo, is this this the guy!?!?!?!?!?!?!?!?!?! ;3") # a
 # import assets
 egg = Player(
             50,50,
-            "assets/Eggsby_4.png", "assets/Eggsby.png", "assets/Eggsby_3.png", "assets/Eggsby_2.png", "assets/Eggsby-dance.png", "assets/Eggsby-attack.png", 
-            2,2,2,2,4,6,1,1,1,1,2,5,5) 
+            "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_side.png", "assets/CapybardaRun_side.png", "assets/CapybardaRun_side.png", "assets/CapybardaRun_side.png", 
+            6,4,6,6,6,6,1,1,1,1,1,5,5) 
 
 
 # clock to set FPS

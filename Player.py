@@ -40,7 +40,7 @@ class Player:
         #actions
 
     def spritePicker(self, counter, sprite_list): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
-        if counter % 40 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
+        if counter % 10 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
             if self.sprite_index == len(sprite_list) - 1:
                 self.sprite_index = 0
             else:
