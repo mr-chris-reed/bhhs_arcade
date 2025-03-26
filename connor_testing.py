@@ -46,12 +46,20 @@ while running:
     keys = pygame.key.get_pressed()
     if keys[pygame.K_a]:
         square_x -= square_speed
+        if (not Background.check_if_in_bounds(backgrounds, square_x, square_y, square_width, square_height)):
+            square_x = backgrounds[Background.background_index].boundary_x
     if keys[pygame.K_d]:
         square_x += square_speed
+        if (not Background.check_if_in_bounds(backgrounds, square_x, square_y, square_width, square_height)):
+            square_x = backgrounds[Background.background_index].boundary_x + backgrounds[Background.background_index].boundary_width - square_width
     if keys[pygame.K_w]:
         square_y -= square_speed
+        if (not Background.check_if_in_bounds(backgrounds, square_x, square_y, square_width, square_height)):
+            square_y = backgrounds[Background.background_index].boundary_y
     if keys[pygame.K_s]:
         square_y += square_speed
+        if (not Background.check_if_in_bounds(backgrounds, square_x, square_y, square_width, square_height)):
+            square_y = backgrounds[Background.background_index].boundary_y + backgrounds[Background.background_index].boundary_height - square_height
 
     # Check if the circle is inside the boundary before updating position
     print(Background.check_if_in_bounds(backgrounds, square_x, square_y, square_width, square_height))
@@ -62,9 +70,12 @@ while running:
     Background.change_prev_flag(backgrounds, square_x, square_y)
 
     # Draw boundary, trigger box, and circle
+    #Remove these to make boundaries invisible
     pygame.draw.rect(screen, (0, 0, 0), (backgrounds[Background.background_index].boundary_x, backgrounds[Background.background_index].boundary_y, backgrounds[Background.background_index].boundary_width, backgrounds[Background.background_index].boundary_height), 2)  # Draw boundary
     pygame.draw.rect(screen, (0, 0, 0), (backgrounds[Background.background_index].next_x, backgrounds[Background.background_index].next_y, backgrounds[Background.background_index].next_width, backgrounds[Background.background_index].next_height), 2)  # Draw trigger box
     pygame.draw.rect(screen, (0, 0, 0), (backgrounds[Background.background_index].prev_x, backgrounds[Background.background_index].prev_y, backgrounds[Background.background_index].prev_width, backgrounds[Background.background_index].prev_height), 2)  # Draw trigger box
+    
+    # Draw player
     pygame.draw.rect(screen, (0, 0, 255), (square_x, square_y, square_width, square_height), 2)
 
     pygame.display.update()  # Update the display
