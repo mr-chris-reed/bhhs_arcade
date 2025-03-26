@@ -22,7 +22,7 @@ pygame.init()
 canvas = pygame.display.set_mode((width, height))
 pygame.display.set_caption("<YOUR DISPLAY CAPTION GOES HERE (STRING)>") # add a caption for your canvas
 #gets the key
-centerx = (1280 - 140) // 2
+centerx = (1280 //2)-75
 centery = (1024 - 32) // 2
 class End_Screen:
     ###
@@ -53,8 +53,8 @@ class End_Screen:
         self.gameOverMessage = gameOverMessage
       # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
         self.credits = "Cole, Colton, Connor, Rowan, Tyler, Nick, eli"
-        self.input_box = pygame.Rect(570,300,80,100) #intial letter cycling box
-        self.name_box =  pygame.Rect(500,480,225,125) #initals box 
+        self.input_box = pygame.Rect(centerx,280,100,100) #intial letter cycling box
+        self.name_box =  pygame.Rect(500,480,235,125) #initals box 
         self.currentLetter = 0
         self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  
         self.text = "" 
@@ -69,15 +69,31 @@ class End_Screen:
     def goHome(self):
         pass
 
-    def inputName(self,canvas):
-        #the text box, eventually will display the letter taken from the handle imput
-        pygame.draw.rect(canvas,BLUE,self.input_box,2 ) # makes box around the initial cylcing 
-        text_surface = self.font.render(self.currentLetterString, True, WHITE)  # cylcing letter
-        canvas.blit(text_surface, (self.input_box.x + 5, self.input_box.y + 5))  # Draw the text inside the box
-        pygame.draw.rect(canvas,WHITE,self.name_box,1 ) # Draw the red name box
-        name_surface = self.font.render(self.name, True, WHITE)  # text for the name 
-        canvas.blit(name_surface, (self.name_box.x + 10, self.name_box.y + 10))  # Draw the text inside the box
+    def inputName(self, canvas):
+    # Draw the input box
+        pygame.draw.rect(canvas, WHITE, self.input_box, 2)  # makes box around the initial cycling
+        text_surface = self.font.render(self.currentLetterString, True, WHITE)  # cycling letter
+    
+    # Calculate the x and y positions to center the letter inside the input box
+        letter_width = text_surface.get_width()
+        letter_height = text_surface.get_height()
+        letter_x = self.input_box.x + (self.input_box.width - letter_width) // 2  # Center the letter horizontally
+        letter_y = self.input_box.y + (self.input_box.height - letter_height) // 2  # Center the letter vertically
+        canvas.blit(text_surface, (letter_x, letter_y))  # Draw the letter inside the box
+
+    # Draw the name box
+        pygame.draw.rect(canvas, WHITE, self.name_box, 1)  # Draw the name box outline
+        name_surface = self.font.render(self.name, True, WHITE)  # text for the name
+    
+    # Calculate the x and y positions to center the name inside the name box
+        name_width = name_surface.get_width()
+        name_height = name_surface.get_height()
+        name_x = self.name_box.x + (self.name_box.width - name_width) // 2  # Center the name horizontally
+        name_y = self.name_box.y + (self.name_box.height - name_height) // 2  # Center the name vertically
+        canvas.blit(name_surface, (name_x, name_y))  # Draw the name inside the box
+    
         pygame.display.update()
+
         
     def handleInput(self,canvas):
         keys=pygame.key.get_pressed()
@@ -94,7 +110,10 @@ class End_Screen:
                         self.currentLetterString = self.alphabet[self.currentLetter]
                     elif event.key == pygame.K_RETURN: # when enter is pressed, add it to the name instance variable
                         self.name += self.currentLetterString
-                    
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_DOWN:
+                        if len(self.name) > 0:  # Only delete if there's at least one character in the name
+                            self.name = self.name[:-1]
                         
                 if abs(vert_move) > 0.5:
                     if vert_move > 0.5:  # If button is up, move to the previous letter
@@ -109,6 +128,7 @@ class End_Screen:
         if len(self.name)==3 :
             if keys[pygame.K_a]:
                     self.inputVisible = False  # Hide the input
+
                     
 
     def drawCredits(self,canvas):

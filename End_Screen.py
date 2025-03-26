@@ -10,6 +10,7 @@ class End_Screen:
     # would want it to hold position, player's initials, and time to complete.
     # We would also want a message to tell players how to get back to the start.
     ###
+    
     def __init__(
             self,
             x,
@@ -19,6 +20,7 @@ class End_Screen:
             leaderboard,
             gameOverMessage,
             backgroundGraphic,
+            credits,
         ):
         self.x = x
         self.y = y
@@ -26,84 +28,112 @@ class End_Screen:
         self.runtime = runtime
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
-        self.backgroundGraphic = Asset_Reader(backgroundGraphic, 1, 1).get_asset_list()
-        self.credits = "Credits: eli the emu, tyler the phyler"
-        self.input_box = pygame.Rect(200,150,140,32)
-        self.name_box =  pygame.Rect(100,150,140,50)
+      # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
+        self.credits = "Cole, Colton, Connor, Rowan, Tyler, Nick, eli"
+        self.input_box = pygame.Rect(centerx,280,100,100) #intial letter cycling box
+        self.name_box =  pygame.Rect(500,480,235,125) #initals box 
         self.currentLetter = 0
         self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  
         self.text = "" 
-        self.font = pygame.font.SysFont("Arial", 32)  
+        self.font2 = pygame.font.SysFont("Arial",50)
+        self.font = pygame.font.SysFont("Arial", 100)  
         self.currentLetterString = "" 
         self.visible = True
-        self.inputVisible=True
+        self.inputVisible=False
         self.name = ""
-        self.vert_move = 0
         
-
+        self.vert_move = 0
     def goHome(self):
         pass
 
-    def inputName(self,canvas):
-        #the text box, eventually will display the letter taken from the handle imput
-        pygame.draw.rect(canvas,(0,255,0),self.input_box,2)
-        text_surface = self.font.render(self.currentLetterString, True, (255, 255, 255))  # Render the current text
-        canvas.blit(text_surface, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
-        pygame.draw.rect(canvas,(255,0,0),self.name_box,2 ) # Draw the red name box
-        name_surface = self.font.render(self.name, True, (255,255,255))  # Render the current text
-        canvas.blit(name_surface, (self.name_box.x + 10, self.name_box.y + 10))  # Draw the text inside the box
+    def inputName(self, canvas):
+    # Draw the input box
+        pygame.draw.rect(canvas, WHITE, self.input_box, 2)  # makes box around the initial cycling
+        text_surface = self.font.render(self.currentLetterString, True, WHITE)  # cycling letter
+    
+    # Calculate the x and y positions to center the letter inside the input box
+        letter_width = text_surface.get_width()
+        letter_height = text_surface.get_height()
+        letter_x = self.input_box.x + (self.input_box.width - letter_width) // 2  # Center the letter horizontally
+        letter_y = self.input_box.y + (self.input_box.height - letter_height) // 2  # Center the letter vertically
+        canvas.blit(text_surface, (letter_x, letter_y))  # Draw the letter inside the box
+
+    # Draw the name box
+        pygame.draw.rect(canvas, WHITE, self.name_box, 1)  # Draw the name box outline
+        name_surface = self.font.render(self.name, True, WHITE)  # text for the name
+    
+    # Calculate the x and y positions to center the name inside the name box
+        name_width = name_surface.get_width()
+        name_height = name_surface.get_height()
+        name_x = self.name_box.x + (self.name_box.width - name_width) // 2  # Center the name horizontally
+        name_y = self.name_box.y + (self.name_box.height - name_height) // 2  # Center the name vertically
+        canvas.blit(name_surface, (name_x, name_y))  # Draw the name inside the box
+    
         pygame.display.update()
+
         
-    def handleInput(self, canvas, joysticks):
+    def handleInput(self,canvas):
+        keys=pygame.key.get_pressed()
+        
         #cycles through the alphabet when the arrows keys are moved and prints, will be changed once joystick is added
-        if len(self.name) < 3:
-                if self.vert_move != round(joysticks[0].get_axis(0)):
-                    self.vert_move = round(joysticks[0].get_axis(0)) 
-                    if self.vert_move > 0.5:  # If button is up, move to the previous letter
+        for event in pygame.event.get():
+            if len(self.name) < 3:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RIGHT:  # If Right Arrow key is pressed, move to the next letter
                         self.currentLetter = (self.currentLetter + 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
-                        print(self.vert_move)
-                    if self.vert_move < -0.5:  # If button is up, move to the previous letter
+                    elif event.key == pygame.K_LEFT:  # If Left Arrow key is pressed, move to the previous letter
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
-                        print(self.vert_move)
-                    if joysticks[0].get_button(10):
+                    elif event.key == pygame.K_RETURN: # when enter is pressed, add it to the name instance variable
                         self.name += self.currentLetterString
-                        print("Current input:" ,self.name)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_DOWN:
+                        if len(self.name) > 0:  # Only delete if there's at least one character in the name
+                            self.name = self.name[:-1]
+                        
+                if abs(vert_move) > 0.5:
+                    if vert_move > 0.5:  # If button is up, move to the previous letter
+                        self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
+                        self.currentLetterString = self.alphabet[self.currentLetter]
+                        print(vert_move)
+                    if vert_move < 0.5:  # If button is up, move to the previous letter
+                        self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
+                        self.currentLetterString = self.alphabet[self.currentLetter]
+                        print(vert_move)
+                print("Current input:" ,{self.name})
+        if len(self.name)==3 :
+            if keys[pygame.K_a]:
+                    self.inputVisible = False  # Hide the input
+
+                    
 
     def drawCredits(self,canvas):
         #will handle to drawing of credits, static for now, potentially add scrolling (if possible)
-        text_surface2 = self.font.render(self.credits, True, (255, 255, 255))  # Render the current text
-        canvas.blit(text_surface2, (self.input_box.x + 10, self.input_box.y + 10))  # Draw the text inside the box
+        text_surface2 = self.font2.render(self.credits, True, WHITE)  #draws the credits
+        canvas.blit(text_surface2, (250,250))  ##shows up
         
-    def drawEndScreen(self,canvas,joysticks):
+    def drawEndScreen(self):
     # Fills screen black
-        canvas.fill((100, 0, 0))
+        canvas.fill(BLACK)
 
     # draw cred, if enter is pressed while creds are displayed it then displays the input name stuf
-        #fills screen black
-        canvas.fill((255,0,0))
-
-        #displays graphic
-        canvas.blit(self.backgroundGraphic[0], (0,0))
-
         if self.visible:
-            self.drawCredits(canvas)
+            end_Screen.drawCredits(canvas)
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    return
-
+                   
                 if event.type == pygame.KEYDOWN:
                     # handles whether the credits are displayed or not
                     if event.key == pygame.K_RETURN and self.visible:
                         self.visible = False  # hid credits
-                        self.inputVisible = True  # shows input box
-                        self.text = "A" 
-                    #working on this, will make the input name stuff invisible and display something else 
-            
-                       
+                        self.inputVisible = True  # shows input box   
+                        self.currentLetterString = "A"
+                
+                
           #draws input box and stuff if it is true
         if self.inputVisible:
-            self.inputName(canvas)
+            end_Screen.inputName(canvas)
+            end_Screen.handleInput(canvas)
+    
             self.handleInput(canvas, joysticks)
+    pygame.display.update()
