@@ -72,4 +72,3 @@ class Background:
             return True
         else:
             return False
-
