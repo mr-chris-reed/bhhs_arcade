@@ -40,6 +40,7 @@ while running:
         if event.type == QUIT: 
             running = False
     
+    # start screen implementation
     if event.type == pygame.JOYBUTTONDOWN:
             for joystick in joysticks:
                 if joystick.get_button(11):
