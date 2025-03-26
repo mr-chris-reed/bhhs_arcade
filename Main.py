@@ -6,7 +6,7 @@
 import pygame
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
-#from End_Screen import End_Screen
+# from End_Screen import End_Screen
 from Start_Screen import Start_Screen
 
 # initialize pygame and pygame joystick
@@ -24,16 +24,16 @@ FPS = 30
 # global variables
 temp_screen = None
 running = True
-joysticks = []
 game_start = False
+joysticks = []
 counter = 0
 leaderboard = [['CMC', 7.5], ['CWJ', 7.8], ['TGP', 8.1]]
 
 # canvas
 CANVAS = pygame.display.set_mode((WIDTH, HEIGHT))
 
-# testing object creation
-start_screen = Start_Screen("assets/capy_start_screen_NEW.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
+# object creation
+start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
 
 # main game loop
 while running:
@@ -52,11 +52,12 @@ while running:
     
     if game_start == False:
         temp_screen = start_screen.generate_return_surface(counter)
-        CANVAS.blit(temp_screen, (125, 0))
+        CANVAS.blit(temp_screen, (0, 0))
 
     if counter >= 600:
         counter = 0
     else: counter += 1
+    # end of start screen implementation
 
     pygame.display.flip()
     clock.tick(FPS)

@@ -1,6 +1,5 @@
-import pygame, sys, time
+import pygame
 from Asset_Reader import Asset_Reader
-from Background import Background
 
 screen = pygame.display.set_mode((1280, 1024))
 
@@ -18,8 +17,8 @@ class Start_Screen:
         ###
         self.x = x
         self.y = y
-        self.background = Asset_Reader("assets/start_screen.webp", 1, scale_factor).get_asset_list()
-        self.leaderboard = leaderboard #Maybe not for the Alpha test if time does not allow.
+        self.background = Asset_Reader("assets/start_screen.png", 1, scale_factor).get_asset_list()
+        self.leaderboard = leaderboard
         self.height = height
         self.width = width
         self.surface = None
@@ -40,13 +39,13 @@ class Start_Screen:
     def generate_return_surface(self, counter):
         self.surface = pygame.Surface((self.width, self.height))
         self.surface.blit(self.background[0], (self.x,self.y))
-        self.draw_text("Press Any Button To Start!", "fonts/PirataOne-Regular.ttf", (0,0,0), 45, 600, 890, counter, 30) # bigger numbers = slower flash
-        self.draw_leaderboard("fonts/PirataOne-Regular.ttf", (255, 255, 255), 30, 1100, 25)
+        self.draw_text("Press Any Button To Start!", "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 600, 1000, counter, 30) # bigger numbers for i = slower flash
+        self.draw_leaderboard("fonts/PirataOne-Regular.ttf", (255, 255, 255), 50, 600, 25, counter)
         return self.surface
 
-    def draw_leaderboard(self, font_name, color, size, x, y):
-        self.draw_text("Leaderboard:", font_name, color, size, x, y, 1, 1)
+    def draw_leaderboard(self, font_name, color, size, x, y, counter):
+        self.draw_text("Leaderboard:", font_name, color, size, x, y, counter, 1)
         for player in self.leaderboard:
             y += 50
-            self.draw_text(player[0], font_name, color, size, x, y, 1, 1)
+            self.draw_text(player[0], font_name, color, size, x, y, counter, 1)
 
