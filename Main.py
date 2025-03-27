@@ -8,6 +8,7 @@ from pygame.locals import *
 from Asset_Reader import Asset_Reader
 # from End_Screen import End_Screen
 from Start_Screen import Start_Screen
+from Background import Background
 
 # initialize pygame and pygame joystick
 pygame.init()
@@ -30,25 +31,31 @@ counter = 0
 leaderboard = [['CMC', 7.5], ['CWJ', 7.8], ['TGP', 8.1]]
 
 # canvas
-CANVAS = pygame.display.set_mode((WIDTH, HEIGHT))
+CANVAS = pygame.display.set_mode((HEIGHT, WIDTH))
 
 # object creation
 start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
+background = Background("assets/forest_path_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 700, 500, 100, 100, 100, 100, 100, 100, False, False)
 
 # main game loop
 while running:
     for event in pygame.event.get():
         if event.type == QUIT: 
             running = False
-    
+
     # start screen implementation
-    if event.type == pygame.JOYBUTTONDOWN:
+        if event.type == pygame.JOYDEVICEADDED:
             for joystick in joysticks:
-                if joystick.get_button(11):
-                    game_start = True
+                joy = pygame.joystick.Joystick(event.device_index)
+                joysticks.append(joy)
+
+    if joysticks[0].get_button(11):
+        game_start = True
+        print("works")
     
     if game_start == True:
-        print("works")
+        temp_screen = background
+        CANVAS.blit(temp_screen, (0, 0))
     
     if game_start == False:
         temp_screen = start_screen.generate_return_surface(counter)
