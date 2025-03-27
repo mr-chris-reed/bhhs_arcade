@@ -35,6 +35,7 @@ while running:
         if event.type == pygame.JOYDEVICEADDED:
             joy = pygame.joystick.Joystick(event.device_index)
             joysticks.append(joy)
+            print("joy")
         if event.type == QUIT: 
             running = False
     end_screen.drawEndScreen(CANVAS, joysticks)
