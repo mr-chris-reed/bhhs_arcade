@@ -12,12 +12,11 @@ pygame.init()
 screen = pygame.display.set_mode((1280, 1024))
 pygame.display.set_caption('Background Test')
 
-hell_background = Background("assets/hell_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100)
-forest_path_background = Background("assets/forest_path_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100)
-background2 = Background("assets/background2.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100 ,100)
+hell_background = Background("assets/hell_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100, 100, 100, 100, 100, False, False)
+forest_path_background = Background("assets/forest_path_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100, 100, 100, 100, 100, False, False)
+castle_background = Background("assets/castle_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100 ,100, 100, 100, 100, 100, False, False)
 
-backgrounds = [forest_path_background, hell_background, background2]
-background_index = 0
+backgrounds = [forest_path_background, hell_background, castle_background]
 
 clock = pygame.time.Clock()
 
@@ -34,7 +33,7 @@ while running:
     screen.fill((0, 0, 0))  # Fill the screen with black
 
     # Display the current background
-    screen.blit(backgrounds[background_index].background_list[0], (background2.x, background2.y))
+    screen.blit(backgrounds[Background.background_index].background_list[0], (backgrounds[Background.background_index].x, backgrounds[Background.background_index].y))
 
     # Event handling
     for event in pygame.event.get():
@@ -80,5 +79,3 @@ while running:
 
     pygame.display.update()  # Update the display
     clock.tick(60)  # Limit the frame rate to 60 FPS
-    
-

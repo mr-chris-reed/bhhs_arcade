@@ -25,7 +25,6 @@ class Background:
         # screens.  This will occur when the player reaches the right-hand side of the screen (like going
         # through a door).
         ###
-    def __init__(self, background, num_images, x, y, scale_factor, origin_x, origin_y, width, height):
         self.background_list = Asset_Reader(background, num_images, scale_factor).get_asset_list()  # Load the backgrounds
         self.x = x
         self.y = y
@@ -72,3 +71,11 @@ class Background:
             return True
         else:
             return False
+
+    def update_left_boundary(background_list, player_x, player_y, player_width, player_height):
+        if (not Background.check_if_in_bounds(background_list, player_x, player_y, player_width, player_height)):
+            player_x = background_list[Background.background_index].boundary_x
+
+    def update_right_boundary(background_list, player_x, player_y, player_width, player_height):
+        if (not Background.check_if_in_bounds(background_list, player_x, player_y, player_width, player_height)):
+            player_x = background_list[Background.background_index].boundary_x + background_list[Background.background_index].boundary_width - player_width
