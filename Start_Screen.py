@@ -17,7 +17,7 @@ class Start_Screen:
         ###
         self.x = x
         self.y = y
-        self.background = Asset_Reader("assets/start_screen.png", 1, scale_factor).get_asset_list()
+        self.background = Asset_Reader(background, 1, scale_factor).get_asset_list()
         self.leaderboard = leaderboard
         self.height = height
         self.width = width
@@ -49,5 +49,6 @@ class Start_Screen:
             x -= 70
             y += 50
             self.draw_text(player[0], font_name, color, size, x, y, counter, 1)
+            self.draw_text(player[1], font_name, color, size, x + 70, y, counter, 1)
             x += 70
 
