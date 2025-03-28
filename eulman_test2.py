@@ -18,7 +18,7 @@ FPS = 60
 # global variables
 running = True
 game_state = "start_screen"
-
+clock = pygame.time.Clock()
 # canvas
 CANVAS = pygame.display.set_mode((WIDTH, HEIGHT))
 
@@ -39,3 +39,9 @@ while running:
         if event.type == QUIT: 
             running = False
     end_screen.drawEndScreen(CANVAS, joysticks)
+ tpham
+
+=======
+    pygame.display.flip()
+    clock.tick(30)
+ main

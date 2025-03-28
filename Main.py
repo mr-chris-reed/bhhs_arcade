@@ -28,7 +28,7 @@ running = True
 game_start = False
 joysticks = []
 counter = 0
-leaderboard = [['CMC', 7.5], ['CWJ', 7.8], ['TGP', 8.1]]
+leaderboard = [['CMC', "7.5"], ['CWJ', "7.8"], ['TGP', "8.1"]]
 
 # canvas
 CANVAS = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -58,6 +58,10 @@ while running:
     if game_start == True:
         temp_screen = forest_path_background.generate_background_surface(backgrounds, WIDTH, HEIGHT)
         CANVAS.blit(temp_screen, (0, 0))
+
+    #if game_start == True:
+        
+        ### implement blitting of the Background.py class here
     
     if game_start == False:
         temp_screen = start_screen.generate_return_surface(counter)
