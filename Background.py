@@ -46,7 +46,7 @@ class Background:
         self.surface = None
 
     # If player is inside the next boundary, the background only changes once(flag becomes true when inside, becomes false when outside)
-    def change_next_flag(self, background_list, player_x, player_y):
+    def change_next_flag(background_list, player_x, player_y):
         if (background_list[Background.background_index].next_x <= player_x <= background_list[Background.background_index].next_x + background_list[Background.background_index].next_width and
             background_list[Background.background_index].next_y <= player_y <= background_list[Background.background_index].next_y + background_list[Background.background_index].next_height):
             if not background_list[Background.background_index].next_flag:  # Only change background if not already triggered
@@ -57,7 +57,7 @@ class Background:
             background_list[Background.background_index].next_flag = False  # Reset flag when leaving the next box
 
     # If player is inside the prev boundary, the background only changes once(flag becomes true when inside, becomes false when outside)
-    def change_prev_flag(self, background_list, player_x, player_y):
+    def change_prev_flag(background_list, player_x, player_y):
         if (background_list[Background.background_index].prev_x <= player_x <= background_list[Background.background_index].prev_x + background_list[Background.background_index].prev_width and
             background_list[Background.background_index].prev_y <= player_y <= background_list[Background.background_index].prev_y + background_list[Background.background_index].prev_height):
             if not background_list[Background.background_index].prev_flag:  # Only change background if not already triggered
@@ -68,7 +68,7 @@ class Background:
             background_list[Background.background_index].prev_flag = False  # Reset flag when leaving the prev box
 
     # Returns true if player is inside the boundaries, returns false if not
-    def check_if_in_bounds(self, background_list, player_x, player_y, player_width, player_height):
+    def check_if_in_bounds(background_list, player_x, player_y, player_width, player_height):
         if (background_list[Background.background_index].boundary_x <= player_x and background_list[Background.background_index].boundary_y <= player_y and player_x + player_width <= background_list[Background.background_index].boundary_x + background_list[Background.background_index].boundary_width and player_y + player_height <= background_list[Background.background_index].boundary_y + background_list[Background.background_index].boundary_height):
             return True
         else:
@@ -86,7 +86,7 @@ class Background:
 
     def generate_background_surface(self, background_list, width, height):
         surface = pygame.Surface((width, height))
-        surface.blit(self.background_list[Background.background_index], (self.x, self.y))
+        surface.blit(background_list[Background.background_index], (self.x, self.y))
         pygame.draw.rect(surface, (0, 0, 0), (background_list[Background.background_index].boundary_x, background_list[Background.background_index].boundary_y, background_list[Background.background_index].boundary_width, background_list[Background.background_index].boundary_height), 2)  # Draw boundary
         pygame.draw.rect(surface, (0, 0, 0), (background_list[Background.background_index].next_x, background_list[Background.background_index].next_y, background_list[Background.background_index].next_width, background_list[Background.background_index].next_height), 2)  # Draw trigger box
         pygame.draw.rect(surface, (0, 0, 0), (background_list[Background.background_index].prev_x, background_list[Background.background_index].prev_y, background_list[Background.background_index].prev_width, background_list[Background.background_index].prev_height), 2)  # Draw trigger box
