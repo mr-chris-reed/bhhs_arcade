@@ -26,9 +26,9 @@ pygame.display.set_caption("Yo, is this this the guy!?!?!?!?!?!?!?!?!?! ;3") # a
 # import assets
 egg = Player(
             50,50,
-            "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_side.png", "assets/CapybardaRun_side.png", "assets/CapybardaRun_side.png", "assets/CapybardaRun_side.png",
-            "assets/CapybardaIdle_back.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_side.png", "assets/CapybardaIdle_side.png",
-            6,4,6,6,6,6,1,1,1,1,1,5,5) 
+            "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_Side2.png", "assets/CapybardaRun_side.png", "assets/CapybardaRun_side.png", "assets/CapybardaRun_side.png",
+            "assets/CapybardaIdle_back.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_side2.png", "assets/CapybardaIdle_side.png",
+            6,4,6,6,6,6,4,4,4,4,1,1,1,1,1,5,5) 
 
 
 # clock to set FPS
@@ -64,7 +64,7 @@ while running:
     elif keys[pygame.K_d]:
         egg.right(counter)
     else:
-        egg.last_sprite = egg.spritePicker(counter, egg.last_sprite_list)
+        egg.last_sprite = egg.spritePicker(counter, egg.last_idle_sprite_list)
 
     canvas.blit(egg.last_sprite, (egg.x_coord, egg.y_coord))
     
