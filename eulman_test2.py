@@ -39,3 +39,4 @@ while running:
         if event.type == QUIT: 
             running = False
     end_screen.drawEndScreen(CANVAS, joysticks)
+

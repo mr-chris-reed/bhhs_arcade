@@ -122,4 +122,3 @@ class End_Screen:
         if self.inputVisible:
             self.inputName(canvas)
             self.handleInput(canvas,joysticks)
-    
