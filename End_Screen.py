@@ -41,7 +41,8 @@ class End_Screen:
         self.inputVisible=False
         self.name = ""        
         self.vert_move = 0
-
+        self.vert_move2 = 0
+        self.butt_move = 0
     def goHome(self):
         pass
 
@@ -68,7 +69,7 @@ class End_Screen:
         name_y = self.name_box.y + (self.name_box.height - name_height) // 2  # Center the name vertically
         canvas.blit(name_surface, (name_x, name_y))  # Draw the name inside the box
     
-        pygame.display.update()
+        
 
         
     def handleInput(self,canvas, joysticks):
@@ -80,14 +81,19 @@ class End_Screen:
                     if self.vert_move > 0.5:  # If button is up, move to the previous letter
                         self.currentLetter = (self.currentLetter + 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
-                        print(self.vert_move)
+                       
                     if self.vert_move < -0.5:  # If button is up, move to the previous letter
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
-                        print(self.vert_move)
-                    if joysticks[0].get_button(11):
+                        
+                if self.butt_move != round(joysticks[0].get_button(11)):
+                    self.butt_move = round(joysticks[0].get_button(11)) 
+                    if joysticks[0].get_button(11) == 1:
                         self.name += self.currentLetterString
-                        print("Current input:" ,self.name)
+                    
+                        print(joysticks[0].get_button(11))
+                    
+                        
         if len(self.name)==3 :
             if keys[pygame.K_a]:
                     self.inputVisible = False  # Hide the input
@@ -95,19 +101,20 @@ class End_Screen:
                     
 
     def drawCredits(self,canvas):
+        
         HEIGHT = 1000
-        y_pos = self.vert_move  # Use vert_move to track position
+        y_pos = self.vert_move2  # Use vert_move to track position
         credit_height = len(self.credits) * 60  # Total height for all the credits
         for i, credit in enumerate(self.credits):
             text_surface = self.font2.render(credit, True, (255,255,255))
             canvas.blit(text_surface, (250, y_pos + (i * 60)))  # Draw each credit line
             
         # Update the scroll position
-            self.vert_move -= 1  # Move the credits upwards
+            self.vert_move2 -= 1  # Move the credits upwards
 
         # If the credits have completely moved off the screen, stop scrolling
             if y_pos + credit_height < 0:
-                self.vert_move = HEIGHT  # Reset position to start from bottom ag
+                self.vert_move2 = HEIGHT  # Reset position to start from bottom ag
         
         
     def drawEndScreen(self, canvas, joysticks):
@@ -117,16 +124,20 @@ class End_Screen:
     # draw cred, if enter is pressed while creds are displayed it then displays the input name stuf
         if self.visible:
             self.drawCredits(canvas)
-            for event in pygame.event.get():
-                   
-                if event.type == pygame.KEYDOWN:
-                    # handles whether the credits are displayed or not
-                    if event.key == pygame.K_RETURN and self.visible:
-                        self.visible = False  # hid credits
-                        self.inputVisible = True  # shows input box   
-                        self.currentLetterString = "A"
-                
-                
+        if self.butt_move != round(joysticks[0].get_button(11)):
+            self.butt_move = round(joysticks[0].get_button(11)) 
+            if joysticks[0].get_button(11) == 1 and self.visible:
+                self.visible = False  # hid credits
+                self.inputVisible = True  # shows input box   
+                self.currentLetterString = "A"
+        for event in pygame.event.get():   
+            if event.type == pygame.KEYDOWN:
+                # handles whether the credits are displayed or not
+                if event.key == pygame.K_RETURN and self.visible:
+                    self.visible = False  # hid credits
+                    self.inputVisible = True  # shows input box   
+                    self.currentLetterString = "A"
+        
           #draws input box and stuff if it is true
         if self.inputVisible:
             self.inputName(canvas)

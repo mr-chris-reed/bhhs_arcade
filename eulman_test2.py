@@ -39,9 +39,9 @@ while running:
         if event.type == QUIT: 
             running = False
     end_screen.drawEndScreen(CANVAS, joysticks)
- tpham
+ 
 
-=======
+    
     pygame.display.flip()
-    clock.tick(30)
- main
+    clock.tick(60)
+ 
