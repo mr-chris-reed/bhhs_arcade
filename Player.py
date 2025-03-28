@@ -43,7 +43,7 @@ class Player:
         self.idle_right_list = Asset_Reader(idle_right, num_right_idle, right_scale).get_asset_list()
         self.sprite_index = 0
         self.last_sprite_list = self.right_list
-        self.last_sprite = self.right_list
+        self.last_sprite = self.right_list[0]
         self.last_idle_sprite_list = self.idle_right_list
         self.last_idle_sprite = self.idle_right_list[0]
         self.last_button = "d"
@@ -62,8 +62,8 @@ class Player:
         if (self.last_button != "w"):
             self.sprite_index = 0
         self.y_coord -= self.y_speed
-        self.last_sprite_list = self.spritePicker(counter, self.right_list)
-        self.last_sprite = self.up_list
+        self.last_sprite_list = self.up_list
+        self.last_sprite =self.spritePicker(counter, self.up_list)
         self.last_idle_sprite_list = self.idle_up_list
         self.last_button ="w"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_up_list)
@@ -74,7 +74,7 @@ class Player:
             self.sprite_index = 0
         self.y_coord += self.y_speed
         self.last_sprite_list =self.down_list
-        self.last_sprite = self.down_list
+        self.last_sprite = self.spritePicker(counter, self.down_list)
         self.last_idle_sprite_list = self.idle_down_list
         self.last_button = "s"
         self.last__idle_sprite = self.spritePicker(counter, self.idle_down_list)
@@ -84,7 +84,7 @@ class Player:
             self.sprite_index = 0
         self.x_coord -= self.x_speed
         self.last_sprite_list = self.left_list
-        self.last_sprite = self.left_list
+        self.last_sprite = self.spritePicker(counter, self.left_list)
         self.last_idle_sprite_list = self.idle_left_list
         self.last_button = "a"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_left_list)
