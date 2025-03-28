@@ -12,7 +12,7 @@ width = 1480 # adjust for width of canvas
 height = 1000 # adjust for height of canvas
 
 # frame rate
-fps = 60
+fps = 30
 counter = 0
 
 # colors
@@ -28,7 +28,7 @@ egg = Player(
             50,50,
             "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_Side2.png", "assets/CapybardaRun_side.png", "assets/CapybardaRun_side.png", "assets/CapybardaRun_side.png",
             "assets/CapybardaIdle_back.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_side2.png", "assets/CapybardaIdle_side.png",
-            6,4,6,6,6,6,4,4,4,4,1,1,1,1,1,5,5) 
+            6,4,4,6,6,6,4,4,4,4,1,1,1,1,1,5,5) 
 
 
 # clock to set FPS
