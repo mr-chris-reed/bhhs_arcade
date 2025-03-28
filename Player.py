@@ -11,7 +11,7 @@ class Player:
                 x_coord, y_coord, 
                 ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack,
                 idle_up,idle_down,idle_left,idle_right,
-                num_up, num_down, num_left, num_right, num_interact, num_attack, num_up_idle, num_down_idle, num_left_idle, num_right_idle
+                num_up, num_down, num_left, num_right, num_interact, num_attack, num_up_idle, num_down_idle, num_left_idle, num_right_idle,
                 scale,up_scale,down_scale, left_scale, right_scale,
                 x_speed, y_speed):
 
