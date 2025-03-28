@@ -37,13 +37,15 @@ class Player:
         self.right_list = Asset_Reader(ss_right, num_right, right_scale).get_asset_list()
         self.interact_list = Asset_Reader(ss_interact, num_interact, scale).get_asset_list()
         self.attack_list = Asset_Reader(ss_attack, num_attack, scale).get_asset_list()
-        self.idle_up_list = Asset_Reader(idle_up, num_up, up_scale).get_asset_list()
-        self.idle_down_list = Asset_Reader(idle_down, num_down, down_scale).get_asset_list()
-        self.idle_left_list = Asset_Reader(idle_left, num_left, left_scale).get_asset_list()
-        self.idle_right_list = Asset_Reader(idle_right, num_right, right_scale).get_asset_list()
+        self.idle_up_list = Asset_Reader(idle_up, num_up_idle, up_scale).get_asset_list()
+        self.idle_down_list = Asset_Reader(idle_down, num_down_idle, down_scale).get_asset_list()
+        self.idle_left_list = Asset_Reader(idle_left, num_left_idle, left_scale).get_asset_list()
+        self.idle_right_list = Asset_Reader(idle_right, num_right_idle, right_scale).get_asset_list()
         self.sprite_index = 0
         self.last_sprite_list = self.right_list
-        self.last_sprite = self.right_list[0]
+        self.last_sprite = self.right_list
+        self.last_idle_sprite_list = self.idle_right_list
+        self.last_idle_sprite = self.idle_right_list[0]
         self.last_button = "d"
    
         #actions
@@ -60,26 +62,32 @@ class Player:
         if (self.last_button != "w"):
             self.sprite_index = 0
         self.y_coord -= self.y_speed
-        self.last_sprite_list = self.up_list
+        self.last_sprite_list = self.spritePicker(counter, self.right_list)
+        self.last_sprite = self.up_list
+        self.last_idle_sprite_list = self.idle_up_list
         self.last_button ="w"
-        self.last_sprite = self.spritePicker(counter, self.idle_up_list)
+        self.last_idle_sprite = self.spritePicker(counter, self.idle_up_list)
         
 
     def down(self, counter):
         if (self.last_button != "s"):
             self.sprite_index = 0
         self.y_coord += self.y_speed
-        self.last_sprite_list = self.down_list
+        self.last_sprite_list =self.down_list
+        self.last_sprite = self.down_list
+        self.last_idle_sprite_list = self.idle_down_list
         self.last_button = "s"
-        self.last_sprite = self.spritePicker(counter, self.idle_down_list)
+        self.last__idle_sprite = self.spritePicker(counter, self.idle_down_list)
 
     def left(self, counter):
         if (self.last_button != "a"):
             self.sprite_index = 0
         self.x_coord -= self.x_speed
         self.last_sprite_list = self.left_list
+        self.last_sprite = self.left_list
+        self.last_idle_sprite_list = self.idle_left_list
         self.last_button = "a"
-        self.last_sprite = self.spritePicker(counter, self.idle_left_list)
+        self.last_idle_sprite = self.spritePicker(counter, self.idle_left_list)
 
 
     def right(self, counter):
@@ -87,8 +95,10 @@ class Player:
             self.sprite_index = 0
         self.x_coord += self.x_speed
         self.last_sprite_list = self.right_list
+        self.last_sprite = self.spritePicker(counter, self.right_list)
+        self.last_idle_sprite_list = self.idle_right_list
         self.last_button = "d"
-        self.last_sprite = self.spritePicker(counter, self.idle_right_list)
+        self.last_idle_sprite = self.spritePicker(counter, self.idle_right_list)
 
 
     #def interact(self, item_group):
