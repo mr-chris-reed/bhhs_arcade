@@ -51,4 +51,3 @@ class Start_Screen:
             self.draw_text(player[0], font_name, color, size, x, y, counter, 1)
             self.draw_text(player[1], font_name, color, size, x + 70, y, counter, 1)
             x += 70
-
