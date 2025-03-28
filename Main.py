@@ -32,11 +32,14 @@ leaderboard = [['CMC', "7.5"], ['CWJ', "7.8"], ['TGP', "8.1"]]
 
 # canvas
 CANVAS = pygame.display.set_mode((WIDTH, HEIGHT))
-#CANVAS = pygame.display.set_mode((0, 0), FULLSCREEN)
 
 # object creation
 start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
-#background = Background("assets/forest_path_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 700, 500, 100, 100, 100, 100, 100, 100, False, False)
+hell_background = Background("assets/hell_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100, 100, 100, 100, 100, False, False)
+forest_path_background = Background("assets/forest_path_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100, 100, 100, 100, 100, False, False)
+castle_background = Background("assets/castle_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100 ,100, 100, 100, 100, 100, False, False)
+
+backgrounds = [forest_path_background, hell_background, castle_background]
 
 # main game loop
 while running:
@@ -49,10 +52,12 @@ while running:
             joy = pygame.joystick.Joystick(event.device_index)
             joysticks.append(joy)
 
+    if joysticks[0].get_button(11):
+        game_start = True
     
-    for joystick in joysticks:
-        if joysticks[0].get_button(11):
-            game_start = True
+    if game_start == True:
+        temp_screen = forest_path_background.generate_background_surface(backgrounds, WIDTH, HEIGHT)
+        CANVAS.blit(temp_screen, (0, 0))
 
     #if game_start == True:
         
