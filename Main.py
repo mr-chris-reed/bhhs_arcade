@@ -28,14 +28,15 @@ running = True
 game_start = False
 joysticks = []
 counter = 0
-leaderboard = [['CMC', 7.5], ['CWJ', 7.8], ['TGP', 8.1]]
+leaderboard = [['CMC', "7.5"], ['CWJ', "7.8"], ['TGP', "8.1"]]
 
 # canvas
-CANVAS = pygame.display.set_mode((HEIGHT, WIDTH))
+CANVAS = pygame.display.set_mode((WIDTH, HEIGHT))
+#CANVAS = pygame.display.set_mode((0, 0), FULLSCREEN)
 
 # object creation
 start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
-background = Background("assets/forest_path_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 700, 500, 100, 100, 100, 100, 100, 100, False, False)
+#background = Background("assets/forest_path_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 700, 500, 100, 100, 100, 100, 100, 100, False, False)
 
 # main game loop
 while running:
@@ -45,17 +46,17 @@ while running:
 
     # start screen implementation
         if event.type == pygame.JOYDEVICEADDED:
-            for joystick in joysticks:
-                joy = pygame.joystick.Joystick(event.device_index)
-                joysticks.append(joy)
+            joy = pygame.joystick.Joystick(event.device_index)
+            joysticks.append(joy)
 
-    if joysticks[0].get_button(11):
-        game_start = True
-        print("works")
     
-    if game_start == True:
-        temp_screen = background
-        CANVAS.blit(temp_screen, (0, 0))
+    for joystick in joysticks:
+        if joysticks[0].get_button(11):
+            game_start = True
+
+    #if game_start == True:
+        
+        ### implement blitting of the Background.py class here
     
     if game_start == False:
         temp_screen = start_screen.generate_return_surface(counter)

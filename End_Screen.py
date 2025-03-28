@@ -28,9 +28,9 @@ class End_Screen:
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
       # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
-        self.credits = "Cole Shook, Colton Chappell, Connor James, Rowan Pederson, Tyler Pham, Nicholas Winkler, and Eli Ulman"
+        self.credits = ["Cole", "Colton", "Connor", "Rowan", "Tyler", "Nick", "Eli", "James", "Isobel", "Archer", "Eliza", "Dylan", "Colin"]
         self.input_box = pygame.Rect((1280 //2)-75,280,100,100) #intial letter cycling box
-        self.name_box =  pygame.Rect(500,480,235,125) #initals box 
+        self.name_box =  pygame.Rect(450,480,335,125) #initals box 
         self.currentLetter = 0
         self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  
         self.text = "" 
@@ -39,9 +39,9 @@ class End_Screen:
         self.currentLetterString = "" 
         self.visible = True
         self.inputVisible=False
-        self.name = ""
-        
+        self.name = ""        
         self.vert_move = 0
+
     def goHome(self):
         pass
 
@@ -88,8 +88,6 @@ class End_Screen:
                     if joysticks[0].get_button(11):
                         self.name += self.currentLetterString
                         print("Current input:" ,self.name)
-                    if keys[pygame.K_a]:
-                        self.name += self.currentLetterString
         if len(self.name)==3 :
             if keys[pygame.K_a]:
                     self.inputVisible = False  # Hide the input
@@ -97,9 +95,20 @@ class End_Screen:
                     
 
     def drawCredits(self,canvas):
-        #will handle to drawing of credits, static for now, potentially add scrolling (if possible)
-        text_surface2 = self.font2.render(self.credits, True, (255,255,255))  #draws the credits
-        canvas.blit(text_surface2, (250,250))  ##shows up
+        HEIGHT = 1000
+        y_pos = self.vert_move  # Use vert_move to track position
+        credit_height = len(self.credits) * 60  # Total height for all the credits
+        for i, credit in enumerate(self.credits):
+            text_surface = self.font2.render(credit, True, (255,255,255))
+            canvas.blit(text_surface, (250, y_pos + (i * 60)))  # Draw each credit line
+            
+        # Update the scroll position
+            self.vert_move -= 1  # Move the credits upwards
+
+        # If the credits have completely moved off the screen, stop scrolling
+            if y_pos + credit_height < 0:
+                self.vert_move = HEIGHT  # Reset position to start from bottom ag
+        
         
     def drawEndScreen(self, canvas, joysticks):
     # Fills screen black
