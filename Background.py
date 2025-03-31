@@ -5,93 +5,69 @@ class Background:
 
     background_index = 0
 
-    def __init__(self, background, num_images, x, y, scale_factor, boundary_x, boundary_y, boundary_width, boundary_height, next_x, next_y, next_width, next_height, prev_x, prev_y, prev_width, prev_height, next_flag, prev_flag):
-        ###
-        # NOTES: You might consider creating instance variables that define the
-        # movable space - the area where characters can move around - boundaries for background.
-        # One way to do this is to create instance variables of x_low, x_high, y_low, y_high. These instance variables
-        # can be used by the player and enimies to control the character not moving off of the screen.
-        # We need to discuss how we want to control background flow. Will it be part of this class,
-        # like you have below with the methods moveToNext and moveToPrev, or will this be controlled
-        # in the main loop?  Along with this challenge, we also need to think about how the character
-        # transitions to the next background.  Does it happen automatically when minions/boss is
-        # destroyed or is there a door?
-        ###
-
-        ###
-        # NOTES - 3/17/25 - You need to work on moving code that you currently have in the connor_teting
-        # file to this class.  In the testing class, which will ultimately be our main driving file,
-        # you could have 3 constructor calls to the Background class creating 3 backgrounds. Then in
-        # the main game loop (your connner_testing file / main) you can write the logic for changing
-        # screens.  This will occur when the player reaches the right-hand side of the screen (like going
-        # through a door).
-        ###
-        self.background_list = Asset_Reader(background, num_images, scale_factor).get_asset_list()  # Load the backgrounds
+    def __init__(self, sprite_sheet, num_images, scale_factor, x, y, low_x, high_x, low_y, high_y):
+        self.background_image = Asset_Reader(sprite_sheet, num_images, scale_factor).get_asset_list()
         self.x = x
         self.y = y
-        self.boundary_x = boundary_x
-        self.boundary_y = boundary_y
-        self.boundary_width = boundary_width
-        self.boundary_height = boundary_height
-        self.next_x = next_x
-        self.next_y = next_y
-        self.next_width = next_width
-        self.next_height = next_height
-        self.prev_x = prev_x
-        self.prev_y = prev_y
-        self.prev_width = prev_width
-        self.prev_height = prev_height
-        self.next_flag = next_flag
-        self.prev_flag = prev_flag
-        self.surface = None
+        self.low_x = low_x
+        self.high_x = high_x
+        self.low_y = low_y
+        self.high_y = high_y
+        self.size = self.background_image[0].get_rect()
+        self.width = self.size.width
+        self.height = self.size.height
+        self.in_box = pygame.Surface((200, 200), pygame.SRCALPHA)
+        self.in_box_rect = pygame.Rect(self.low_x, self.low_y, 200, 200)
+        self.out_box = pygame.Surface((200, 200), pygame.SRCALPHA)
+        self.out_box_rect = pygame.Rect(self.high_x - 200, self.high_y - 200, 200, 200)
 
-    # If player is inside the next boundary, the background only changes once(flag becomes true when inside, becomes false when outside)
-    def change_next_flag(background_list, player_x, player_y):
-        if (background_list[Background.background_index].next_x <= player_x <= background_list[Background.background_index].next_x + background_list[Background.background_index].next_width and
-            background_list[Background.background_index].next_y <= player_y <= background_list[Background.background_index].next_y + background_list[Background.background_index].next_height):
-            if not background_list[Background.background_index].next_flag:  # Only change background if not already triggered
-                if Background.background_index < len(background_list) - 1:
-                    Background.background_index += 1
-                background_list[Background.background_index].next_flag = True
-        else:
-            background_list[Background.background_index].next_flag = False  # Reset flag when leaving the next box
+    def generate_return_surface(self):
+        surface = pygame.Surface((self.width, self.height))
+        surface.blit(self.background_image[0], (self.x, self.y))
+        pygame.draw.line(surface, (0, 0, 0), (self.low_x, self.low_y), (self.high_x, self.low_y), width=3)
+        pygame.draw.line(surface, (0, 0, 0), (self.low_x, self.low_y), (self.low_x, self.high_y), width=3)
+        pygame.draw.line(surface, (0, 0, 0), (self.high_x, self.low_y), (self.high_x, self.high_y), width=3)
+        pygame.draw.line(surface, (0, 0, 0), (self.low_x, self.high_y), (self.high_x, self.high_y), width=3)
+        pygame.draw.rect(self.in_box, (255, 255, 255, 64), (0, 0, 200, 200))
+        surface.blit(self.in_box, (self.low_x, self.low_y))
+        pygame.draw.rect(self.out_box, (255, 255, 255, 64), (0, 0, 200, 200))
+        surface.blit(self.out_box, (self.high_x - 200, self.high_y - 200))
+        return surface
 
-    # If player is inside the prev boundary, the background only changes once(flag becomes true when inside, becomes false when outside)
-    def change_prev_flag(background_list, player_x, player_y):
-        if (background_list[Background.background_index].prev_x <= player_x <= background_list[Background.background_index].prev_x + background_list[Background.background_index].prev_width and
-            background_list[Background.background_index].prev_y <= player_y <= background_list[Background.background_index].prev_y + background_list[Background.background_index].prev_height):
-            if not background_list[Background.background_index].prev_flag:  # Only change background if not already triggered
-                if Background.background_index > 0:
-                    Background.background_index -= 1
-                background_list[Background.background_index].prev_flag = True
-        else:
-            background_list[Background.background_index].prev_flag = False  # Reset flag when leaving the prev box
-
-    # Returns true if player is inside the boundaries, returns false if not
-    def check_if_in_bounds(background_list, player_x, player_y, player_width, player_height):
-        if (background_list[Background.background_index].boundary_x <= player_x and background_list[Background.background_index].boundary_y <= player_y and player_x + player_width <= background_list[Background.background_index].boundary_x + background_list[Background.background_index].boundary_width and player_y + player_height <= background_list[Background.background_index].boundary_y + background_list[Background.background_index].boundary_height):
+    def check_can_move_left(self, player):
+        if (player.x_coord - player.x_speed > self.low_x):
             return True
         else:
             return False
 
-    def update_left_boundary(self, background_list, player_x, player_y, player_width, player_height):
-        # if (not Background.check_if_in_bounds(background_list, player_x, player_y, player_width, player_height)):
-            # player_x = background_list[Background.background_index].boundary_x
-        pass
+    def check_can_move_right(self, player):
+        if (player.x_coord + player.x_speed + player.width < self.high_x):
+            return True
+        else:
+            return False
 
-    def update_right_boundary(self, background_list, player_x, player_y, player_width, player_height):
-        # if (not Background.check_if_in_bounds(background_list, player_x, player_y, player_width, player_height)):
-            # player_x = background_list[Background.background_index].boundary_x + background_list[Background.background_index].boundary_width - player_width
-        pass
+    def check_can_move_up(self, player):
+        if (player.y_coord - player.y_speed > self.low_y):
+            return True
+        else:
+            return False
 
-    def generate_background_surface(self, background_list, width, height):
-        surface = pygame.Surface((width, height))
-        surface.blit(background_list[Background.background_index], (self.x, self.y))
-        pygame.draw.rect(surface, (0, 0, 0), (background_list[Background.background_index].boundary_x, background_list[Background.background_index].boundary_y, background_list[Background.background_index].boundary_width, background_list[Background.background_index].boundary_height), 2)  # Draw boundary
-        pygame.draw.rect(surface, (0, 0, 0), (background_list[Background.background_index].next_x, background_list[Background.background_index].next_y, background_list[Background.background_index].next_width, background_list[Background.background_index].next_height), 2)  # Draw trigger box
-        pygame.draw.rect(surface, (0, 0, 0), (background_list[Background.background_index].prev_x, background_list[Background.background_index].prev_y, background_list[Background.background_index].prev_width, background_list[Background.background_index].prev_height), 2)  # Draw trigger box
+    def check_can_move_down(self, player):
+        if (player.y_coord + player.y_speed + player.height < self.high_y):
+            return True
+        else:
+            return False
 
-        #background_list[Background.background_index].surface = pygame.Surface((background_list[Background.background_index].x, background_list[Background.background_index].y))
-        #background_list[Background.background_index].surface.blit(background_list[Background.background_index], (background_list[Background.background_index].x,background_list[Background.background_index].y))
-        #return background_list[Background.background_index].surface
-        return surface
+    def check_if_in_next_box(self, player):
+        player_rect = pygame.Rect(player.x_coord, player.y_coord, player.width, player.height)
+        if self.out_box_rect.contains(player_rect):
+            return True
+        else:
+            return False
+
+    def check_if_in_prev_box(self, player):
+        player_rect = pygame.Rect(player.x_coord, player.y_coord, player.width, player.height)
+        if self.in_box_rect.contains(player_rect):
+            return True
+        else:
+            return False
