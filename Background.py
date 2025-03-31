@@ -53,7 +53,7 @@ class Background:
             return False
 
     def check_can_move_down(self, player):
-        if (player.y_coord + player.y_speed + player.height < self.high_y): # 150 is fudge factor for height of player
+        if (player.y_coord + player.y_speed + player.height < self.high_y):
             return True
         else:
             return False
