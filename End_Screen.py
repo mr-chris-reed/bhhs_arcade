@@ -88,9 +88,10 @@ class End_Screen:
                         
                 if self.butt_move != round(joysticks[0].get_button(11)):
                     self.butt_move = round(joysticks[0].get_button(11))
+                    
                     if self.butt_move == 1:
                         self.name += self.currentLetterString
-                        
+                        print("test")
         if len(self.name)==3 :
             self.inputVisible = False  # Hide the input
 
