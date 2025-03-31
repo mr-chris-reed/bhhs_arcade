@@ -87,16 +87,12 @@ class End_Screen:
                         self.currentLetterString = self.alphabet[self.currentLetter]
                         
                 if self.butt_move != round(joysticks[0].get_button(11)):
-                    self.butt_move = round(joysticks[0].get_button(11)) 
-                    if joysticks[0].get_button(11) == 1:
+                    self.butt_move = round(joysticks[0].get_button(11))
+                    if self.butt_move == 1:
                         self.name += self.currentLetterString
-                    
-                        print(joysticks[0].get_button(11))
-                    
                         
         if len(self.name)==3 :
-            if keys[pygame.K_a]:
-                    self.inputVisible = False  # Hide the input
+            self.inputVisible = False  # Hide the input
 
                     
 
