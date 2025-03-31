@@ -38,6 +38,14 @@ notes_right = []
 notes_up = []
 notes_down= []
 
+# load sounds
+forest_sound = pygame.mixer.Sound("sounds/Forest_Scene_Concept.mp3")
+forest_sound.set_volume(0.20)
+castle_sound = pygame.mixer.Sound("sounds/Castle_Scene_Concept.mp3")
+castle_sound.set_volume(0.20)
+hell_sound = pygame.mixer.Sound("sounds/Boss_Intro_Concept.mp3")
+hell_sound.set_volume(0.20)
+
 # note image
 note_image = Asset_Reader("assets/note.png", 1, 0.5).get_asset_list()[0]
 
@@ -49,7 +57,8 @@ def check_and_clear_notes(list):
             temp.append(note)
     return temp
 
-# canvas
+# canvas        if (current_background.check_if_in_prev_box(capybarda)):
+
 CANVAS = pygame.display.set_mode((0, 0), FULLSCREEN)
 
 # object creation
@@ -151,6 +160,21 @@ while running:
             CANVAS.blit(note.projectile_image, (note.x, note.y))
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
+
+    # play sounds
+    if game_start:
+        if Background.background_index == 0:
+            forest_sound.play()
+            castle_sound.stop()
+            hell_sound.stop()
+        elif Background.background_index == 1:
+            castle_sound.play()
+            forest_sound.stop()
+            hell_sound.stop()
+        elif Background.background_index == 2:
+            hell_sound.play()
+            forest_sound.stop()
+            castle_sound.stop()
 
     if counter >= 600:
         counter = 0
