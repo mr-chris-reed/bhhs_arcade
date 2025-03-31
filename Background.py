@@ -17,7 +17,9 @@ class Background:
         self.width = self.size.width
         self.height = self.size.height
         self.in_box = pygame.Surface((200, 200), pygame.SRCALPHA)
+        self.in_box_rect = pygame.Rect(self.low_x, self.low_y, 200, 200)
         self.out_box = pygame.Surface((200, 200), pygame.SRCALPHA)
+        self.out_box_rect = pygame.Rect(self.high_x - 200, self.high_y - 200, 200, 200)
 
     def generate_return_surface(self):
         surface = pygame.Surface((self.width, self.height))
@@ -32,8 +34,40 @@ class Background:
         surface.blit(self.out_box, (self.high_x - 200, self.high_y - 200))
         return surface
 
-    def check_if_can_move_horizontally(self, player):
-        if ((player.x_coord + player.x_speed > self.low_x) and (player.x_coord - player.x_coord < self.high_x)):
+    def check_can_move_left(self, player):
+        if (player.x_coord - player.x_speed > self.low_x):
+            return True
+        else:
+            return False
+
+    def check_can_move_right(self, player):
+        if (player.x_coord + player.x_speed + player.width < self.high_x):
+            return True
+        else:
+            return False
+
+    def check_can_move_up(self, player):
+        if (player.y_coord - player.y_speed > self.low_y):
+            return True
+        else:
+            return False
+
+    def check_can_move_down(self, player):
+        if (player.y_coord + player.y_speed + player.height < self.high_y): # 150 is fudge factor for height of player
+            return True
+        else:
+            return False
+
+    def check_if_in_next_box(self, player):
+        player_rect = pygame.Rect(player.x_coord, player.y_coord, player.width, player.height)
+        if self.out_box_rect.contains(player_rect):
+            return True
+        else:
+            return False
+
+    def check_if_in_prev_box(self, player):
+        player_rect = pygame.Rect(player.x_coord, player.y_coord, player.width, player.height)
+        if self.in_box_rect.contains(player_rect):
             return True
         else:
             return False
