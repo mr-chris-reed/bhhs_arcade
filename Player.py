@@ -54,9 +54,12 @@ class Player:
         #actions
 
     def spritePicker(self, counter, sprite_list): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
+        print("list = " + sprite_list)
         if counter % 10 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
             if self.sprite_index == len(sprite_list) - 1:
+                print("length = " + len(sprite_list))
                 self.sprite_index = 0
+                print("index = " + self.sprite_index)
             else:
                 self.sprite_index += 1
         return sprite_list[self.sprite_index]
@@ -80,7 +83,7 @@ class Player:
         self.last_sprite = self.spritePicker(counter, self.down_list)
         self.last_idle_sprite_list = self.idle_down_list
         self.last_button = "s"
-        self.last__idle_sprite = self.spritePicker(counter, self.idle_down_list)
+        self.last_idle_sprite = self.spritePicker(counter, self.idle_down_list)
 
     def left(self, counter):
         if (self.last_button != "a"):
