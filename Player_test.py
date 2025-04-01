@@ -1,76 +1,186 @@
 # Main file where pygame game loop will exist.
-# We can use this file to declare and modify 
-# global variables and create objects and test
-# our code.
+
 import pygame
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
+# from End_Screen import End_Screen
+from Start_Screen import Start_Screen
+from Background import Background
 from Player import Player
+from Projectile import Projectile
 
-# canvas variables
-width = 1480 # adjust for width of canvas
-height = 1000 # adjust for height of canvas
-
-# frame rate
-fps = 30
-counter = 0
-
-# colors
-background_color = (255,0,255)
-
-# initializing pygame, setting up the surface (canvas)
+# initialize pygame and pygame joystick
 pygame.init()
-canvas = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Yo, is this this the guy!?!?!?!?!?!?!?!?!?! ;3") # add a caption for your canvas
+pygame.joystick.init()
 
-# import assets
-egg = Player(
-            50,50,
-            "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_Side2.png", "assets/CapybardaRun_side.png", "assets/CapybardaRun_side.png", "assets/CapybardaRun_side.png",
-            "assets/CapybardaIdle_back.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_side2.png", "assets/CapybardaIdle_side.png",
-            6,4,4,6,6,6,4,4,4,4,1,1,1,1,1,5,5) 
-
-
-# clock to set FPS
+# creating the clock
 clock = pygame.time.Clock()
 
-# variable to control state of entire game
+# constants
+WIDTH = 1280
+HEIGHT = 1024
+FPS = 30
+
+# global variables
+current_background = None
+previous_background_index = 0
 running = True
+game_start = False
+joysticks = []
+counter = 0
+previous_counter = 0
+leaderboard = [['CMC', "7.5"], ['CWJ', "7.8"], ['TGP', "8.1"]]
+notes_left = []
+notes_right = []
+notes_up = []
+notes_down= []
+
+# load sounds
+forest_sound = pygame.mixer.Sound("sounds/Forest_Scene_Concept.mp3")
+forest_sound.set_volume(0.20)
+castle_sound = pygame.mixer.Sound("sounds/Castle_Scene_Concept.mp3")
+castle_sound.set_volume(0.20)
+hell_sound = pygame.mixer.Sound("sounds/Boss_Intro_Concept.mp3")
+hell_sound.set_volume(0.20)
+
+# note image
+note_image = Asset_Reader("assets/note.png", 1, 0.5).get_asset_list()[0]
+
+# clearing notes that are off screen
+def check_and_clear_notes(list):
+    temp = []
+    for note in list:
+        if note.x > 0 and note.x < WIDTH and note.y > 0 and note.y < HEIGHT:
+            temp.append(note)
+    return temp
+
+# canvas        if (current_background.check_if_in_prev_box(capybarda)):
+
+CANVAS = pygame.display.set_mode((0, 0), FULLSCREEN)
+
+# object creation
+start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
+forest_path = Background("assets/forest_path_background.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
+castle = Background("assets/Castle.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
+hell = Background("assets/_Hell_.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
+capybarda = Player(
+    200, 200,
+    "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_Side2.png", "assets/CapybardaRun_side.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_back.png",
+    "assets/CapybardaIdle_back.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_side2.png", "assets/CapybardaIdle_side.png",
+    6, 4, 4, 6, 4, 4, 4, 4, 4, 4,
+    0.6, 0.6, 0.6, 0.6, 0.6,
+    10, 10
+)
+# initial position of capybarda
+capybarda.x_coord = 100
+capybarda.y_coord = HEIGHT // 2
+
+backgrounds = [forest_path, castle, hell]
+current_background = start_screen
 
 # main game loop
 while running:
-    # paint the canvas with background color
-    canvas.fill(background_color)
-
-    counter += 1
-    # poll for events
     for event in pygame.event.get():
-        # if 'X' is clicked on the canvas
-        if event.type == QUIT:
+        if event.type == QUIT: 
             running = False
 
-    # get all keys that are currently pressed    
-    keys = pygame.key.get_pressed()
+        if event.type == pygame.JOYDEVICEADDED:
+            joy = pygame.joystick.Joystick(event.device_index)
+            joysticks.append(joy)
 
+    if joysticks[0].get_button(11):
+        game_start = True
     
-    # check to see if any of the keys are w, a, s, or d
-    # and perform an action
-    if keys[pygame.K_w]:
-        egg.up(counter)
-    elif keys[pygame.K_s]:
-        egg.down(counter)
-    elif keys[pygame.K_a]:
-        egg.left(counter)
-    elif keys[pygame.K_d]:
-        egg.right(counter)
+    if not(game_start):
+        current_background = start_screen
+        CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
+        Background.background_index = 0
+        forest_sound.stop()
+    elif game_start:
+        current_background = backgrounds[Background.background_index]
+        CANVAS.blit(current_background.generate_return_surface(), (0, 0))
+        if (joysticks[0].get_axis(0) > 0.5):
+            if (current_background.check_can_move_up(capybarda)):
+                capybarda.up(counter)
+        elif (joysticks[0].get_axis(0) < -0.5):
+            if (current_background.check_can_move_down(capybarda)):
+                capybarda.down(counter)
+        elif (joysticks[0].get_axis(1) > 0.5):
+            if (current_background.check_can_move_right(capybarda)):
+                capybarda.right(counter)
+        elif (joysticks[0].get_axis(1) < -0.5):
+            if (current_background.check_can_move_left(capybarda)):
+                capybarda.left(counter)
+        else:
+            capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
+        if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
+            Background.background_index += 1
+            capybarda.x_coord = 100
+            capybarda.y_coord = HEIGHT // 2
+        if (current_background.check_if_in_prev_box(capybarda)):
+            if Background.background_index >= 0:
+                Background.background_index -= 1
+            if Background.background_index == -1:
+                game_start = False
+            capybarda.x_coord = 100
+            capybarda.y_coord = HEIGHT // 2
+        if (joysticks[0].get_button(9)):
+            if counter > 5 + previous_counter:
+                notes_left.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                previous_counter = counter
+        if (joysticks[0].get_button(8)):
+            if counter > 5 + previous_counter:
+                notes_right.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                previous_counter = counter
+        if (joysticks[0].get_button(11)):
+            if counter > 5 + previous_counter:
+                notes_up.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                previous_counter = counter
+        if (joysticks[0].get_button(10)):
+            if counter > 5 + previous_counter:
+                notes_down.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                previous_counter = counter
+
+        notes_left = check_and_clear_notes(notes_left)
+        notes_right = check_and_clear_notes(notes_right)
+        notes_up = check_and_clear_notes(notes_up)
+        notes_down = check_and_clear_notes(notes_down)
+        
+        for note in notes_left:
+            note.move_in_straight_line('L')
+            CANVAS.blit(note.projectile_image, (note.x, note.y))
+        for note in notes_right:
+            note.move_in_straight_line('R')
+            CANVAS.blit(note.projectile_image, (note.x, note.y))
+        for note in notes_up:
+            note.move_in_straight_line('U')
+            CANVAS.blit(note.projectile_image, (note.x, note.y))
+        for note in notes_down:
+            note.move_in_straight_line('D')
+            CANVAS.blit(note.projectile_image, (note.x, note.y))
+
+        CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
+
+    # play sounds
+    if game_start:
+        if Background.background_index == 0:
+            forest_sound.play()
+            castle_sound.stop()
+            hell_sound.stop()
+        elif Background.background_index == 1:
+            castle_sound.play()
+            forest_sound.stop()
+            hell_sound.stop()
+        elif Background.background_index == 2:
+            hell_sound.play()
+            forest_sound.stop()
+            castle_sound.stop()
+
+    if counter >= 600:
+        counter = 0
+        previous_counter = 0
     else:
-        egg.last_sprite = egg.spritePicker(counter, egg.last_idle_sprite_list)
+        counter += 1
 
-    canvas.blit(egg.last_sprite, (egg.x_coord, egg.y_coord))
-    
-    pygame.display.update()
-    clock.tick(fps)
-
-# close pygame down
-pygame.quit()
-sys.exit()
+    pygame.display.flip()
+    clock.tick(FPS)
