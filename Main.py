@@ -1,7 +1,4 @@
 # Main file where pygame game loop will exist.
-# We can use this file to declare and modify 
-# global variables and create objects and test
-# our code.
 
 import pygame
 from pygame.locals import *
@@ -87,7 +84,6 @@ while running:
         if event.type == QUIT: 
             running = False
 
-    # start screen implementation
         if event.type == pygame.JOYDEVICEADDED:
             joy = pygame.joystick.Joystick(event.device_index)
             joysticks.append(joy)
