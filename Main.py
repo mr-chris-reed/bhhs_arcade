@@ -98,6 +98,8 @@ while running:
     if not(game_start):
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
+        Background.background_index = 0
+        forest_sound.stop()
     elif game_start:
         current_background = backgrounds[Background.background_index]
         CANVAS.blit(current_background.generate_return_surface(), (0, 0))
@@ -118,9 +120,9 @@ while running:
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
         if (current_background.check_if_in_prev_box(capybarda)):
-            if Background.background_index > 0:
+            if Background.background_index >= 0:
                 Background.background_index -= 1
-            if Background.background_index == 0:
+            if Background.background_index == -1:
                 game_start = False
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
