@@ -1,81 +1,169 @@
 # Main file where pygame game loop will exist.
-# We can use this file to declare and modify
+# We can use this file to declare and modify 
 # global variables and create objects and test
 # our code.
 
 import pygame
-import sys
+from pygame.locals import *
+from Asset_Reader import Asset_Reader
+# from End_Screen import End_Screen
+from Start_Screen import Start_Screen
 from Background import Background
+from Player import Player
+from Projectile import Projectile
 
+# initialize pygame and pygame joystick
 pygame.init()
+pygame.joystick.init()
 
-screen = pygame.display.set_mode((1280, 1024))
-pygame.display.set_caption('Background Test')
-
-hell_background = Background("assets/hell_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100, 100, 100, 100, 100, False, False)
-forest_path_background = Background("assets/forest_path_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100, 100, 100, 100, 100, 100, False, False)
-castle_background = Background("assets/castle_background.png", 1, 0, 0, 1.0, 100, 100, 1080, 820, 300, 300, 100 ,100, 100, 100, 100, 100, False, False)
-
-backgrounds = [forest_path_background, hell_background, castle_background]
-
+# creating the clock
 clock = pygame.time.Clock()
 
-# Circle properties
-square_x, square_y = 200, 200
-square_width = 20
-square_height = 20
-square_speed = 20
+# constants
+WIDTH = 1280
+HEIGHT = 1024
+FPS = 30
 
-# Game loop
+# global variables
+current_background = None
+previous_background_index = 0
 running = True
+game_start = False
+joysticks = []
+counter = 0
+previous_counter = 0
+leaderboard = [['CMC', "7.5"], ['CWJ', "7.8"], ['TGP', "8.1"]]
+notes_left = []
+notes_right = []
+notes_up = []
+notes_down= []
+
+# load sounds
+forest_sound = pygame.mixer.Sound("sounds/Forest_Scene_Concept.mp3")
+forest_sound.set_volume(0.20)
+castle_sound = pygame.mixer.Sound("sounds/Castle_Scene_Concept.mp3")
+castle_sound.set_volume(0.20)
+hell_sound = pygame.mixer.Sound("sounds/Boss_Intro_Concept.mp3")
+hell_sound.set_volume(0.20)
+
+# note image
+note_image = Asset_Reader("assets/note.png", 1, 0.5).get_asset_list()[0]
+
+# clearing notes that are off screen
+def check_and_clear_notes(list):
+    temp = []
+    for note in list:
+        if note.x > 0 and note.x < WIDTH and note.y > 0 and note.y < HEIGHT:
+            temp.append(note)
+    return temp
+
+# canvas        if (current_background.check_if_in_prev_box(capybarda)):
+
+CANVAS = pygame.display.set_mode((0, 0), FULLSCREEN)
+
+# object creation
+start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
+forest_path = Background("assets/forest_path_background.png", 1, 1, 0, 0, -150, WIDTH + 150, 50, HEIGHT - 50)
+castle = Background("assets/Castle.png", 1, 1, 0, 0, -150, WIDTH + 150, 50, HEIGHT - 50)
+hell = Background("assets/_Hell_.png", 1, 1, 0, 0, -150, WIDTH + 150, 50, HEIGHT - 50)
+capybarda = Player(
+    200, 200,
+    "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_Side2.png", "assets/CapybardaRun_side.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_back.png",
+    "assets/CapybardaIdle_back.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_side2.png", "assets/CapybardaIdle_side.png",
+    6, 4, 4, 6, 4, 4, 4, 4, 4, 4,
+    0.6, 0.6, 0.6, 0.6, 0.6,
+    10, 10
+)
+# initial position of capybarda
+capybarda.x_coord = 100
+capybarda.y_coord = HEIGHT // 2
+
+backgrounds = [forest_path, castle, hell]
+current_background = start_screen
+
+# main game loop
 while running:
-    clock.tick(60)
-    screen.fill((0, 0, 0))  # Fill the screen with black
-
-    # Display the current background
-    screen.blit(backgrounds[Background.background_index].background_list[0], (backgrounds[Background.background_index].x, backgrounds[Background.background_index].y))
-
-    # Event handling
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+        if event.type == QUIT: 
+            running = False
 
-    # Movement logic (should be outside event loop for continuous movement)
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_a]:
-        square_x -= square_speed
-        if (not Background.check_if_in_bounds(backgrounds, square_x, square_y, square_width, square_height)):
-            square_x = backgrounds[Background.background_index].boundary_x
-    if keys[pygame.K_d]:
-        square_x += square_speed
-        if (not Background.check_if_in_bounds(backgrounds, square_x, square_y, square_width, square_height)):
-            square_x = backgrounds[Background.background_index].boundary_x + backgrounds[Background.background_index].boundary_width - square_width
-    if keys[pygame.K_w]:
-        square_y -= square_speed
-        if (not Background.check_if_in_bounds(backgrounds, square_x, square_y, square_width, square_height)):
-            square_y = backgrounds[Background.background_index].boundary_y
-    if keys[pygame.K_s]:
-        square_y += square_speed
-        if (not Background.check_if_in_bounds(backgrounds, square_x, square_y, square_width, square_height)):
-            square_y = backgrounds[Background.background_index].boundary_y + backgrounds[Background.background_index].boundary_height - square_height
+    game_start = True
+    
+    if not(game_start):
+        current_background = start_screen
+        CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
+    elif game_start:
+        current_background = backgrounds[Background.background_index]
+        CANVAS.blit(current_background.generate_return_surface(), (0, 0))
+        if keys[pygame.K_w]:
+            if (current_background.check_can_move_up(capybarda)):
+                capybarda.up(counter)
+        elif keys[pygame.K_s]:
+            if (current_background.check_can_move_down(capybarda)):
+                capybarda.down(counter)
+        elif keys[pygame.K_d]:
+            if (current_background.check_can_move_right(capybarda)):
+                capybarda.right(counter)
+        if keys[pygame.K_a]:
+            if (current_background.check_can_move_left(capybarda)):
+                capybarda.left(counter)
+        if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
+            Background.background_index += 1
+            capybarda.x_coord = 100
+            capybarda.y_coord = HEIGHT // 2
+        if (current_background.check_if_in_prev_box(capybarda)):
+            if Background.background_index > 0:
+                Background.background_index -= 1
+            if Background.background_index == 0:
+                game_start = False
+            capybarda.x_coord = 100
+            capybarda.y_coord = HEIGHT // 2
+        if keys[pygame.K_UP]:
+            if counter > 5 + previous_counter:
+                notes_left.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                previous_counter = counter
+        elif keys[pygame.K_DOWN]:
+            if counter > 5 + previous_counter:
+                notes_right.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                previous_counter = counter
+        elif keys[pygame.K_LEFT]:
+            if counter > 5 + previous_counter:
+                notes_up.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                previous_counter = counter
+        elif keys[pygame.K_RIGHT]:
+            if counter > 5 + previous_counter:
+                notes_down.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                previous_counter = counter
 
-    # Check if the circle is inside the boundary before updating position
-    print(Background.check_if_in_bounds(backgrounds, square_x, square_y, square_width, square_height))
+        notes_left = check_and_clear_notes(notes_left)
+        notes_right = check_and_clear_notes(notes_right)
+        notes_up = check_and_clear_notes(notes_up)
+        notes_down = check_and_clear_notes(notes_down)
         
-    
 
-    Background.change_next_flag(backgrounds, square_x, square_y)
-    Background.change_prev_flag(backgrounds, square_x, square_y)
+        CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
 
-    # Draw boundary, trigger box, and circle
-    #Remove these to make boundaries invisible
-    pygame.draw.rect(screen, (0, 0, 0), (backgrounds[Background.background_index].boundary_x, backgrounds[Background.background_index].boundary_y, backgrounds[Background.background_index].boundary_width, backgrounds[Background.background_index].boundary_height), 2)  # Draw boundary
-    pygame.draw.rect(screen, (0, 0, 0), (backgrounds[Background.background_index].next_x, backgrounds[Background.background_index].next_y, backgrounds[Background.background_index].next_width, backgrounds[Background.background_index].next_height), 2)  # Draw trigger box
-    pygame.draw.rect(screen, (0, 0, 0), (backgrounds[Background.background_index].prev_x, backgrounds[Background.background_index].prev_y, backgrounds[Background.background_index].prev_width, backgrounds[Background.background_index].prev_height), 2)  # Draw trigger box
-    
-    # Draw player
-    pygame.draw.rect(screen, (0, 0, 255), (square_x, square_y, square_width, square_height), 2)
+    # play sounds
+    if game_start:
+        if Background.background_index == 0:
+            forest_sound.play()
+            castle_sound.stop()
+            hell_sound.stop()
+        elif Background.background_index == 1:
+            castle_sound.play()
+            forest_sound.stop()
+            hell_sound.stop()
+        elif Background.background_index == 2:
+            hell_sound.play()
+            forest_sound.stop()
+            castle_sound.stop()
 
-    pygame.display.update()  # Update the display
-    clock.tick(60)  # Limit the frame rate to 60 FPS
+    if counter >= 600:
+        counter = 0
+        previous_counter = 0
+    else:
+        counter += 1
+
+    pygame.display.flip()
+    clock.tick(FPS)
