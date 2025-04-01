@@ -36,13 +36,13 @@ class End_Screen:
         self.text = "" 
         self.font2 = pygame.font.SysFont("Arial",50)
         self.font = pygame.font.SysFont("Arial", 100)  
-        self.currentLetterString = "" 
+        self.currentLetterString = "A" 
         self.visible = True
         self.inputVisible=False
         self.name = ""        
         self.vert_move = 0
         self.vert_move2 = 0
-        self.butt_move = 0
+        self.button_move = 0
     def goHome(self):
         pass
 
@@ -73,7 +73,7 @@ class End_Screen:
 
         
     def handleInput(self,canvas, joysticks):
-        keys=pygame.key.get_pressed()
+        # keys=pygame.key.get_pressed()
         #cycles through the alphabet when the arrows keys are moved and prints, will be changed once joystick is added
         if len(self.name) < 3:
                 if self.vert_move != round(joysticks[0].get_axis(0)):
@@ -85,15 +85,16 @@ class End_Screen:
                     if self.vert_move < -0.5:  # If button is up, move to the previous letter
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
-                        
-                if self.butt_move != round(joysticks[0].get_button(11)):
-                    self.butt_move = round(joysticks[0].get_button(11))
-                    
-                    if self.butt_move == 1:
+                if self.button_move != round(joysticks[0].get_button(11)):
+                    self.button_move = round(joysticks[0].get_button(11))
+                    if self.button_move > 0.5:
                         self.name += self.currentLetterString
                         print("test")
-        if len(self.name)==3 :
-            self.inputVisible = False  # Hide the input
+                        print(self.name)
+
+        '''if len(self.name)==3 :
+            pygame.time.delay(2000)
+            self.inputVisible = False  # Hide the input '''
 
                     
 
@@ -121,20 +122,13 @@ class End_Screen:
     # draw cred, if enter is pressed while creds are displayed it then displays the input name stuf
         if self.visible:
             self.drawCredits(canvas)
-        if self.butt_move != round(joysticks[0].get_button(11)):
-            self.butt_move = round(joysticks[0].get_button(11)) 
-            if joysticks[0].get_button(11) == 1 and self.visible:
-                self.visible = False  # hid credits
-                self.inputVisible = True  # shows input box   
-                self.currentLetterString = "A"
-        for event in pygame.event.get():   
-            if event.type == pygame.KEYDOWN:
-                # handles whether the credits are displayed or not
-                if event.key == pygame.K_RETURN and self.visible:
-                    self.visible = False  # hid credits
-                    self.inputVisible = True  # shows input box   
-                    self.currentLetterString = "A"
-        
+    
+        if joysticks[0].get_button(11) == 1 and self.visible:
+            self.visible = False  # hide credits
+            pygame.time.delay(200)
+            self.inputVisible = True  # shows input box   
+
+
           #draws input box and stuff if it is true
         if self.inputVisible:
             self.inputName(canvas)

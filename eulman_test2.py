@@ -38,7 +38,7 @@ while running:
             print("joy")
         if event.type == QUIT: 
             running = False
-        print(end_screen.butt_move)
+        print(end_screen.button_move)
     end_screen.drawEndScreen(CANVAS, joysticks)
  
 
