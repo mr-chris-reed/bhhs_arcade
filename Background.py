@@ -17,9 +17,9 @@ class Background:
         self.width = self.size.width
         self.height = self.size.height
         self.in_box = pygame.Surface((200, 200), pygame.SRCALPHA)
-        self.in_box_rect = pygame.Rect(self.low_x, self.low_y, 200, 200)
+        self.in_box_rect = pygame.Rect(self.low_x, self.low_y, 200, 1000)
         self.out_box = pygame.Surface((200, 200), pygame.SRCALPHA)
-        self.out_box_rect = pygame.Rect(self.high_x - 200, self.high_y - 200, 200, 200)
+        self.out_box_rect = pygame.Rect(self.high_x, self.low_y, 200, 1000)
 
     def generate_return_surface(self):
         surface = pygame.Surface((self.width, self.height))
