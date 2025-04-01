@@ -36,7 +36,8 @@ class End_Screen:
         self.text = "" 
         self.font2 = pygame.font.SysFont("Arial",50)
         self.font = pygame.font.SysFont("Arial", 100)  
-        self.currentLetterString = "A" 
+        self.currentLetterString = ""
+        self.box = "A"
         self.visible = True
         self.inputVisible=False
         self.name = ""        
@@ -49,7 +50,7 @@ class End_Screen:
     def inputName(self, canvas):
     # Draw the input box
         pygame.draw.rect(canvas, (255,255,255), self.input_box, 2)  # makes box around the initial cycling
-        text_surface = self.font.render(self.currentLetterString, True, (255,255,255))  # cycling letter
+        text_surface = self.font.render(self.box, True, (255,255,255))  # cycling letter
     
     # Calculate the x and y positions to center the letter inside the input box
         letter_width = text_surface.get_width()
@@ -81,16 +82,21 @@ class End_Screen:
                     if self.vert_move > 0.5:  # If button is up, move to the previous letter
                         self.currentLetter = (self.currentLetter + 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
-                       
+                        self.box= self.alphabet[self.currentLetter]
+                        
                     if self.vert_move < -0.5:  # If button is up, move to the previous letter
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
                 if self.button_move != round(joysticks[0].get_button(11)):
                     self.button_move = round(joysticks[0].get_button(11))
                     if self.button_move > 0.5:
-                        self.name += self.currentLetterString
-                        print("test")
-                        print(self.name)
+                        print(self.button_move)
+                        # i attempted to add another varialble, it dispalys the letter A without it putting in the box immeidiatly, but the letter A doesn't work if someone wants to use it immediatly 
+                        if self.currentLetter == 0:
+                            print("t")
+                        else:
+                            self.name += self.currentLetterString
+                        
 
         '''if len(self.name)==3 :
             pygame.time.delay(2000)
@@ -118,7 +124,7 @@ class End_Screen:
     def drawEndScreen(self, canvas, joysticks):
     # Fills screen black
         canvas.fill((0,0,0))
-
+        
     # draw cred, if enter is pressed while creds are displayed it then displays the input name stuf
         if self.visible:
             self.drawCredits(canvas)
@@ -127,7 +133,7 @@ class End_Screen:
             self.visible = False  # hide credits
             pygame.time.delay(200)
             self.inputVisible = True  # shows input box   
-
+            
 
           #draws input box and stuff if it is true
         if self.inputVisible:
