@@ -78,8 +78,8 @@ class End_Screen:
         # keys=pygame.key.get_pressed()
         #cycles through the alphabet when the arrows keys are moved and prints, will be changed once joystick is added
         if len(self.name) < 3:
-                if self.vert_move != round(joysticks[0].get_axis(0)):
-                    self.vert_move = round(joysticks[0].get_axis(0)) 
+                if self.vert_move != round(joysticks[0].get_axis(1)):
+                    self.vert_move = round(joysticks[0].get_axis(1)) 
                     if self.vert_move > 0.5:  # If button is up, move to the previous letter
                         self.currentLetter = (self.currentLetter + 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
@@ -104,6 +104,7 @@ class End_Screen:
                     self.pressedVisiblity == True            
                     self.inputVisible = False
                     print(self.name)
+               
 
                     
 
@@ -126,6 +127,7 @@ class End_Screen:
         
     def drawEndScreen(self, canvas, joysticks):
     # Fills screen black
+        
         canvas.fill((0,0,0))
         
     # draw cred, if enter is pressed while creds are displayed it then displays the input name stuf

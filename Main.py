@@ -8,7 +8,7 @@ from Start_Screen import Start_Screen
 from Background import Background
 from Player import Player
 from Projectile import Projectile
-
+from End_Screen import End_Screen
 # initialize pygame and pygame joystick
 pygame.init()
 pygame.joystick.init()
@@ -34,7 +34,7 @@ notes_left = []
 notes_right = []
 notes_up = []
 notes_down= []
-
+end= False
 # load sounds
 forest_sound = pygame.mixer.Sound("sounds/Forest_Scene_Concept.mp3")
 forest_sound.set_volume(0.20)
@@ -71,6 +71,7 @@ capybarda = Player(
     0.6, 0.6, 0.6, 0.6, 0.6,
     10, 10
 )
+end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
 # initial position of capybarda
 capybarda.x_coord = 100
 capybarda.y_coord = HEIGHT // 2
@@ -91,7 +92,7 @@ while running:
     if joysticks[0].get_button(11):
         game_start = True
     
-    if not(game_start):
+    if not(game_start) and end == False:
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
         Background.background_index = 0
@@ -113,11 +114,16 @@ while running:
                 capybarda.left(counter)
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
             Background.background_index += 1
+            
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
+        if (current_background.check_if_in_next_box(capybarda) and Background.background_index ==2):
+            end= True
+        
         if (current_background.check_if_in_prev_box(capybarda)):
             if Background.background_index >= 0:
                 Background.background_index -= 1
+                
             if Background.background_index == -1:
                 game_start = False
             capybarda.x_coord = 100
@@ -158,7 +164,9 @@ while running:
             CANVAS.blit(note.projectile_image, (note.x, note.y))
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
-
+    if end== True:
+        game_start=False
+        end_screen.drawEndScreen(CANVAS, joysticks)
     # play sounds
     if game_start:
         if Background.background_index == 0:
