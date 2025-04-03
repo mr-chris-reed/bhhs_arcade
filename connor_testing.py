@@ -110,37 +110,13 @@ while running:
                 capybarda.left(counter)
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
             Background.background_index += 1
-            capybarda.x_coord = 100
-            capybarda.y_coord = HEIGHT // 2
+            capybarda.x_coord = - 100
         if (current_background.check_if_in_prev_box(capybarda)):
             if Background.background_index > 0:
                 Background.background_index -= 1
             if Background.background_index == 0:
                 game_start = False
-            capybarda.x_coord = 100
-            capybarda.y_coord = HEIGHT // 2
-        if keys[pygame.K_UP]:
-            if counter > 5 + previous_counter:
-                notes_left.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
-                previous_counter = counter
-        elif keys[pygame.K_DOWN]:
-            if counter > 5 + previous_counter:
-                notes_right.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
-                previous_counter = counter
-        elif keys[pygame.K_LEFT]:
-            if counter > 5 + previous_counter:
-                notes_up.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
-                previous_counter = counter
-        elif keys[pygame.K_RIGHT]:
-            if counter > 5 + previous_counter:
-                notes_down.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
-                previous_counter = counter
-
-        notes_left = check_and_clear_notes(notes_left)
-        notes_right = check_and_clear_notes(notes_right)
-        notes_up = check_and_clear_notes(notes_up)
-        notes_down = check_and_clear_notes(notes_down)
-        
+            capybarda.x_coord = 1200
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
 
