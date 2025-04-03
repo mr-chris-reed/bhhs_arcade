@@ -99,22 +99,23 @@ while running:
     elif game_start:
         current_background = backgrounds[Background.background_index]
         CANVAS.blit(current_background.generate_return_surface(), (0, 0))
+      elif game_start:
+        current_background = backgrounds[Background.background_index]
+        CANVAS.blit(current_background.generate_return_surface(), (0, 0))
         if (joysticks[0].get_axis(0) > 0.5):
             if (current_background.check_can_move_up(capybarda)):
                 capybarda.up(counter)
-        if (joysticks[0].get_axis(0) < -0.5):
+        elif (joysticks[0].get_axis(0) < -0.5):
             if (current_background.check_can_move_down(capybarda)):
                 capybarda.down(counter)
-        if (joysticks[0].get_axis(1) > 0.5):
+        elif (joysticks[0].get_axis(1) > 0.5):
             if (current_background.check_can_move_right(capybarda)):
                 capybarda.right(counter)
-        if (joysticks[0].get_axis(1) < -0.5):
+        elif (joysticks[0].get_axis(1) < -0.5):
             if (current_background.check_can_move_left(capybarda)):
                 capybarda.left(counter)
-        if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
-            Background.background_index += 1
-            capybarda.x_coord = 100
-            capybarda.y_coord = HEIGHT // 2
+        else:
+            capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
         if (current_background.check_if_in_prev_box(capybarda)):
             if Background.background_index >= 0:
                 Background.background_index -= 1
