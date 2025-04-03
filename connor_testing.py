@@ -110,7 +110,7 @@ while running:
                 capybarda.left(counter)
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
             Background.background_index += 1
-            capybarda.x_coord = -100
+            capybarda.x_coord = - 100
         if (current_background.check_if_in_prev_box(capybarda)):
             if Background.background_index > 0:
                 Background.background_index -= 1
