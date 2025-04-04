@@ -100,7 +100,7 @@ while running:
     elif game_start:
         current_background = backgrounds[Background.background_index]
         CANVAS.blit(current_background.generate_return_surface(), (0, 0))
-      elif game_start:
+    elif game_start:
         current_background = backgrounds[Background.background_index]
         CANVAS.blit(current_background.generate_return_surface(), (0, 0))
         if (joysticks[0].get_axis(0) > 0.5):
@@ -126,7 +126,7 @@ while running:
         
 
         else:
-            capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)main
+            capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
         if (current_background.check_if_in_prev_box(capybarda)):
             if Background.background_index >= 0:
                 Background.background_index -= 1
@@ -189,6 +189,9 @@ while running:
             forest_sound.stop()
             castle_sound.stop()
 
+    if not(game_start) and end:
+        end_screen.drawEndScreen(CANVAS, joysticks)
+        
     if counter >= 600:
         counter = 0
         previous_counter = 0
