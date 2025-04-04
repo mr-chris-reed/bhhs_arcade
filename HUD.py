@@ -8,10 +8,10 @@ class Start_Screen:
 
     def __init__(self, player, timer, gold, health):
         pass
-        #self.player =
-        #self.timer =
-        #self.gold =
-        #self.health =
+        #self.player = player
+        #self.timer = timer
+        #self.gold = player.gold
+        #self.health = player.health
 
     
     def update_timer():
@@ -20,3 +20,7 @@ class Start_Screen:
 
     def draw_HUD():
         pass
+
+    def draw_text():
+        pass
+        #copy from start_screen
