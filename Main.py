@@ -92,14 +92,11 @@ while running:
     if joysticks[0].get_button(11):
         game_start = True
     
-    if not(game_start) and end == False:
+    if not(game_start): 
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
         Background.background_index = 0
         forest_sound.stop()
-    elif game_start:
-        current_background = backgrounds[Background.background_index]
-        CANVAS.blit(current_background.generate_return_surface(), (0, 0))
     elif game_start:
         current_background = backgrounds[Background.background_index]
         CANVAS.blit(current_background.generate_return_surface(), (0, 0))
@@ -117,6 +114,15 @@ while running:
                 capybarda.left(counter)
         else:
             capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
+        if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
+            Background.background_index += 1
+            
+            capybarda.x_coord = 100
+            capybarda.y_coord = HEIGHT // 2
+        if (current_background.check_if_in_next_box(capybarda) and Background.background_index ==2):
+            end= True
+        
+
         if (current_background.check_if_in_prev_box(capybarda)):
             if Background.background_index >= 0:
                 Background.background_index -= 1

@@ -91,7 +91,7 @@ while running:
     if joysticks[0].get_button(11):
         game_start = True
     
-    if not(game_start):
+    if not(game_start) and end == False:
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
         Background.background_index = 0
