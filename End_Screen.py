@@ -31,11 +31,12 @@ class End_Screen:
         self.credits = ["Cole", "Colton", "Connor", "Rowan", "Tyler", "Nick", "Eli", "James", "Isobel", "Archer", "Eliza", "Dylan", "Colin"]
         self.input_box = pygame.Rect((1280 //2)-75,280,100,100) #intial letter cycling box
         self.name_box =  pygame.Rect(450,480,335,125) #initals box 
+        self.instruction_box = pygame.Rect(240, 50, 800, 100)
         self.currentLetter = 0
         self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  
         self.text = "" 
-        self.font2 = pygame.font.SysFont("Arial",50)
-        self.font = pygame.font.SysFont("Arial", 100)  
+        self.font2 = pygame.font.Font("fonts/PirataOne-Regular.ttf", 50)
+        self.font = pygame.font.Font("fonts/PirataOne-Regular.ttf", 100)
         self.currentLetterString = "A"
         self.visible = True
         self.inputVisible=False
@@ -49,6 +50,14 @@ class End_Screen:
         pass
 
     def inputName(self, canvas):
+        pygame.draw.rect(canvas, (255,255,255), self.instruction_box, 1)
+        instruction_surface = self.font2.render("use the joystick to write your name", True, (255,255,255))
+        instruction_width = instruction_surface.get_width()
+        instruction_height = instruction_surface.get_height()
+        instruction_x = self.instruction_box.x + (self.instruction_box.width - instruction_width) // 2  # Center the name horizontally
+        instruction_y = self.instruction_box.y + (self.instruction_box.height - instruction_height) // 2  # Center the name vertically
+        canvas.blit(instruction_surface, (instruction_x, instruction_y))  # Draw the name inside the box
+    
     # Draw the input box
         pygame.draw.rect(canvas, (255,255,255), self.input_box, 2)  # makes box around the initial cycling
         text_surface = self.font.render(self.currentLetterString, True, (255,255,255))  # cycling letter
