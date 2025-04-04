@@ -118,6 +118,7 @@ while running:
                 game_start = False
             capybarda.x_coord = 1200
 
+
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
 
     # play sounds
