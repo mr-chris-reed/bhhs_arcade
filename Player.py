@@ -112,5 +112,7 @@ class Player:
             #if pygame.sprite.collide_rect(self, item)
                 # item.collect(self)  
 
+    
+
                 
 
