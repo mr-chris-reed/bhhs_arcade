@@ -123,6 +123,7 @@ while running:
 
 
 
+
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
 
     # play sounds
