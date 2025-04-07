@@ -3,7 +3,7 @@
 import pygame
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
-# from End_Screen import End_Screen
+from End_Screen import End_Screen
 from Start_Screen import Start_Screen
 from Background import Background
 from Player import Player
@@ -68,6 +68,14 @@ capybarda = Player(
     "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_Side2.png", "assets/CapybardaRun_side.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_back.png",
     "assets/CapybardaIdle_back.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_side2.png", "assets/CapybardaIdle_side.png",
     6, 4, 4, 6, 4, 4, 4, 4, 4, 4,
+    0.6, 0.6, 0.6, 0.6, 0.6,
+    10, 10
+)
+
+badger_boss = Player(
+    500, 200, 
+    "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_walking_RIGHT.png", 
+    23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
     0.6, 0.6, 0.6, 0.6, 0.6,
     10, 10
 )
