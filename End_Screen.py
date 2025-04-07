@@ -46,6 +46,7 @@ class End_Screen:
         self.button_move = 0
         self.hasBeenPressedOnce = False
         self.pressedVisiblity=False
+        
     def goHome(self):
         pass
 
@@ -109,8 +110,13 @@ class End_Screen:
             if self.button_move != round(joysticks[0].get_button(11)):
                 self.button_move = round(joysticks[0].get_button(11))
                 if self.button_move > 0.5 and self.pressedVisiblity==False:
-                    self.pressedVisiblity == True            
+                    self.pressedVisiblity = True            
                     self.inputVisible = False
+                    
+                    print(self.name)
+               
+
+                    
 
                     print(self.name)
                     
@@ -156,3 +162,4 @@ class End_Screen:
         if self.inputVisible:
             self.inputName(canvas)
             self.handleInput(canvas,joysticks)
+        
