@@ -112,6 +112,14 @@ class End_Screen:
                     self.pressedVisiblity == True            
                     self.inputVisible = False
 
+                    print(self.name)
+                    
+               
+
+                    
+
+
+
     def drawCredits(self,canvas):
         
         HEIGHT = 1000
