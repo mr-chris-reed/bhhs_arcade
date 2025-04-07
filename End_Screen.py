@@ -111,6 +111,10 @@ class End_Screen:
                 if self.button_move > 0.5 and self.pressedVisiblity==False:
                     self.pressedVisiblity == True            
                     self.inputVisible = False
+                    print(self.name)
+               
+
+                    
 
                     print(self.name)
                     
