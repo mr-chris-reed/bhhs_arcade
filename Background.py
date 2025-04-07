@@ -16,10 +16,10 @@ class Background:
         self.size = self.background_image[0].get_rect()
         self.width = self.size.width
         self.height = self.size.height
-        self.in_box = pygame.Surface((200, 1000), pygame.SRCALPHA)
-        self.in_box_rect = pygame.Rect(self.low_x, self.low_y, 200, 1000)
-        self.out_box = pygame.Surface((200, 1000), pygame.SRCALPHA)
-        self.out_box_rect = pygame.Rect(self.high_x - 200, self.low_y - 200, 200, 1000)
+        self.in_box = pygame.Surface((200, 1200), pygame.SRCALPHA)
+        self.in_box_rect = pygame.Rect(self.low_x, self.low_y, 200, 1200)
+        self.out_box = pygame.Surface((200, 1200), pygame.SRCALPHA)
+        self.out_box_rect = pygame.Rect(self.high_x - 200, self.low_y - 200, 200, 1200)
 
     def generate_return_surface(self):
         surface = pygame.Surface((self.width, self.height))
@@ -28,10 +28,10 @@ class Background:
         #pygame.draw.line(surface, (0, 0, 0), (self.low_x, self.low_y), (self.low_x, self.high_y), width=3)
         #pygame.draw.line(surface, (0, 0, 0), (self.high_x, self.low_y), (self.high_x, self.high_y), width=3)
         #pygame.draw.line(surface, (0, 0, 0), (self.low_x, self.high_y), (self.high_x, self.high_y), width=3)
-        pygame.draw.rect(self.in_box, (255, 255, 255, 64), (0, 0, 200, 1000))
+        pygame.draw.rect(self.in_box, (255, 255, 255, 64), (0, 0, 200, 1200))
         surface.blit(self.in_box, (self.low_x, self.low_y))
-        pygame.draw.rect(self.out_box, (255, 255, 255, 64), (0, 0, 200, 1000))
-        surface.blit(self.out_box, (self.high_x - 200, self.high_y - 1000))
+        pygame.draw.rect(self.out_box, (255, 255, 255, 64), (0, 0, 200, 1200))
+        surface.blit(self.out_box, (self.high_x - 200, self.high_y - 1200))
         return surface
 
     def check_can_move_left(self, player):
