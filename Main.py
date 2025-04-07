@@ -185,8 +185,10 @@ while running:
 
     if not(game_start) and end:
         end_screen.drawEndScreen(CANVAS, joysticks)
-        game_start = False
-        end = False
+        if end_screen.pressedVisiblity == True and end_screen.inputVisible ==False:
+            end = False
+            game_start=False
+            
         
     if counter >= 600:
         counter = 0
