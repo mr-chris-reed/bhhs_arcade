@@ -110,14 +110,14 @@ while running:
                 capybarda.left(counter)
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
             Background.background_index += 1
-            capybarda.x_coord = 100
+            capybarda.x_coord = -100
             capybarda.y_coord = HEIGHT // 2
         if (current_background.check_if_in_prev_box(capybarda)):
             if Background.background_index > 0:
                 Background.background_index -= 1
             if Background.background_index == 0:
                 game_start = False
-            capybarda.x_coord = 100
+            capybarda.x_coord = 1200
             capybarda.y_coord = HEIGHT // 2
         if keys[pygame.K_UP]:
             if counter > 5 + previous_counter:

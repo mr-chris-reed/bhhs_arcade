@@ -92,14 +92,11 @@ while running:
     if joysticks[0].get_button(11):
         game_start = True
     
-    if not(game_start) and end == False:
+    if not(game_start) and not(end): 
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
         Background.background_index = 0
         forest_sound.stop()
-    elif game_start:
-        current_background = backgrounds[Background.background_index]
-        CANVAS.blit(current_background.generate_return_surface(), (0, 0))
     elif game_start:
         current_background = backgrounds[Background.background_index]
         CANVAS.blit(current_background.generate_return_surface(), (0, 0))
@@ -115,18 +112,18 @@ while running:
         elif (joysticks[0].get_axis(1) < -0.5):
             if (current_background.check_can_move_left(capybarda)):
                 capybarda.left(counter)
- 
+        else:
+            capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
             Background.background_index += 1
             
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index ==2):
-            end= True
+            end = True
+            game_start = False
         
 
-        else:
-            capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
         if (current_background.check_if_in_prev_box(capybarda)):
             if Background.background_index >= 0:
                 Background.background_index -= 1
@@ -171,9 +168,6 @@ while running:
             CANVAS.blit(note.projectile_image, (note.x, note.y))
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
-    if end== True:
-        game_start=False
-        end_screen.drawEndScreen(CANVAS, joysticks)
     # play sounds
     if game_start:
         if Background.background_index == 0:
@@ -191,6 +185,8 @@ while running:
 
     if not(game_start) and end:
         end_screen.drawEndScreen(CANVAS, joysticks)
+        game_start = False
+        end = False
         
     if counter >= 600:
         counter = 0

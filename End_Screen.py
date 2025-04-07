@@ -87,8 +87,8 @@ class End_Screen:
         # keys=pygame.key.get_pressed()
         #cycles through the alphabet when the arrows keys are moved and prints, will be changed once joystick is added
         if len(self.name) < 3:
-                if self.vert_move != round(joysticks[0].get_axis(1)):
-                    self.vert_move = round(joysticks[0].get_axis(1)) 
+                if self.vert_move != round(joysticks[0].get_axis(0)):
+                    self.vert_move = round(joysticks[0].get_axis(0)) 
                     if self.vert_move > 0.5:  # If button is up, move to the previous letter
                         self.currentLetter = (self.currentLetter + 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
@@ -104,7 +104,6 @@ class End_Screen:
                         self.hasBeenPressedOnce = True
                     elif self.button_move > 0.5 and self.hasBeenPressedOnce ==True:
                         self.name += self.currentLetterString
-                        print(self.button_move)
         elif len(self.name)==3:
                     
             if self.button_move != round(joysticks[0].get_button(11)):
@@ -112,11 +111,14 @@ class End_Screen:
                 if self.button_move > 0.5 and self.pressedVisiblity==False:
                     self.pressedVisiblity == True            
                     self.inputVisible = False
+
                     print(self.name)
                     
                
 
                     
+
+
 
     def drawCredits(self,canvas):
         
