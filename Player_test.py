@@ -91,7 +91,7 @@ while running:
     if joysticks[0].get_button(11):
         game_start = True
     
-    if not(game_start) and end == False:
+    if not(game_start):
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
         Background.background_index = 0
@@ -113,6 +113,7 @@ while running:
                 capybarda.left(counter)
         else:
             capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
+        
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
             Background.background_index += 1
             capybarda.x_coord = 100
@@ -126,19 +127,19 @@ while running:
             capybarda.y_coord = HEIGHT // 2
         if (joysticks[0].get_button(9)):
             if counter > 5 + previous_counter:
-                notes_left.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                notes_left.append(Projectile(note_image, capybarda.x_coord + 100, capybarda.y_coord + 50, 20))
                 previous_counter = counter
         if (joysticks[0].get_button(8)):
             if counter > 5 + previous_counter:
-                notes_right.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                notes_right.append(Projectile(note_image, capybarda.x_coord + 100, capybarda.y_coord + 50, 20))
                 previous_counter = counter
         if (joysticks[0].get_button(11)):
             if counter > 5 + previous_counter:
-                notes_up.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                notes_up.append(Projectile(note_image, capybarda.x_coord +100, capybarda.y_coord +50, 20))
                 previous_counter = counter
         if (joysticks[0].get_button(10)):
             if counter > 5 + previous_counter:
-                notes_down.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                notes_down.append(Projectile(note_image, capybarda.x_coord+100, capybarda.y_coord+50, 20))
                 previous_counter = counter
 
         notes_left = check_and_clear_notes(notes_left)
