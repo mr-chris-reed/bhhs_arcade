@@ -3,7 +3,7 @@
 import pygame
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
-# from End_Screen import End_Screen
+from End_Screen import End_Screen
 from Start_Screen import Start_Screen
 from Background import Background
 from Player import Player
@@ -26,6 +26,7 @@ current_background = None
 previous_background_index = 0
 running = True
 game_start = False
+end= False
 joysticks = []
 counter = 0
 previous_counter = 0
@@ -34,7 +35,6 @@ notes_left = []
 notes_right = []
 notes_up = []
 notes_down= []
-end= False
 # load sounds
 forest_sound = pygame.mixer.Sound("sounds/Forest_Scene_Concept.mp3")
 forest_sound.set_volume(0.20)
@@ -55,7 +55,6 @@ def check_and_clear_notes(list):
     return temp
 
 # canvas        if (current_background.check_if_in_prev_box(capybarda)):
-
 CANVAS = pygame.display.set_mode((0, 0), FULLSCREEN)
 
 # object creation
@@ -68,6 +67,14 @@ capybarda = Player(
     "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_Side2.png", "assets/CapybardaRun_side.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_back.png",
     "assets/CapybardaIdle_back.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_side2.png", "assets/CapybardaIdle_side.png",
     6, 4, 4, 6, 4, 4, 4, 4, 4, 4,
+    0.6, 0.6, 0.6, 0.6, 0.6,
+    10, 10
+)
+
+badger_boss = Player(
+    500, 200, 
+    "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_walking_RIGHT.png", 
+    23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
     0.6, 0.6, 0.6, 0.6, 0.6,
     10, 10
 )
@@ -89,14 +96,17 @@ while running:
             joy = pygame.joystick.Joystick(event.device_index)
             joysticks.append(joy)
 
-    if joysticks[0].get_button(11):
-        game_start = True
+    if not(game_start) and not(end):
+        if joysticks[0].get_button(11):
+            game_start = True
+            end_screen.name = ""
     
     if not(game_start) and not(end): 
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
         Background.background_index = 0
         forest_sound.stop()
+
     elif game_start:
         current_background = backgrounds[Background.background_index]
         CANVAS.blit(current_background.generate_return_surface(), (0, 0))
@@ -114,12 +124,13 @@ while running:
                 capybarda.left(counter)
         else:
             capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
+
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
             Background.background_index += 1
             
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
-        if (current_background.check_if_in_next_box(capybarda) and Background.background_index ==2):
+        if (current_background.check_if_in_next_box(capybarda) and Background.background_index == 2):
             end = True
             game_start = False
         
@@ -130,6 +141,7 @@ while running:
                 
             if Background.background_index == -1:
                 game_start = False
+
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
         if (joysticks[0].get_button(9)):
@@ -168,6 +180,13 @@ while running:
             CANVAS.blit(note.projectile_image, (note.x, note.y))
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
+
+    elif not(game_start) and end:
+        end_screen.drawEndScreen(CANVAS, joysticks)
+        if end_screen.pressedVisiblity == True and end_screen.inputVisible ==False:
+            end = False
+            game_start=False
+
     # play sounds
     if game_start:
         if Background.background_index == 0:
@@ -183,16 +202,12 @@ while running:
             forest_sound.stop()
             castle_sound.stop()
 
-    if not(game_start) and end:
-        end_screen.drawEndScreen(CANVAS, joysticks)
-        game_start = False
-        end = False
-        
+    
+                  
     if counter >= 600:
         counter = 0
         previous_counter = 0
     else:
         counter += 1
-
     pygame.display.flip()
     clock.tick(FPS)
