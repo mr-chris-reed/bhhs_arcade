@@ -1,205 +1,217 @@
-# imports for pygame
-import pygame, sys
+# Main file where pygame game loop will exist.
+
+import pygame
 from pygame.locals import *
-
-# canvas variables
-width = 1920 # adjust for width of canvas
-height =1080 # adjust for height of canvas
-#colors
-BLUE = (0,0,255)
-# frame rate
-fps = 60
-#background image
-#background_image = pygame.image.load('gameover.png')
-# colors
-background_color = (255,255,255)
-
-# initializing pygame, setting up the surface (canvas)
+from Asset_Reader import Asset_Reader
+from End_Screen import End_Screen
+from Start_Screen import Start_Screen
+from Background import Background
+from Player import Player
+from Projectile import Projectile
+from End_Screen import End_Screen
+# initialize pygame and pygame joystick
 pygame.init()
-canvas = pygame.display.set_mode((width, height))
-pygame.display.set_caption("<YOUR DISPLAY CAPTION GOES HERE (STRING)>") # add a caption for your canvas
+pygame.joystick.init()
 
-class End_Screen:
-    ###
-    # NOTES: You might consider blitting the runtime, leaderboard, gameOverMessage
-    # onto the backgroundGraphic before returning the end screen. We could make a
-    # leaderboard class, which is responsible for holding an array of top scores.
-    # The leaderboard could hold its data in a list of lists or dictionary.  We
-    # would want it to hold position, player's initials, and time to complete.
-    # We would also want a message to tell players how to get back to the start.
-    ###
-    def __init__(
-            self,
-            x,
-            y,
-            scale_factor,
-            runtime,
-            leaderboard,
-            gameOverMessage,
-            backgroundGraphic,
-            credits,
-        ):
-        self.x = x
-        self.y = y
-        self.scale_factor = scale_factor
-        self.runtime = runtime
-        self.leaderboard = leaderboard
-        self.gameOverMessage = gameOverMessage
-      # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
-        self.credits = credits
-        self.input_box = pygame.Rect(200,150,140,32)
-        self.text = ''
-        self.currentLetter = 0
-    def goHome(self):
-        pass
-
-    def inputName(self):
-       # name = input("input your name")
-        alphabet = ("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
-        pygame.draw.rect(canvas,BLUE,self.input_box,2 )
-        pygame.display.update()
-
-    def handleInput(self):
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                key_name = pygame.key.name(event.key)
-                self.text = (key_name)
-                print(key_name)
-
-    def drawEndScreen(self):
-        #fills screen black
-        screen.fill((0,0,0))
-
-        #displays graphic
-        screen.blit(self.backgroundGraphic, (0,0))
-
-        #updates screen?
-        pygame.display.flip()
-#end_screen = endscreen(backgroundGraphic=background_image)
-
-# import assets
-sprite_sheet = pygame.image.load("Eggsby_2.png").convert_alpha() # add the path/name of your sprite sheet file
-
-# get details about individual sprites
-total_sprites = 2 # code the number of sprite images your sprite sheet has
-sprite_sheet_width = sprite_sheet.get_rect().width
-sprite_sheet_height = sprite_sheet.get_rect().height
-
-
-# adjust sprite size
-sprite_scale_factor = 2.0
-sprite_sheet_width = sprite_sheet_width * sprite_scale_factor
-sprite_sheet_height = sprite_sheet_height * sprite_scale_factor
-sprite_sheet = pygame.transform.scale(sprite_sheet, (sprite_sheet_width, sprite_sheet_height))
-sprite_sheet_width = sprite_sheet.get_rect().width
-sprite_sheet_height = sprite_sheet.get_rect().height
-sprite_width = sprite_sheet_width // total_sprites
-sprite_height = sprite_sheet_height
-
-# define initial x and y position of sprite
-sprite_x_pos = 0
-sprite_y_pos = 0
-sprite_x_delta = 10
-sprite_y_delta = 10
-
-# load sprite sheet into list
-sprite_list = []
-for i in range(total_sprites):
-    rect = pygame.Rect(i * sprite_width, 0, sprite_width, sprite_height)
-    image = sprite_sheet.subsurface(rect)
-    sprite_list.append(image)
-
-# sprite picker function for animation
-sprite_index = 0
-counter = 0
-def spritePicker():
-    global sprite_index
-    if counter % 20 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
-        if sprite_index == total_sprites - 1:
-            sprite_index = 0
-        else:
-            sprite_index += 1
-
-# clock to set FPS
+# creating the clock
 clock = pygame.time.Clock()
-wall = pygame.Rect(300, 200, 200, 50)
-# variable to control state of entire game
+
+# constants
+WIDTH = 1280
+HEIGHT = 1024
+FPS = 30
+
+# global variables
+current_background = None
+previous_background_index = 0
 running = True
+game_start = False
+end= False
+joysticks = []
+counter = 0
+previous_counter = 0
+leaderboard = [['CMC', "7.5"], ['CWJ', "7.8"], ['TGP', "8.1"]]
+notes_left = []
+notes_right = []
+notes_up = []
+notes_down= []
+# load sounds
+forest_sound = pygame.mixer.Sound("sounds/Forest_Scene_Concept.mp3")
+forest_sound.set_volume(0.20)
+castle_sound = pygame.mixer.Sound("sounds/Castle_Scene_Concept.mp3")
+castle_sound.set_volume(0.20)
+hell_sound = pygame.mixer.Sound("sounds/Boss_Intro_Concept.mp3")
+hell_sound.set_volume(0.20)
 
-# main varible thing to test the class
-end_Screen = End_Screen(
-        x=0,
-        y=0,
-        scale_factor=1,
-        runtime=0,
-        leaderboard=None,
-        gameOverMessage="Game Over",
-        backgroundGraphic=None,  # Assuming you don't need a background for now
-        credits="Some credits")
+# note image
+note_image = Asset_Reader("assets/note.png", 1, 0.5).get_asset_list()[0]
 
+# clearing notes that are off screen
+def check_and_clear_notes(list):
+    temp = []
+    for note in list:
+        if note.x > 0 and note.x < WIDTH and note.y > 0 and note.y < HEIGHT:
+            temp.append(note)
+    return temp
 
+# canvas        if (current_background.check_if_in_prev_box(capybarda)):
+CANVAS = pygame.display.set_mode((0, 0), FULLSCREEN)
+
+# object creation
+start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
+forest_path = Background("assets/forest_path_background.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
+castle = Background("assets/Castle.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
+hell = Background("assets/_Hell_.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
+capybarda = Player(
+    200, 200,
+    "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_Side2.png", "assets/CapybardaRun_side.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_back.png",
+    "assets/CapybardaIdle_back.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_side2.png", "assets/CapybardaIdle_side.png",
+    6, 4, 4, 6, 4, 4, 4, 4, 4, 4,
+    0.6, 0.6, 0.6, 0.6, 0.6,
+    10, 10
+)
+
+badger_boss = Player(
+    500, 200, 
+    "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_walking_RIGHT.png", 
+    23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+    0.6, 0.6, 0.6, 0.6, 0.6,
+    10, 10
+)
+end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
+# initial position of capybarda
+capybarda.x_coord = 100
+capybarda.y_coord = HEIGHT // 2
+
+backgrounds = [forest_path, castle, hell]
+current_background = start_screen
 
 # main game loop
 while running:
-    # paint the canvas with background color
-    canvas.fill(background_color)
-    #trying to recrod inputs and prints in console
-    end_Screen.handleInput()
-    # poll for events
     for event in pygame.event.get():
-        # if 'X' is clicked on the canvas
-        if event.type == QUIT:
+        if event.type == QUIT: 
             running = False
-    pygame.draw.rect(canvas, (0, 0, 0), wall)
-    # get all keys that are currently pressed
-    keys = pygame.key.get_pressed()
 
-    # check to see if any of the keys are w, a, s, or d
-    # and perform an action
-    if keys[pygame.K_w]:
-        print(pygame.K_w)
-        sprite_y_pos -= sprite_y_delta
-    if keys[pygame.K_s]:
-        sprite_y_pos += sprite_y_delta
-    if keys[pygame.K_a]:
-        sprite_x_pos -= sprite_x_delta
-    if keys[pygame.K_d]:
-        sprite_x_pos += sprite_x_delta
-    if sprite_x_pos > 1920:
-        sprite_x_pos=0
-    if sprite_x_pos < 0:
-        sprite_x_pos=1920
-    if sprite_y_pos > 1080:
-        sprite_y_pos=0
-    if sprite_y_pos < 0:
-        sprite_y_pos=1080
-    if keys[pygame.K_h]:
-        pygame.quit()
-        sys.exit()
-    canvas.blit(sprite_list[sprite_index], (sprite_x_pos, sprite_y_pos))
-    spritePicker()
-    pygame.display.update()
-    counter += 1
-    clock.tick(fps)
-    # Check for collision with the wall and stop movement if there's a collision
-    sprite_rect = pygame.Rect(sprite_x_pos, sprite_y_pos, sprite_width, sprite_height)
-    if sprite_rect.colliderect(wall):
+        if event.type == pygame.JOYDEVICEADDED:
+            joy = pygame.joystick.Joystick(event.device_index)
+            joysticks.append(joy)
+
+ #   if not(game_start) and not(end):
+      #  if joysticks[0].get_button(11):
+      #      game_start = True
+       #     end_screen.name = ""
+    
+  
+    if game_start:
+        current_background = backgrounds[Background.background_index]
+        CANVAS.blit(current_background.generate_return_surface(), (0, 0))
+        if (joysticks[0].get_axis(0) > 0.5):
+            if (current_background.check_can_move_up(capybarda)):
+                capybarda.up(counter)
+        elif (joysticks[0].get_axis(0) < -0.5):
+            if (current_background.check_can_move_down(capybarda)):
+                capybarda.down(counter)
+        elif (joysticks[0].get_axis(1) > 0.5):
+            if (current_background.check_can_move_right(capybarda)):
+                capybarda.right(counter)
+        elif (joysticks[0].get_axis(1) < -0.5):
+            if (current_background.check_can_move_left(capybarda)):
+                capybarda.left(counter)
+        else:
+            capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
+
+        if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
+            Background.background_index += 1
+            print(Background.background_index)
+
+            capybarda.x_coord = 100
+            capybarda.y_coord = HEIGHT // 2
+        if (current_background.check_if_in_next_box(capybarda) and Background.background_index == 2):
+            end = True
+            game_start = False
+            Background.background_index = -1
+        if (current_background.check_if_in_prev_box(capybarda)):
+            if Background.background_index >= 0:
+                Background.background_index -= 1
+                
+            if Background.background_index == -1:
+                game_start = False
+
+            capybarda.x_coord = 100
+            capybarda.y_coord = HEIGHT // 2
+        if (joysticks[0].get_button(9)):
+            if counter > 5 + previous_counter:
+                notes_left.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                previous_counter = counter
+        if (joysticks[0].get_button(8)):
+            if counter > 5 + previous_counter:
+                notes_right.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                previous_counter = counter
+        if (joysticks[0].get_button(11)):
+            if counter > 5 + previous_counter:
+                notes_up.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                previous_counter = counter
+        if (joysticks[0].get_button(10)):
+            if counter > 5 + previous_counter:
+                notes_down.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                previous_counter = counter
+
+        notes_left = check_and_clear_notes(notes_left)
+        notes_right = check_and_clear_notes(notes_right)
+        notes_up = check_and_clear_notes(notes_up)
+        notes_down = check_and_clear_notes(notes_down)
         
-        #end_screen.drawEndScreen()
+        for note in notes_left:
+            note.move_in_straight_line('L')
+            CANVAS.blit(note.projectile_image, (note.x, note.y))
+        for note in notes_right:
+            note.move_in_straight_line('R')
+            CANVAS.blit(note.projectile_image, (note.x, note.y))
+        for note in notes_up:
+            note.move_in_straight_line('U')
+            CANVAS.blit(note.projectile_image, (note.x, note.y))
+        for note in notes_down:
+            note.move_in_straight_line('D')
+            CANVAS.blit(note.projectile_image, (note.x, note.y))
 
-        end_Screen.inputName()
-        pygame.display.update()
-        if keys[pygame.K_a]:
-            sprite_x_pos += sprite_x_delta  # Prevent moving left into the wall
-        if keys[pygame.K_d]:
-             sprite_x_pos -= sprite_x_delta  # Prevent moving right into the wall
-        if keys[pygame.K_w]:
-            sprite_y_pos += sprite_y_delta  # Prevent moving up into the wall
-        if keys[pygame.K_s]:
-            sprite_y_pos -= sprite_y_delta   # Prevent moving down into the wall
-       #canvas.blit(bg_image, (0, 0))
-        #pygame.display.update()
+        CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
 
-# close pygame down
-pygame.quit()
-sys.exit()
+    elif end:
+        end_screen.drawEndScreen(CANVAS, joysticks)
+        if end_screen.pressedVisiblity == True and end_screen.inputVisible ==False:
+            end = False
+            game_start=False
+    else:
+        if joysticks[0].get_button(11):
+            game_start = True
+            end_screen.name = ""
+        current_background = start_screen
+        CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
+        Background.background_index = 0
+        forest_sound.stop()
+
+
+    # play sounds
+    if game_start:
+        if Background.background_index == 0:
+            forest_sound.play()
+            castle_sound.stop()
+            hell_sound.stop()
+        elif Background.background_index == 1:
+            castle_sound.play()
+            forest_sound.stop()
+            hell_sound.stop()
+        elif Background.background_index == 2:
+            hell_sound.play()
+            forest_sound.stop()
+            castle_sound.stop()
+
+    
+                  
+    if counter >= 600:
+        counter = 0
+        previous_counter = 0
+    else:
+        counter += 1
+    pygame.display.flip()
+    clock.tick(FPS)

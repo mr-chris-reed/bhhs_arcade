@@ -126,13 +126,17 @@ while running:
             capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
 
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
+            print(Background.background_index)
             Background.background_index += 1
             
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index == 2):
+            
             end = True
             game_start = False
+            Background.background_index=0
+
         
 
         if (current_background.check_if_in_prev_box(capybarda)):
