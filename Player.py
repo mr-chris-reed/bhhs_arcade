@@ -103,11 +103,3 @@ class Player:
         self.last_button = "d"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_right_list)
 
-
-    #def interact(self, item_group):
-        #for item in item_group:
-            #if pygame.sprite.collide_rect(self, item)
-                # item.collect(self)  
-
-                
-
