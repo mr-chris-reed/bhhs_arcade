@@ -104,5 +104,9 @@ class Player:
         self.last_idle_sprite = self.spritePicker(counter, self.idle_right_list)
 
 
+    
+
+    
+
                 
 
