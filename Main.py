@@ -63,9 +63,9 @@ CANVAS = pygame.display.set_mode((0, 0), FULLSCREEN)
 
 # object creation
 start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
-forest_path = Background("assets/forest_path_background.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
-castle = Background("assets/Castle.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
-hell = Background("assets/_Hell_.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
+forest_path = Background("assets/Forest_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
+castle = Background("assets/Castle_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
+hell = Background("assets/Hell_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
 capybarda = Player(
     200, 200,
     "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_Side2.png", "assets/CapybardaRun_side.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_back.png",
@@ -78,7 +78,7 @@ badger_boss = Player(
     500, 200, 
     "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_walking_RIGHT.png", 
     23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-    0.6, 0.6, 0.6, 0.6, 0.6,
+    3, 3, 3, 3, 3,
     10, 10
 )
 end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
