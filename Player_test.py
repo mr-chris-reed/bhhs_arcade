@@ -71,6 +71,32 @@ capybarda = Player(
     0.6, 0.6, 0.6, 0.6, 0.6,
     10, 10
 )
+
+
+
+
+
+
+
+##### ENEMY INSTANCE  VARIABLE
+badger_boss = Player(
+    500, 200, 
+    "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_walking_RIGHT.png", 
+    23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+    0.6, 0.6, 0.6, 0.6, 0.6,
+    10, 10
+)
+end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
+
+
+#####
+
+
+
+
+
+
+
 # initial position of capybarda
 capybarda.x_coord = 100
 capybarda.y_coord = HEIGHT // 2
