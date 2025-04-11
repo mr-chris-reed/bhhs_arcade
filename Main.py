@@ -33,7 +33,7 @@ notes_left = []
 notes_right = []
 notes_up = []
 notes_down= []
-
+end= False
 # screen transitions
 show_start_screen = True
 show_game_screens = False
