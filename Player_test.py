@@ -86,7 +86,7 @@ badger_boss = Player(
     0.6, 0.6, 0.6, 0.6, 0.6,
     10, 10
 )
-end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
+#end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
 
 
 #####

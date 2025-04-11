@@ -87,6 +87,9 @@ end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
 capybarda.x_coord = 100
 capybarda.y_coord = HEIGHT // 2
 
+badger_boss.x_coord = 500
+badger_boss.y_coord = HEIGHT // 2
+
 backgrounds = [forest_path, castle, hell]
 current_background = start_screen
 
@@ -197,7 +200,7 @@ while running:
 
     elif show_end_screen:
         end_screen.drawEndScreen(CANVAS, joysticks)
-        if end_screen.pressedVisiblity == True and end_screen.inputVisible ==False:
+        if end_screen.pressedVisiblity == True and end_screen.inputVisible == False:
             show_end_screen = False
             show_game_screens = False
             show_start_screen = True
@@ -224,5 +227,10 @@ while running:
         previous_counter = 0
     else:
         counter += 1
+
+    #badger_boss.move_towards_player(capybarda)
+    #if pygame.sprite.spritecollide(capybarda, badger_boss, True):
+        #print("works")
+
     pygame.display.flip()
     clock.tick(FPS)
