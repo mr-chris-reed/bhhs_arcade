@@ -99,26 +99,21 @@ class End_Screen:
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
                         
-                if self.button_move != round(joysticks[0].get_button(11)):
-                    self.button_move = round(joysticks[0].get_button(11))
+                if self.button_move != round(joysticks[0].get_button(10)):
+                    self.button_move = round(joysticks[0].get_button(10))
                     if self.button_move > 0.5 and self.hasBeenPressedOnce ==False:
                         self.hasBeenPressedOnce = True
                     elif self.button_move > 0.5 and self.hasBeenPressedOnce ==True:
                         self.name += self.currentLetterString
         elif len(self.name)==3:
-                    
-            if self.button_move != round(joysticks[0].get_button(11)):
-                self.button_move = round(joysticks[0].get_button(11))
+            if self.button_move != round(joysticks[0].get_button(10)):
+                self.button_move = round(joysticks[0].get_button(10))
                 if self.button_move > 0.5 and self.pressedVisiblity==False:
                     self.pressedVisiblity = True            
                     self.inputVisible = False
-                    
-                    print(self.name)
-               
-
-                    
-
-                    print(self.name)
+                    ###
+                    self.name = ''
+                    ###
                     
                
 
@@ -152,7 +147,7 @@ class End_Screen:
         if self.visible:
             self.drawCredits(canvas)
     
-        if joysticks[0].get_button(11) == 1 and self.visible:
+        if joysticks[0].get_button(10) == 1 and self.visible:
             self.visible = False  # hide credits
             pygame.time.delay(200)
             self.inputVisible = True  # shows input box   
