@@ -35,6 +35,7 @@ notes_right = []
 notes_up = []
 notes_down= []
 end= False
+
 # load sounds
 forest_sound = pygame.mixer.Sound("sounds/Forest_Scene_Concept.mp3")
 forest_sound.set_volume(0.20)
