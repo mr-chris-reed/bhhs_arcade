@@ -11,8 +11,7 @@ class HUD:
         self.width = width
         self.height = height
         self.player = player
-        self.timer = timer
-        self.gold = gold
+        #self.timer = timer
         self.health = health
         self.font = pygame.font.Font("fonts/PirataOne-Regular.ttf", 50)
         
@@ -41,7 +40,7 @@ class HUD:
         text_rect = text_surface.get_rect(center=(x, y))
         self.surface.blit(text_surface, text_rect)
 
-    def generate_return_surface(self, counter):
+    def generate_return_surface(self):
         self.surface = pygame.Surface((self.width, self.height))
-        self.draw_text("HP: ", "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 640, 800) # bigger numbers for i = slower flash
+        self.draw_text("HP: ", "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 640, 800)
         return self.surface
