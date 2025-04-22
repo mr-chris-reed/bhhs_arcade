@@ -21,7 +21,7 @@ player = Player(
     0.6, 0.6, 0.6, 0.6, 0.6,
     10, 10
 )
-hud = HUD(1280, 100, player, clock, player.gold, player.health)
+hud = HUD(1280, 100, player, player.health)
 
 # joysticks = []
 
@@ -32,7 +32,7 @@ while True:
     
     # Display the current background
     screen.blit(background1.generate_return_surface(), (125, 0))
-    hud.draw_HUD
+    hud.generate_return_surface()
 
     # Event handling
     for event in pygame.event.get():
