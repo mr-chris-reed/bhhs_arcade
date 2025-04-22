@@ -11,20 +11,29 @@ class HUD:
         self.width = width
         self.height = height
         self.player = player
-        #self.timer = timer
-        #self.gold = player.gold
-        self.health = player.health
-
+        self.timer = timer
+        self.gold = gold
+        self.health = health
+        self.font = pygame.font.Font("fonts/PirataOne-Regular.ttf", 50)
+        
+    def generate_return_surface(self):
+        self.surface = pygame.Surface((self.width, self.height))
+        self.surface.fill(255,255,255)
+        self.draw_text("Press Any Button To Start!", "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 640, 800, counter, 30) # bigger numbers for i = slower flash
+        self.draw_leaderboard("fonts/PirataOne-Regular.ttf", (255, 255, 255), 40, 100, 25, counter)
+        return self.surface
     
     def update_timer():
         pass
     
-    def draw_HUD():
+    def draw_HUD(self):
         #Most likely going to draw a rectangle at the top of the screen and will use the draw_text function.
-        #pygame.Rect(0, 0, width, height - 924)
-        pass
+
+        pygame.Rect(0, 0, self.width, self.height - 924)
+        self.draw_text("HUD", "fonts/PirataOne-Regular.ttf", (255, 255, 255), 20, 20)
+
         
-        
+    
     #Copied from start_screen
     def draw_text(self, text, font_name, color, size, x, y):
         font = pygame.font.Font(font_name if font_name else None, size)
