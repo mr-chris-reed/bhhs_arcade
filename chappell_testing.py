@@ -10,7 +10,7 @@ pygame.init()
 pygame.joystick.init()
 
 pygame.display.set_caption('HUD Test')
-background1 = Background("assets/forest_path_background.png", 1, 1, 0, 0, 50, 1280 - 50, 50, 1024 - 50)
+background1 = Background("assets/Forest_NEW.png", 1, 1, 0, 0, 50, 1280 - 50, 50, 1024 - 50)
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((1280, 1024))
 player = Player(
@@ -31,8 +31,8 @@ while True:
     screen.fill((0, 0, 0))  # Fill the screen with black
     
     # Display the current background
-    screen.blit(background1.generate_return_surface(), (125, 0))
-    hud.generate_return_surface()
+    #screen.blit(background1.generate_return_surface(), (125, 0))
+    hud.generate_return_surface(1)
 
     # Event handling
     for event in pygame.event.get():
@@ -42,6 +42,7 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+    hud.generate_return_surface(1)
 
     #button
     #for joystick in joysticks:
