@@ -111,9 +111,12 @@ class Player:
                 
 
     #def move_towards_player(self, player):
-        #dirvect = pygame.math.Vector2(player.rect.x - self.rect.x,
-        #player.rect.y - self.rect.y)
-        #dirvect.normalize()
-        #dirvect.scale_to_length(self.speed)
-        #self.rect.move_ip(dirvect)
+        #if self.x > self.x_coord:
+            #self.x_coord += 1
+        #if self.x < self.x_coord:
+            #self.x_coord -= 1
+        #if self.y > self.y_coord:
+            #self.y_coord += 1
+        #if self.y < self.y_coord:
+            #self.y_coord -= 1
 
