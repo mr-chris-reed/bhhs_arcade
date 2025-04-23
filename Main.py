@@ -197,6 +197,8 @@ while running:
             CANVAS.blit(note.projectile_image, (note.x, note.y))
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
+        CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
+
 
     elif show_end_screen:
         end_screen.drawEndScreen(CANVAS, joysticks)
@@ -219,18 +221,14 @@ while running:
             hell_sound.play()
             forest_sound.stop()
             castle_sound.stop()
-
     
+    badger_boss.move_towards_player(badger_boss, capybarda, 4)
                   
     if counter >= 600:
         counter = 0
         previous_counter = 0
     else:
         counter += 1
-
-    #badger_boss.move_towards_player(capybarda)
-    #if pygame.sprite.spritecollide(capybarda, badger_boss, True):
-        #print("works")
 
     pygame.display.flip()
     clock.tick(FPS)
