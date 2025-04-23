@@ -28,11 +28,12 @@ hud = HUD(1280, 100, player, player.health)
 # Game loop
 while True:
 
-    screen.fill((0, 0, 0))  # Fill the screen with black
+    screen.fill((255, 255, 255))  # Fill the screen with black
     
     # Display the current background
     #screen.blit(background1.generate_return_surface(), (125, 0))
-    hud.generate_return_surface(1)
+    h = hud.generate_return_surface()
+    screen.blit(h, (0, 0))
 
     # Event handling
     for event in pygame.event.get():
@@ -42,7 +43,6 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    hud.generate_return_surface(1)
 
     #button
     #for joystick in joysticks:
@@ -59,7 +59,6 @@ while True:
         #start_screen.draw_text("Battery Level: " + str(joystick.get_power_level()), None, pygame.Color("azure"), 25, 900, 40, title_screen)
         #start_screen.draw_text("Controller Type: " + str(joystick.get_name()), None, pygame.Color("azure"), 25, 900, 60, title_screen)
 
-    pygame.display.flip()
-    pygame.display.update()  # Update the display
+    pygame.display.flip()  # Update the display
     clock.tick(60)  # Limit the frame rate to 60 FPS
     
