@@ -41,9 +41,7 @@ class HUD:
         text_rect = text_surface.get_rect(center=(x, y))
         self.surface.blit(text_surface, text_rect)
 
-    def generate_return_surface(self):
+    def generate_return_surface(self, counter):
         self.surface = pygame.Surface((self.width, self.height))
-        #self.surface.blit(self.background[0], (self.x,self.y))
-        pygame.Rect(0, 0, self.width, self.height - 924)
-        self.draw_text("HP: ", "fonts/PirataOne-Regular.ttf", (255,255,255), 30, 20, 20)
+        self.draw_text("HP: ", "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 640, 800) # bigger numbers for i = slower flash
         return self.surface

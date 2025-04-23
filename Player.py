@@ -1,5 +1,5 @@
 
-import pygame
+import pygame, math
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
  
@@ -103,13 +103,27 @@ class Player:
         self.last_button = "d"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_right_list)
 
-    def move_towards_player(self, player,counter):
-        if self.x_coord > player.x_coord:
-            self.right(counter)
-        if self.x_coord < player.x_coord:
-            self.x_coord -= 1
-        if self.y_coord > player.y_coord:
-            self.y_coord += 1
-        if self.y_coord < player.y_coord:
-            self.y_coord -= 1
+
+    ### def move_towards_player(self, player,counter):
+        #if self.x_coord > player.x_coord:
+         #   self.right(counter)
+        #if self.x_coord < player.x_coord:
+         #   self.x_coord -= 1
+        #if self.y_coord > player.y_coord:
+         #   self.y_coord += 1
+        #if self.y_coord < player.y_coord:
+         #   self.y_coord -= 1
+
+    def move_towards_player(self, enemy, player, speed):
+
+        dx = player.x_coord - enemy.x_coord
+        dy = player.y_coord - enemy.y_coord
+        distance = math.hypot(dx, dy)
+        if distance == 0:
+            return 
+        dx /= distance
+        dy /= distance
+        enemy.x_coord += dx * speed
+        enemy.y_coord += dy * speed
+
 
