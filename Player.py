@@ -110,13 +110,13 @@ class Player:
 
                 
 
-    #def move_towards_player(self, player):
-        #if self.x > self.x_coord:
-            #self.x_coord += 1
-        #if self.x < self.x_coord:
-            #self.x_coord -= 1
-        #if self.y > self.y_coord:
-            #self.y_coord += 1
-        #if self.y < self.y_coord:
-            #self.y_coord -= 1
+    def move_towards_player(self, player,counter):
+        if self.x_coord > player.x_coord:
+            self.right(counter)
+        if self.x_coord < player.x_coord:
+            self.x_coord -= 1
+        if self.y_coord > player.y_coord:
+            self.y_coord += 1
+        if self.y_coord < player.y_coord:
+            self.y_coord -= 1
 
