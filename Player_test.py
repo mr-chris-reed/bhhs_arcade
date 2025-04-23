@@ -83,7 +83,7 @@ badger_boss = Player(
     500, 200, 
     "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_walking_RIGHT.png", 
     23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-    0.6, 0.6, 0.6, 0.6, 0.6,
+    3, 3, 3, 3, 3,
     10, 10
 )
 #end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
@@ -168,7 +168,7 @@ while running:
                 notes_down.append(Projectile(note_image, capybarda.x_coord+100, capybarda.y_coord+50, 20))
                 previous_counter = counter
 
-        badger_boss.move_towards_player(capybarda)
+        badger_boss.move_towards_player(capybarda, counter)
 
         notes_left = check_and_clear_notes(notes_left)
         notes_right = check_and_clear_notes(notes_right)
@@ -189,7 +189,7 @@ while running:
             CANVAS.blit(note.projectile_image, (note.x, note.y))
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
-        CANCAS.blit
+        CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
 
     # play sounds
     if game_start:
