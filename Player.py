@@ -114,16 +114,21 @@ class Player:
         #if self.y_coord < player.y_coord:
          #   self.y_coord -= 1
 
-    def move_towards_player(self, enemy, player, speed):
+    def move_towards_player(self, player,counter):
 
-        dx = player.x_coord - enemy.x_coord
-        dy = player.y_coord - enemy.y_coord
+        dx = player.x_coord - self.x_coord
+        dy = player.y_coord - self.y_coord
         distance = math.hypot(dx, dy)
         if distance == 0:
             return 
         dx /= distance
         dy /= distance
-        enemy.x_coord += dx * speed
-        enemy.y_coord += dy * speed
-
+        if dy < 0:
+            self.up(counter)
+        if dy > 0:
+            self.down(counter)
+        if dx < 0:
+            self.left(counter)
+        if dx > 0:
+            self.right(counter)
 
