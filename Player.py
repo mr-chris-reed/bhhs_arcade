@@ -103,3 +103,12 @@ class Player:
         self.last_button = "d"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_right_list)
 
+    def follow(self, player, counter):
+        if (self.x_coord < player.x_coord):
+            self.right(counter)
+        if (self.x_coord > player.x_coord):
+            self.left(counter)
+        if (self.y_coord < player.y_coord):
+            self.down(counter)
+        if (self.y_coord > player.y_coord):
+            self.up(counter)

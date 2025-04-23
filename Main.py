@@ -79,7 +79,7 @@ badger_boss = Player(
     "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_walking_RIGHT.png", 
     23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
     3, 3, 3, 3, 3,
-    10, 10
+    5, 5
 )
 end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
 
@@ -139,6 +139,9 @@ while running:
         else:
             capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
 
+        ### enemy AI - "follow" ###
+        badger_boss.follow(capybarda, counter)
+
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
             Background.background_index += 1
             
@@ -194,6 +197,7 @@ while running:
             CANVAS.blit(note.projectile_image, (note.x, note.y))
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
+        CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
 
     elif show_end_screen:
         end_screen.drawEndScreen(CANVAS, joysticks)
