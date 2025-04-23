@@ -168,6 +168,8 @@ while running:
                 notes_down.append(Projectile(note_image, capybarda.x_coord+100, capybarda.y_coord+50, 20))
                 previous_counter = counter
 
+        badger_boss.move_towards_player(capybarda)
+
         notes_left = check_and_clear_notes(notes_left)
         notes_right = check_and_clear_notes(notes_right)
         notes_up = check_and_clear_notes(notes_up)
@@ -187,6 +189,7 @@ while running:
             CANVAS.blit(note.projectile_image, (note.x, note.y))
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
+        CANCAS.blit
 
     # play sounds
     if game_start:
