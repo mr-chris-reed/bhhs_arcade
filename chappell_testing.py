@@ -32,7 +32,7 @@ while True:
     
     # Display the current background
     #screen.blit(background1.generate_return_surface(), (125, 0))
-    h = hud.generate_return_surface()
+    h = hud.generate_return_surface(0)
     screen.blit(h, (0, 0))
 
     # Event handling

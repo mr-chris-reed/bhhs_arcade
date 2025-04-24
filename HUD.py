@@ -24,8 +24,9 @@ class HUD:
         self.box.set_alpha(40)
         self.surface.blit(self.box, (0,0))
         self.draw_text("HUD", "fonts/PirataOne-Regular.ttf", (255, 255, 255), 20, 1000, 20)
-        self.draw_text("HP: " + str(self.health), "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 1000, 25)
+        self.draw_text("HP: " + str(self.health), "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 800, 25)
         self.draw_text("Time " + str(time), "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 50, 25)
+    
     #Copied from start_screen with some tweaks.
     def draw_text(self, text, font_name, color, size, x, y):
         font = pygame.font.Font(font_name if font_name else None, size)
@@ -36,7 +37,7 @@ class HUD:
     #Copied from start_screen with some tweaks.
     def generate_return_surface(self, time):
         self.surface = pygame.Surface((self.width, self.height))
-        self.draw_HUD(time)
+        self.draw_HUD(self.timer)
         return self.surface
 
     def update_HUD():
