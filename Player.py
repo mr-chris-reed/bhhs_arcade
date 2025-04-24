@@ -50,6 +50,7 @@ class Player:
         self.last_idle_sprite_list = self.idle_right_list
         self.last_idle_sprite = self.idle_right_list[0]
         self.last_button = "d"
+        self.collision_rect = Rect(200, 500, 50, 50)
    
         #actions
 
@@ -103,18 +104,7 @@ class Player:
         self.last_button = "d"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_right_list)
 
-
-    ### def move_towards_player(self, player,counter):
-        #if self.x_coord > player.x_coord:
-         #   self.right(counter)
-        #if self.x_coord < player.x_coord:
-         #   self.x_coord -= 1
-        #if self.y_coord > player.y_coord:
-         #   self.y_coord += 1
-        #if self.y_coord < player.y_coord:
-         #   self.y_coord -= 1
-
-    def move_towards_player(self, player,counter):
+    def move_towards_player(self, player, counter):
 
         dx = player.x_coord - self.x_coord
         dy = player.y_coord - self.y_coord
