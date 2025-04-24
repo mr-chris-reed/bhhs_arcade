@@ -34,6 +34,9 @@ notes_right = []
 notes_up = []
 notes_down= []
 end= False
+#collision_rect = Rect(200, 500, 50, 50)
+#collision_rect2 = Rect(200, 0, 50, 50)
+
 # screen transitions
 show_start_screen = True
 show_game_screens = False
@@ -79,7 +82,7 @@ badger_boss = Player(
     "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_walking_RIGHT.png", 
     23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
     3, 3, 3, 3, 3,
-    10, 10
+    5, 5
 )
 end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
 
@@ -158,9 +161,15 @@ while running:
             if Background.background_index == -1:
                 show_game_screens = False
                 show_start_screen = True
-
+            
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
+
+        badger_boss.move_towards_player(capybarda, counter)
+        #collide = pygame.Rect.colliderect(collision_rect, collision_rect2)
+        #if collide:
+            #print("works")
+
         if (joysticks[0].get_button(9)):
             if counter > 5 + previous_counter:
                 notes_left.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
@@ -221,8 +230,6 @@ while running:
             hell_sound.play()
             forest_sound.stop()
             castle_sound.stop()
-    
-    badger_boss.move_towards_player(badger_boss, capybarda, 4)
                   
     if counter >= 600:
         counter = 0

@@ -84,7 +84,7 @@ badger_boss = Player(
     "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_walking_RIGHT.png", 
     23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
     3, 3, 3, 3, 3,
-    10, 10
+    5, 5
 )
 #end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
 
