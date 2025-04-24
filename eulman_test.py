@@ -54,39 +54,10 @@ def check_and_clear_notes(list):
     return temp
 
 # canvas        if (current_background.check_if_in_prev_box(capybarda)):
-CANVAS = pygame.display.set_mode((0, 0), FULLSCREEN)
+CANVAS = pygame.display.set_mode((0, 0))
 
-# object creation
-start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
-forest_path = Background("assets/forest_path_background.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
-castle = Background("assets/Castle.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
-hell = Background("assets/_Hell_.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
-capybarda = Player(
-    200, 200,
-    "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_Side2.png", "assets/CapybardaRun_side.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_back.png",
-    "assets/CapybardaIdle_back.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_side2.png", "assets/CapybardaIdle_side.png",
-    6, 4, 4, 6, 4, 4, 4, 4, 4, 4,
-    0.6, 0.6, 0.6, 0.6, 0.6,
-    10, 10
-)
-
-badger_boss = Player(
-    500, 200, 
-    "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_walking_RIGHT.png", 
-    23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-    0.6, 0.6, 0.6, 0.6, 0.6,
-    10, 10
-)
-
-player_hud = HUD(1280, 200,None,None,None,None)
-end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
-# initial position of capybarda
-capybarda.x_coord = 100
-capybarda.y_coord = HEIGHT // 2
-
-backgrounds = [forest_path, castle, hell]
-current_background = start_screen
-
+player_hud = HUD(1280, 200,None,None)
+time = 0
 # main game loop
 while running:
     for event in pygame.event.get():
@@ -96,15 +67,9 @@ while running:
         if event.type == pygame.JOYDEVICEADDED:
             joy = pygame.joystick.Joystick(event.device_index)
             joysticks.append(joy)
-
-    if not(game_start) and not(end):
-        if joysticks[0].get_button(11):
-            game_start = True
-            end_screen.name = ""
-    
-    if not(game_start) and not(end): 
-        current_background = start_screen
-        CANVAS.blit(HUD.generate_return_surface(), (0, 0))
+    if (FPS % 30 == 0):
+        time += 1   
+    CANVAS.blit(player_hud.generate_return_surface(time), (0, 0))
     
     pygame.display.flip()
     clock.tick(FPS)

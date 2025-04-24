@@ -11,18 +11,21 @@ class HUD:
         self.width = width
         self.height = height
         self.player = player
-        #self.timer = timer
+        self.timer = 0
         self.health = health
-        self.font = pygame.font.Font("fonts/PirataOne-Regular.ttf", 50)
     
     def update_timer():
         pass
     
-    def draw_HUD(self):
+    def draw_HUD(self, time):
         #Draws a rectangle at the top of the screen and will use the draw_text function.
-        pygame.Rect(0, 0, self.width, self.height - 924)
-        self.draw_text("HUD", "fonts/PirataOne-Regular.ttf", (255, 255, 255), 20, 20)
-
+        self.box = pygame.Surface((1280,100))
+        self.box.fill((255,255,255))
+        self.box.set_alpha(40)
+        self.surface.blit(self.box, (0,0))
+        self.draw_text("HUD", "fonts/PirataOne-Regular.ttf", (255, 255, 255), 20, 1000, 20)
+        self.draw_text("HP: " + str(self.health), "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 1000, 25)
+        self.draw_text("Time " + str(time), "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 50, 25)
     #Copied from start_screen with some tweaks.
     def draw_text(self, text, font_name, color, size, x, y):
         font = pygame.font.Font(font_name if font_name else None, size)
@@ -31,9 +34,9 @@ class HUD:
         self.surface.blit(text_surface, text_rect)
 
     #Copied from start_screen with some tweaks.
-    def generate_return_surface(self):
+    def generate_return_surface(self, time):
         self.surface = pygame.Surface((self.width, self.height))
-        self.draw_text("HP: " + str(self.health), "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 50, 25)
+        self.draw_HUD(time)
         return self.surface
 
     def update_HUD():
