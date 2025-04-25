@@ -172,6 +172,7 @@ while running:
         #collide = pygame.Rect.colliderect(collision_rect, collision_rect2)
         #if collide:
             #print("works")
+      
 
         if (joysticks[0].get_button(9)):
             if counter > 5 + previous_counter:
@@ -208,7 +209,8 @@ while running:
             note.move_in_straight_line('D')
             CANVAS.blit(note.projectile_image, (note.x, note.y))
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
-        
+        pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
+
         if Background.background_index == 0:
             CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
         

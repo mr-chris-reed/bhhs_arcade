@@ -50,7 +50,7 @@ class Player:
         self.last_idle_sprite_list = self.idle_right_list
         self.last_idle_sprite = self.idle_right_list[0]
         self.last_button = "d"
-        self.collision_rect = Rect(self.x_coord, self.y_coord, 50, 50)
+        self.collision_rect = Rect(self.x_coord, self.y_coord, self.width - 100, self.height)
    
         #actions
 
@@ -71,7 +71,7 @@ class Player:
         self.last_idle_sprite_list = self.idle_up_list
         self.last_button ="w"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_up_list)
-        self.collision_rect.center = (self.x_coord,self.y_coord)
+        self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
 
     def down(self, counter):
         if (self.last_button != "s"):
@@ -82,7 +82,7 @@ class Player:
         self.last_idle_sprite_list = self.idle_down_list
         self.last_button = "s"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_down_list)
-        self.collision_rect.center = (self.x_coord,self.y_coord)
+        self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
 
     def left(self, counter):
         if (self.last_button != "a"):
@@ -93,7 +93,7 @@ class Player:
         self.last_idle_sprite_list = self.idle_left_list
         self.last_button = "a"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_left_list)
-        self.collision_rect.center = (self.x_coord,self.y_coord)
+        self.collision_rect.center = (self.x_coord + 85,self.y_coord + 90)
 
     def right(self, counter):
         if (self.last_button != "d"):
@@ -104,7 +104,7 @@ class Player:
         self.last_idle_sprite_list = self.idle_right_list
         self.last_button = "d"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_right_list)
-        self.collision_rect.center = (self.x_coord,self.y_coord)
+        self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
 
     def move_towards_player(self, player, counter):
 
@@ -123,4 +123,8 @@ class Player:
             self.left(counter)
         if dx > 0 and self.collision_rect.colliderect != True:
             self.right(counter)
+
+    def hit(self):
+        print('hit')
+
 
