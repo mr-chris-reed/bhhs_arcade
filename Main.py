@@ -8,6 +8,7 @@ from Start_Screen import Start_Screen
 from Background import Background
 from Player import Player
 from Projectile import Projectile
+from HUD import HUD
 
 # initialize pygame and pygame joystick
 pygame.init()
@@ -34,6 +35,7 @@ notes_right = []
 notes_up = []
 notes_down= []
 end= False
+frame_count = 0
 #collision_rect = Rect(200, 500, 50, 50)
 #collision_rect2 = Rect(200, 0, 50, 50)
 
@@ -85,6 +87,7 @@ badger_boss = Player(
     5, 5
 )
 end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
+hud = HUD(1280, 100, capybarda, capybarda.health,0)
 
 # initial position of capybarda
 capybarda.x_coord = 100
@@ -205,13 +208,16 @@ while running:
         for note in notes_down:
             note.move_in_straight_line('D')
             CANVAS.blit(note.projectile_image, (note.x, note.y))
-
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
         pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
+
         if Background.background_index == 0:
             CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
-
-
+        
+        hud.time = frame_count // (FPS * 2)
+        h = hud.generate_return_surface(0)
+        CANVAS.blit(h, (0, 0))
+        
     elif show_end_screen:
         end_screen.drawEndScreen(CANVAS, joysticks)
         if end_screen.pressedVisiblity == True and end_screen.inputVisible == False:
@@ -239,6 +245,6 @@ while running:
         previous_counter = 0
     else:
         counter += 1
-
+    frame_count += 1
     pygame.display.flip()
     clock.tick(FPS)

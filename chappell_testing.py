@@ -28,7 +28,7 @@ hud = HUD(1280, 100, player, player.health)
 # Game loop
 while True:
 
-    screen.fill((255, 255, 255))  # Fill the screen with black
+    screen.fill((255, 255, 255))  # Fill the screen with white
     
     # Display the current background
     #screen.blit(background1.generate_return_surface(), (125, 0))
