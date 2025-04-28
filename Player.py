@@ -1,4 +1,3 @@
-
 import pygame, math
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
@@ -125,6 +124,6 @@ class Player:
             self.right(counter)
 
     def hit(self):
-        print('hit')
+        
 
 
