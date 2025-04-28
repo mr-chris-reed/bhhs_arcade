@@ -33,6 +33,6 @@ while running:
     frame_count += 1
     pygame.display.flip()
     clock.tick(frame_rate)
-   
+    
 pygame.quit()
 
