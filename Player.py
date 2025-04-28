@@ -1,4 +1,3 @@
-
 import pygame, math
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
@@ -115,16 +114,16 @@ class Player:
             return 
         dx /= distance
         dy /= distance
-        if dy < 0 and self.collision_rect.colliderect != True:
+        if dy < 0 and self.collision_rect.colliderect(player.collision_rect) != True:
             self.up(counter)
-        if dy > 0 and self.collision_rect.colliderect != True:
+        if dy > 0 and self.collision_rect.colliderect(player.collision_rect) != True:
             self.down(counter)
-        if dx < 0 and self.collision_rect.colliderect != True:
+        if dx < 0 and self.collision_rect.colliderect(player.collision_rect) != True:
             self.left(counter)
-        if dx > 0 and self.collision_rect.colliderect != True:
+        if dx > 0 and self.collision_rect.colliderect(player.collision_rect) != True:
             self.right(counter)
 
     def hit(self):
-        print('hit')
+        
 
 

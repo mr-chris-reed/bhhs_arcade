@@ -213,7 +213,8 @@ while running:
 
         if Background.background_index == 0:
             CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
-        
+            pygame.draw.rect(CANVAS, (255,0,0), badger_boss.collision_rect, 2)
+
         hud.time = frame_count // (FPS * 2)
         h = hud.generate_return_surface(0)
         CANVAS.blit(h, (0, 0))
