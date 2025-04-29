@@ -36,8 +36,6 @@ notes_up = []
 notes_down= []
 end= False
 frame_count = 0
-#collision_rect = Rect(200, 500, 50, 50)
-#collision_rect2 = Rect(200, 0, 50, 50)
 
 # screen transitions
 show_start_screen = True
@@ -123,12 +121,11 @@ while running:
         Background.background_index = 0
         forest_sound.stop()
         hell_sound.stop()
-        ###
+        
         end_screen.pressedVisiblity = False
         end_screen.inputVisible = False
         end_screen.visible = True
         end_screen.hasBeenPressedOnce = False
-        ###
 
     elif show_game_screens:
         current_background = backgrounds[Background.background_index]
@@ -170,7 +167,7 @@ while running:
             
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
-
+            
         badger_boss.move_towards_player(capybarda, counter)
         #collide = pygame.Rect.colliderect(collision_rect, collision_rect2)
         #if collide:
@@ -221,18 +218,18 @@ while running:
         for note in notes_down:
             note.move_in_straight_line('D')
             CANVAS.blit(note.projectile_image, (note.x, note.y))
-<<<<<<< HEAD
        
+        if Background.background_index == 0:
+            CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
+            #pygame.draw.rect(CANVAS, (255,0,0), badger_boss.collision_rect, 2)
+
         hud.time = frame_count // (FPS * 2)
         h = hud.generate_return_surface(0)
         CANVAS.blit(h, (0, 0))
-        
-=======
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
         CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
 
->>>>>>> 834f83c4935a188d096953dd55e414d749f05998
     elif show_end_screen:
         end_screen.drawEndScreen(CANVAS, joysticks)
         if end_screen.pressedVisiblity == True and end_screen.inputVisible == False:
