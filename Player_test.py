@@ -206,7 +206,7 @@ while running:
             CANVAS.blit(note.projectile_image, (note.x, note.y))
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
-        if Background.background_index == 0:
+        if Background.background_index == 0 and badger_boss.alive == True:
             CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
 
 

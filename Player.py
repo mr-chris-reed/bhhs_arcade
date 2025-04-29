@@ -1,6 +1,7 @@
 import pygame, math
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
+from Projectile import Projectile
  
 
 class Player:
@@ -16,7 +17,7 @@ class Player:
 
         self.health = 5
         self.gold = 0
-        self.damage = 5
+        self.damage = 1
         self.x_coord = x_coord
         self.y_coord = y_coord
         self.x_speed = x_speed
@@ -50,7 +51,7 @@ class Player:
         self.last_idle_sprite = self.idle_right_list[0]
         self.last_button = "d"
         self.collision_rect = Rect(self.x_coord, self.y_coord, self.width - 100, self.height)
-   
+        self.alive = True
         #actions
 
     def spritePicker(self, counter, sprite_list): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
@@ -123,7 +124,11 @@ class Player:
         if dx > 0 and self.collision_rect.colliderect(player.collision_rect) != True:
             self.right(counter)
 
-    def hit(self):
-        
+    def enemy_hit(self,projectile):
+        if self.collision_rect.colliderect(projectile.projectile_rect):
+            self.health -= 1 
+        if self.health == 0:
+            self.alive = False
+        print(self.health)
 
 
