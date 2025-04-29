@@ -148,6 +148,9 @@ while running:
         else:
             capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
 
+        ### enemy AI - "follow" ###
+        badger_boss.follow(capybarda, counter)
+
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
             Background.background_index += 1
             
@@ -218,11 +221,18 @@ while running:
         for note in notes_down:
             note.move_in_straight_line('D')
             CANVAS.blit(note.projectile_image, (note.x, note.y))
+<<<<<<< HEAD
        
         hud.time = frame_count // (FPS * 2)
         h = hud.generate_return_surface(0)
         CANVAS.blit(h, (0, 0))
         
+=======
+
+        CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
+        CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
+
+>>>>>>> 834f83c4935a188d096953dd55e414d749f05998
     elif show_end_screen:
         end_screen.drawEndScreen(CANVAS, joysticks)
         if end_screen.pressedVisiblity == True and end_screen.inputVisible == False:
