@@ -32,7 +32,7 @@ while running:
     screen.fill(WHITE)
     total_seconds = frame_count / frame_rate  # total seconds passed
     roundedtime=round(total_seconds,2)# rounds time to 2 decimal places
-    score= f"Time: {roundedtime}"
+    score= f"Time: {roundedtime}" # displays score
     text = font.render(score, True, BLACK) # render _ display
     screen.blit(text, [250, 250])
     frame_count += 1
