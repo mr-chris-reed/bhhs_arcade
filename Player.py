@@ -1,6 +1,7 @@
 import pygame, math
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
+from Projectile import Projectile
  
 
 class Player:
@@ -16,7 +17,7 @@ class Player:
 
         self.health = 5
         self.gold = 0
-        self.damage = 5
+        self.damage = 1
         self.x_coord = x_coord
         self.y_coord = y_coord
         self.x_speed = x_speed
@@ -50,7 +51,7 @@ class Player:
         self.last_idle_sprite = self.idle_right_list[0]
         self.last_button = "d"
         self.collision_rect = Rect(self.x_coord, self.y_coord, self.width - 100, self.height)
-   
+        self.alive = True
         #actions
 
     is_moving_right = False
@@ -154,6 +155,14 @@ class Player:
         if dx > 0 and self.collision_rect.colliderect(player.collision_rect) != True:
             self.right(counter)
 
+
+    def enemy_hit(self,projectile):
+        if self.collision_rect.colliderect(projectile.projectile_rect):
+            self.health -= 1 
+        if self.health == 0:
+            self.alive = False
+        print(self.health)
+        
         #LOOKS GOOFY AS $@#& IDK HOW SPRITES WORK MAKE IT LOOK GOOD PLS, might be an issue with num_attack_list when we make the boss object im main.
         if self.collision_rect.colliderect(player.collision_rect) == True & self.is_moving_right == True:
             self.attack_right(counter)
@@ -163,6 +172,7 @@ class Player:
             self.attack_up(counter)
         if self.collision_rect.colliderect(player.collision_rect) == True & self.is_moving_down == True:
             self.attack_down(counter)
+
 
 
     #def hit(self, player)
