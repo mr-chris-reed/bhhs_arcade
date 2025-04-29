@@ -206,8 +206,8 @@ while running:
         notes_up = check_and_clear_notes(notes_up)
         notes_down = check_and_clear_notes(notes_down)
         
-        for note in notes_left:
-            badger_boss.enemy_hit(note)
+      #  for note in notes_left:
+       #     badger_boss.enemy_hit(note)
         
 
         for note in notes_left:
@@ -223,8 +223,7 @@ while running:
             note.move_in_straight_line('D')
             CANVAS.blit(note.projectile_image, (note.x, note.y))
 
-        CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
-        pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
+        
 
         if Background.background_index == 0 and badger_boss.alive == True:
 
@@ -235,8 +234,6 @@ while running:
         h = hud.generate_return_surface(0)
         CANVAS.blit(h, (0, 0))
 
-        CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
-        CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
 
     elif show_end_screen:
         end_screen.drawEndScreen(CANVAS, joysticks)
