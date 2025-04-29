@@ -172,23 +172,33 @@ while running:
         #collide = pygame.Rect.colliderect(collision_rect, collision_rect2)
         #if collide:
             #print("works")
-      
 
+        CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
+        pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
+
+        if Background.background_index == 0:
+            CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
+            pygame.draw.rect(CANVAS, (255,0,0), badger_boss.collision_rect, 2)
+      
         if (joysticks[0].get_button(9)):
             if counter > 5 + previous_counter:
-                notes_left.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                notes_left.append(Projectile(note_image, capybarda.x_coord + capybarda.width // 2,
+                                            capybarda.y_coord + capybarda.height // 3, 20))
                 previous_counter = counter
         if (joysticks[0].get_button(8)):
             if counter > 5 + previous_counter:
-                notes_right.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                notes_right.append(Projectile(note_image, capybarda.x_coord + capybarda.width // 2,
+                                              capybarda.y_coord + capybarda.height // 3, 20))
                 previous_counter = counter
         if (joysticks[0].get_button(11)):
             if counter > 5 + previous_counter:
-                notes_up.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                notes_up.append(Projectile(note_image, capybarda.x_coord + capybarda.width // 2,
+                                           capybarda.y_coord + capybarda.height // 3, 20))
                 previous_counter = counter
         if (joysticks[0].get_button(10)):
             if counter > 5 + previous_counter:
-                notes_down.append(Projectile(note_image, capybarda.x_coord, capybarda.y_coord, 20))
+                notes_down.append(Projectile(note_image, capybarda.x_coord + capybarda.width //2,
+                                             capybarda.y_coord + capybarda.height // 3, 20))
                 previous_counter = counter
 
         notes_left = check_and_clear_notes(notes_left)
@@ -208,13 +218,7 @@ while running:
         for note in notes_down:
             note.move_in_straight_line('D')
             CANVAS.blit(note.projectile_image, (note.x, note.y))
-        CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
-        pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
-
-        if Background.background_index == 0:
-            CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
-            pygame.draw.rect(CANVAS, (255,0,0), badger_boss.collision_rect, 2)
-
+       
         hud.time = frame_count // (FPS * 2)
         h = hud.generate_return_surface(0)
         CANVAS.blit(h, (0, 0))

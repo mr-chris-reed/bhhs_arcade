@@ -124,6 +124,7 @@ class Player:
             self.right(counter)
 
     def hit(self):
+        pass
         
 
 
