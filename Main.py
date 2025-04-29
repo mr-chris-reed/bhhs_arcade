@@ -115,6 +115,7 @@ while running:
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
             
+            
     if show_start_screen: 
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
@@ -128,6 +129,7 @@ while running:
         end_screen.hasBeenPressedOnce = False
 
     elif show_game_screens:
+        roundedtime =0
         current_background = backgrounds[Background.background_index]
         CANVAS.blit(current_background.generate_return_surface(), (0, 0))
         if (joysticks[0].get_axis(0) > 0.5):
@@ -208,7 +210,11 @@ while running:
             CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
             #pygame.draw.rect(CANVAS, (255,0,0), badger_boss.collision_rect, 2)
 
-        hud.time = frame_count // (FPS * 2)
+        #timer
+        total_seconds = frame_count / (FPS * 2) # gets the time unrounded
+        roundedtime=round(total_seconds,2)# rounds time to 2 decimal places
+        hud.time= f"{roundedtime:.2f}" # sets hud.time to the rounded time
+        
         h = hud.generate_return_surface(0)
         CANVAS.blit(h, (0, 0))
         
@@ -218,7 +224,6 @@ while running:
             show_end_screen = False
             show_game_screens = False
             show_start_screen = True
-
     # play sounds
     if show_game_screens:
         if Background.background_index == 0:
