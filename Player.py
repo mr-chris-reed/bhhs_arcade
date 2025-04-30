@@ -9,7 +9,7 @@ class Player:
 
     def __init__(self, 
                 x_coord, y_coord, 
-                ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack,
+                ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack_left, ss_attack_right,
                 idle_up,idle_down,idle_left,idle_right,
                 num_up, num_down, num_left, num_right, num_interact, num_attack, num_up_idle, num_down_idle, num_left_idle, num_right_idle,
                 scale,up_scale,down_scale, left_scale, right_scale,
@@ -39,7 +39,8 @@ class Player:
         self.left_list = Asset_Reader(ss_left, num_left, left_scale).get_asset_list()
         self.right_list = Asset_Reader(ss_right, num_right, right_scale).get_asset_list()
         self.interact_list = Asset_Reader(ss_interact, num_interact, scale).get_asset_list()
-        self.attack_list = Asset_Reader(ss_attack, num_attack, scale).get_asset_list()
+        self.attack_list_left = Asset_Reader(ss_attack_left, num_attack, scale).get_asset_list()
+        self.attack_list_right = Asset_Reader(ss_attack_right, num_attack, scale).get_asset_list()
         self.idle_up_list = Asset_Reader(idle_up, num_up_idle, up_scale).get_asset_list()
         self.idle_down_list = Asset_Reader(idle_down, num_down_idle, down_scale).get_asset_list()
         self.idle_left_list = Asset_Reader(idle_left, num_left_idle, left_scale).get_asset_list()
@@ -119,13 +120,13 @@ class Player:
 
     #LOOKS GOOFY AS $@#& IDK HOW SPRITES WORK MAKE IT LOOK GOOD PLS, might be an issue with num_attack_list when we make the boss object im main.
     def attack_right(self, counter):
-        self.last_sprite = self.spritePicker(counter, self.attack_list)
+        self.last_sprite = self.spritePicker(counter, self.attack_list_right)
     def attack_left(self, counter):
-        self.last_sprite = self.spritePicker(counter, self.attack_list)
+        self.last_sprite = self.spritePicker(counter, self.attack_list_left)
     def attack_up(self, counter):
-        self.last_sprite = self.spritePicker(counter, self.attack_list)
+        self.last_sprite = self.spritePicker(counter, self.attack_list_right)
     def attack_down(self, counter):
-        self.last_sprite = self.spritePicker(counter, self.attack_list)
+        self.last_sprite = self.spritePicker(counter, self.attack_list_left)
 
     def move_towards_player(self, player, counter):
 
@@ -147,14 +148,15 @@ class Player:
             self.right(counter)
 
 
-    def enemy_hit(self,projectile):
+    def enemy_hit(self, projectile, player, counter):
         if self.collision_rect.colliderect(projectile.projectile_rect):
             self.health -= 1 
         if self.health == 0:
             self.alive = False
         print(self.health)
-        
+
         #LOOKS GOOFY AS $@#& IDK HOW SPRITES WORK MAKE IT LOOK GOOD PLS, might be an issue with num_attack_list when we make the boss object im main.
+    def badger_attack(self, player, counter):
         if self.collision_rect.colliderect(player.collision_rect) == True & self.is_moving_right == True:
             self.attack_right(counter)
         if self.collision_rect.colliderect(player.collision_rect) == True & self.is_moving_left == True:

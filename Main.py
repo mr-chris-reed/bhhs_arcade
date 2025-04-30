@@ -70,17 +70,36 @@ forest_path = Background("assets/Forest_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50
 castle = Background("assets/Castle_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
 hell = Background("assets/Hell_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
 capybarda = Player(
-    200, 200,
-    "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_Side2.png", "assets/CapybardaRun_side.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_back.png",
-    "assets/CapybardaIdle_back.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_side2.png", "assets/CapybardaIdle_side.png",
+    200, 200, 
+    "assets/CapybardaRun_back.png", 
+    "assets/CapybardaRun_front.png", 
+    "assets/CapybardaRun_Side2.png", 
+    "assets/CapybardaRun_side.png", 
+    "assets/CapybardaIdle_front.png", 
+    "assets/CapybardaIdle_side.png",
+    "assets/CapybardaIdle_back.png",
+    "assets/CapybardaIdle_back.png", 
+    "assets/CapybardaIdle_front.png", 
+    "assets/CapybardaIdle_side2.png", 
+    "assets/CapybardaIdle_side.png",
     6, 4, 4, 6, 4, 4, 4, 4, 4, 4,
     0.6, 0.6, 0.6, 0.6, 0.6,
     10, 10
 )
 badger_boss = Player(
     500, 200, 
-    "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_walking_RIGHT.png", 
-    23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+    "assets/badger_walking_LEFT.png",
+    "assets/badger_walking_RIGHT.png",
+    "assets/badger_walking_LEFT.png",
+    "assets/badger_walking_RIGHT.png",
+    "assets/badger_slashing_RIGHT.png",
+    "assets/badger_slashing_LEFT.png",
+    "assets/badger_slashing_RIGHT.png",
+    "assets/badger_slashing_LEFT.png",
+    "assets/badger_slashing_RIGHT.png",
+    "assets/badger_slashing_LEFT.png",
+    "assets/badger_walking_RIGHT.png", 
+    23, 23, 23, 23, 9, 9, 9, 9, 9, 23,
     3, 3, 3, 3, 3,
     5, 5
 )
@@ -115,6 +134,7 @@ while running:
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
             
+            
     if show_start_screen: 
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
@@ -128,6 +148,7 @@ while running:
         end_screen.hasBeenPressedOnce = False
 
     elif show_game_screens:
+        roundedtime =0
         current_background = backgrounds[Background.background_index]
         CANVAS.blit(current_background.generate_return_surface(), (0, 0))
         if (joysticks[0].get_axis(0) > 0.5):
@@ -146,7 +167,7 @@ while running:
             capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
 
         ### enemy AI - "follow" ###
-        badger_boss.follow(capybarda, counter)
+        badger_boss.move_towards_player(capybarda, counter)
 
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
             Background.background_index += 1
@@ -168,8 +189,8 @@ while running:
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
             
-        badger_boss.move_towards_player(capybarda, counter)
-       
+        badger_boss.move_towards_player(capybarda, counter
+
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
         pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
 
@@ -203,8 +224,8 @@ while running:
         notes_up = check_and_clear_notes(notes_up)
         notes_down = check_and_clear_notes(notes_down)
         
-        for note in notes_left:
-            badger_boss.enemy_hit(note)
+      #  for note in notes_left:
+       #     badger_boss.enemy_hit(note)
         
 
         for note in notes_left:
@@ -220,14 +241,17 @@ while running:
             note.move_in_straight_line('D')
             CANVAS.blit(note.projectile_image, (note.x, note.y))
 
-        CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
-        pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
+        
 
         if Background.background_index == 0 and badger_boss.alive == True:
             CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
             #pygame.draw.rect(CANVAS, (255,0,0), badger_boss.collision_rect, 2)
 
-        hud.time = frame_count // (FPS * 2)
+        #timer
+        total_seconds = frame_count / (FPS * 2) # gets the time unrounded
+        roundedtime=round(total_seconds,2)# rounds time to 2 decimal places
+        hud.time= f"{roundedtime:.2f}" # sets hud.time to the rounded time
+        
         h = hud.generate_return_surface(0)
         CANVAS.blit(h, (0, 0))
 
@@ -238,7 +262,6 @@ while running:
             show_end_screen = False
             show_game_screens = False
             show_start_screen = True
-
     # play sounds
     if show_game_screens:
         if Background.background_index == 0:
