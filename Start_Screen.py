@@ -7,7 +7,7 @@ class Start_Screen:
 
     def __init__(self, background, leaderboard, scale_factor, x, y, height, width):
         ###
-        # NOTES for constructor: You might consider blitting the startmessage, title, and leaderboard
+        ## NOTES for constructor: You might consider blitting the startmessage, title, and leaderboard
         # on to the background before returning the background.
         # You might consider getting a Google font and pass in the .ttf file for the font parameter.
         # For the font, you will need to create a "Font" object, like this

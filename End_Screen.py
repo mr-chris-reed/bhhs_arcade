@@ -1,5 +1,6 @@
 import pygame
 from Asset_Reader import Asset_Reader
+from Leaderboard import Leaderboard
 
 class End_Screen:
     ###
@@ -10,6 +11,9 @@ class End_Screen:
     # would want it to hold position, player's initials, and time to complete.
     # We would also want a message to tell players how to get back to the start.
     ###
+
+    Leaderboard = Leaderboard()
+    updated_leaderboard = ''
     
     def __init__(
             self,
@@ -99,18 +103,20 @@ class End_Screen:
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
                         
-                if self.button_move != round(joysticks[0].get_button(10)):
-                    self.button_move = round(joysticks[0].get_button(10))
+                if self.button_move != round(joysticks[0].get_button(11)):
+                    self.button_move = round(joysticks[0].get_button(11))
                     if self.button_move > 0.5 and self.hasBeenPressedOnce ==False:
                         self.hasBeenPressedOnce = True
                     elif self.button_move > 0.5 and self.hasBeenPressedOnce ==True:
                         self.name += self.currentLetterString
         elif len(self.name)==3:
-            if self.button_move != round(joysticks[0].get_button(10)):
-                self.button_move = round(joysticks[0].get_button(10))
+            if self.button_move != round(joysticks[0].get_button(11)):
+                self.button_move = round(joysticks[0].get_button(11))
                 if self.button_move > 0.5 and self.pressedVisiblity==False:
                     self.pressedVisiblity = True            
                     self.inputVisible = False
+                    name = self.name
+                    Leaderboard.add_to_leaderboard(self.Leaderboard, name, 20)
                     ###
                     self.name = ''
                     ###
@@ -147,7 +153,7 @@ class End_Screen:
         if self.visible:
             self.drawCredits(canvas)
     
-        if joysticks[0].get_button(10) == 1 and self.visible:
+        if joysticks[0].get_button(11) == 1 and self.visible:
             self.visible = False  # hide credits
             pygame.time.delay(200)
             self.inputVisible = True  # shows input box   

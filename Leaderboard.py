@@ -30,3 +30,4 @@ class Leaderboard:
         with open(self.file_path, 'w') as file:
             for entry in leaderboard:
                 file.write(','.join(entry) + '\n')
+            file.flush()  # Ensure everything is written

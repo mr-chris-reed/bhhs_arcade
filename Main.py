@@ -8,6 +8,7 @@ from Start_Screen import Start_Screen
 from Background import Background
 from Player import Player
 from Projectile import Projectile
+from Leaderboard import Leaderboard
 
 # initialize pygame and pygame joystick
 pygame.init()
@@ -22,13 +23,14 @@ HEIGHT = 1024
 FPS = 30
 
 # global variables
+Leaderboard = Leaderboard()
 current_background = None
 previous_background_index = 0
 running = True
 joysticks = []
 counter = 0
 previous_counter = 0
-leaderboard = [['CMC', "7.5"], ['CWJ', "7.8"], ['TGP', "8.1"]]
+leaderboard = [Leaderboard.read_leaderboard()]
 notes_left = []
 notes_right = []
 notes_up = []
@@ -62,7 +64,7 @@ def check_and_clear_notes(list):
 CANVAS = pygame.display.set_mode((0, 0), FULLSCREEN)
 
 # object creation
-start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
+start_screen = Start_Screen("assets/start_screen.png", Leaderboard.read_leaderboard(), 1, 0, 0, HEIGHT, WIDTH)
 forest_path = Background("assets/Forest_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
 castle = Background("assets/Castle_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
 hell = Background("assets/Hell_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
@@ -104,6 +106,7 @@ while running:
             joysticks.append(joy)
 
     if show_start_screen:
+        leaderboard = ['Leaderboard.read_leaderboard()']
         if joysticks[0].get_button(11):
             show_start_screen = False
             show_game_screens = True
@@ -136,6 +139,7 @@ while running:
         elif (joysticks[0].get_axis(1) > 0.5):
             if (current_background.check_can_move_right(capybarda)):
                 capybarda.right(counter)
+                leaderboard = [Leaderboard.read_leaderboard()]
         elif (joysticks[0].get_axis(1) < -0.5):
             if (current_background.check_can_move_left(capybarda)):
                 capybarda.left(counter)
@@ -219,9 +223,7 @@ while running:
             hell_sound.play()
             forest_sound.stop()
             castle_sound.stop()
-
     
-                  
     if counter >= 600:
         counter = 0
         previous_counter = 0
