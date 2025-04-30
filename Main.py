@@ -104,7 +104,7 @@ badger_boss = Player(
     5, 5
 )
 end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
-hud = HUD(1280, 100, capybarda, capybarda.health,0)
+hud = HUD(1280, 75, capybarda, capybarda.health,0, (255,0,0))
 
 # initial position of capybarda
 capybarda.x_coord = 100
@@ -148,7 +148,8 @@ while running:
         end_screen.hasBeenPressedOnce = False
 
     elif show_game_screens:
-        roundedtime =0
+        roundedtime = 0
+        frame_count += 1
         current_background = backgrounds[Background.background_index]
         CANVAS.blit(current_background.generate_return_surface(), (0, 0))
         if (joysticks[0].get_axis(0) > 0.5):
@@ -262,6 +263,7 @@ while running:
             show_end_screen = False
             show_game_screens = False
             show_start_screen = True
+        frame_count = 0
     # play sounds
     if show_game_screens:
         if Background.background_index == 0:
@@ -282,6 +284,6 @@ while running:
         previous_counter = 0
     else:
         counter += 1
-    frame_count += 1
+    
     pygame.display.flip()
     clock.tick(FPS)
