@@ -35,7 +35,7 @@ while running:
     score= f"Time: {roundedtime}" # displays score
     text = font.render(score, True, BLACK) # render _ display
     screen.blit(text, [250, 250])
-    frame_count += 1
+    frame_count += 66.6
     pygame.display.flip()
     clock.tick(frame_rate)
 pygame.quit()
