@@ -70,9 +70,18 @@ forest_path = Background("assets/Forest_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50
 castle = Background("assets/Castle_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
 hell = Background("assets/Hell_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
 capybarda = Player(
-    200, 200,
-    "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_Side2.png", "assets/CapybardaRun_side.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_back.png",
-    "assets/CapybardaIdle_back.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_side2.png", "assets/CapybardaIdle_side.png",
+    200, 200, 
+    "assets/CapybardaRun_back.png", 
+    "assets/CapybardaRun_front.png", 
+    "assets/CapybardaRun_Side2.png", 
+    "assets/CapybardaRun_side.png", 
+    "assets/CapybardaIdle_front.png", 
+    "assets/CapybardaIdle_side.png",
+    "assets/CapybardaIdle_back.png",
+    "assets/CapybardaIdle_back.png", 
+    "assets/CapybardaIdle_front.png", 
+    "assets/CapybardaIdle_side2.png", 
+    "assets/CapybardaIdle_side.png",
     6, 4, 4, 6, 4, 4, 4, 4, 4, 4,
     0.6, 0.6, 0.6, 0.6, 0.6,
     10, 10
@@ -83,6 +92,7 @@ badger_boss = Player(
     "assets/badger_walking_RIGHT.png",
     "assets/badger_walking_LEFT.png",
     "assets/badger_walking_RIGHT.png",
+    "assets/badger_slashing_RIGHT.png",
     "assets/badger_slashing_LEFT.png",
     "assets/badger_slashing_RIGHT.png",
     "assets/badger_slashing_LEFT.png",
@@ -180,6 +190,7 @@ while running:
             capybarda.y_coord = HEIGHT // 2
             
         badger_boss.move_towards_player(capybarda, counter)
+        badger_boss.badger_attack(capybarda, counter)
         #collide = pygame.Rect.colliderect(collision_rect, collision_rect2)
         #if collide:
             #print("works")
