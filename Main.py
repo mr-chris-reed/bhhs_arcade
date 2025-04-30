@@ -79,8 +79,17 @@ capybarda = Player(
 )
 badger_boss = Player(
     500, 200, 
-    "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_walking_RIGHT.png", 
-    23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+    "assets/badger_walking_LEFT.png",
+    "assets/badger_walking_RIGHT.png",
+    "assets/badger_walking_LEFT.png",
+    "assets/badger_walking_RIGHT.png",
+    "assets/badger_slashing_LEFT.png",
+    "assets/badger_slashing_RIGHT.png",
+    "assets/badger_slashing_LEFT.png",
+    "assets/badger_slashing_RIGHT.png",
+    "assets/badger_slashing_LEFT.png",
+    "assets/badger_walking_RIGHT.png", 
+    23, 23, 23, 23, 9, 9, 9, 9, 9, 23,
     3, 3, 3, 3, 3,
     5, 5
 )
@@ -146,7 +155,7 @@ while running:
             capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
 
         ### enemy AI - "follow" ###
-        badger_boss.follow(capybarda, counter)
+        badger_boss.move_towards_player(capybarda, counter)
 
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
             Background.background_index += 1
