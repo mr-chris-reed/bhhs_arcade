@@ -166,9 +166,7 @@ while running:
             capybarda.y_coord = HEIGHT // 2
 
         badger_boss.move_towards_player(capybarda, counter)
-        #collide = pygame.Rect.colliderect(collision_rect, collision_rect2)
-        #if collide:
-            #print("works")
+       
 
         if (joysticks[0].get_button(9)):
             if counter > 5 + previous_counter:

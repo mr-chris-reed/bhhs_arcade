@@ -169,10 +169,7 @@ while running:
             capybarda.y_coord = HEIGHT // 2
             
         badger_boss.move_towards_player(capybarda, counter)
-        #collide = pygame.Rect.colliderect(collision_rect, collision_rect2)
-        #if collide:
-            #print("works")
-
+       
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
         pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
 
@@ -227,7 +224,6 @@ while running:
         pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
 
         if Background.background_index == 0 and badger_boss.alive == True:
-
             CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
             #pygame.draw.rect(CANVAS, (255,0,0), badger_boss.collision_rect, 2)
 
@@ -235,8 +231,6 @@ while running:
         h = hud.generate_return_surface(0)
         CANVAS.blit(h, (0, 0))
 
-        CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
-        CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
 
     elif show_end_screen:
         end_screen.drawEndScreen(CANVAS, joysticks)
