@@ -53,12 +53,6 @@ class Player:
         self.last_button = "d"
         self.collision_rect = Rect(self.x_coord, self.y_coord, self.width - 100, self.height)
         self.alive = True
-        #actions
-
-    is_moving_right = False
-    is_moving_left = False
-    is_moving_up = False
-    is_moving_down = False
 
     def spritePicker(self, counter, sprite_list): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
         if counter % 10 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
@@ -93,10 +87,6 @@ class Player:
         self.last_button = "s"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_down_list)
         self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
-        self.is_moving_right = False
-        self.is_moving_left = False
-        self.is_moving_down = True
-        self.is_moving_up = False
 
     def left(self, counter):
         if (self.last_button != "a"):
@@ -149,6 +139,7 @@ class Player:
         dy /= distance
         if dy < 0 and self.collision_rect.colliderect(player.collision_rect) != True:
             self.up(counter)
+            print("allowed to move up")
         if dy > 0 and self.collision_rect.colliderect(player.collision_rect) != True:
             self.down(counter)
         if dx < 0 and self.collision_rect.colliderect(player.collision_rect) != True:

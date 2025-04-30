@@ -189,11 +189,7 @@ while running:
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
             
-        badger_boss.move_towards_player(capybarda, counter)
-        badger_boss.badger_attack(capybarda, counter)
-        #collide = pygame.Rect.colliderect(collision_rect, collision_rect2)
-        #if collide:
-            #print("works")
+        badger_boss.move_towards_player(capybarda, counter
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
         pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
@@ -248,7 +244,6 @@ while running:
         
 
         if Background.background_index == 0 and badger_boss.alive == True:
-
             CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
             #pygame.draw.rect(CANVAS, (255,0,0), badger_boss.collision_rect, 2)
 
