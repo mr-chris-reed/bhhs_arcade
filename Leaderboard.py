@@ -10,7 +10,6 @@ class Leaderboard:
             for line in file:
                 stat = line.strip().split(',')
                 leaderboard_data.append(stat)
-        print(leaderboard_data)
         return leaderboard_data
     
     def add_to_leaderboard(self, name, score):
