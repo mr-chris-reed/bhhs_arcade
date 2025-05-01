@@ -53,12 +53,6 @@ class Player:
         self.last_button = "d"
         self.collision_rect = Rect(self.x_coord, self.y_coord, self.width - 100, self.height)
         self.alive = True
-        #actions
-
-    is_moving_right = False
-    is_moving_left = False
-    is_moving_up = False
-    is_moving_down = False
 
     def spritePicker(self, counter, sprite_list): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
         if counter % 10 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
@@ -78,10 +72,6 @@ class Player:
         self.last_button ="w"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_up_list)
         self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
-        self.is_moving_right = False
-        self.is_moving_left = False
-        self.is_moving_down = False
-        self.is_moving_up = True
 
     def down(self, counter):
         if (self.last_button != "s"):
@@ -93,10 +83,6 @@ class Player:
         self.last_button = "s"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_down_list)
         self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
-        self.is_moving_right = False
-        self.is_moving_left = False
-        self.is_moving_down = True
-        self.is_moving_up = False
 
     def left(self, counter):
         if (self.last_button != "a"):
@@ -108,10 +94,6 @@ class Player:
         self.last_button = "a"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_left_list)
         self.collision_rect.center = (self.x_coord + 85,self.y_coord + 90)
-        self.is_moving_right = False
-        self.is_moving_left = True
-        self.is_moving_down = False
-        self.is_moving_up = False
 
     def right(self, counter):
         if (self.last_button != "d"):
@@ -123,12 +105,7 @@ class Player:
         self.last_button = "d"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_right_list)
         self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
-        self.is_moving_right = True
-        self.is_moving_left = False
-        self.is_moving_down = False
-        self.is_moving_up = False
 
-    #LOOKS GOOFY AS $@#& IDK HOW SPRITES WORK MAKE IT LOOK GOOD PLS, might be an issue with num_attack_list when we make the boss object im main.
     def attack_right(self, counter):
         self.last_sprite = self.spritePicker(counter, self.attack_list_right)
     def attack_left(self, counter):
@@ -159,32 +136,19 @@ class Player:
 
     def enemy_hit(self, projectile, player, counter):
         if self.collision_rect.colliderect(projectile.projectile_rect):
-            self.health -= 1 
+            self.health -= 1
+            return True
         if self.health == 0:
             self.alive = False
-        print(self.health)
+        return False
+        
 
-        #LOOKS GOOFY AS $@#& IDK HOW SPRITES WORK MAKE IT LOOK GOOD PLS, might be an issue with num_attack_list when we make the boss object im main.
     def badger_attack(self, player, counter):
-        if self.collision_rect.colliderect(player.collision_rect) == True & self.is_moving_right == True:
+        if self.collision_rect.colliderect(player.collision_rect) == True & self.last_button == "d":
             self.attack_right(counter)
-        if self.collision_rect.colliderect(player.collision_rect) == True & self.is_moving_left == True:
+        if self.collision_rect.colliderect(player.collision_rect) == True & self.last_button == "a":
             self.attack_left(counter)
-        if self.collision_rect.colliderect(player.collision_rect) == True & self.is_moving_up == True:
+        if self.collision_rect.colliderect(player.collision_rect) == True & self.last_button == "w":
             self.attack_up(counter)
-        if self.collision_rect.colliderect(player.collision_rect) == True & self.is_moving_down == True:
+        if self.collision_rect.colliderect(player.collision_rect) == True & self.last_button == "s":
             self.attack_down(counter)
-
-
-
-    #def hit(self, player)
-
-    def follow(self, player, counter):
-        if (self.x_coord < player.x_coord):
-            self.right(counter)
-        if (self.x_coord > player.x_coord):
-            self.left(counter)
-        if (self.y_coord < player.y_coord):
-            self.down(counter)
-        if (self.y_coord > player.y_coord):
-            self.up(counter)

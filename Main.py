@@ -104,7 +104,7 @@ badger_boss = Player(
     5, 5
 )
 end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
-hud = HUD(1280, 100, capybarda, capybarda.health,0)
+hud = HUD(1280, 75, capybarda, capybarda.health,0, (255,0,0))
 
 # initial position of capybarda
 capybarda.x_coord = 100
@@ -133,6 +133,7 @@ while running:
             end_screen.name = ""
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
+            frame_count = 0 
             
             
     if show_start_screen: 
@@ -148,7 +149,8 @@ while running:
         end_screen.hasBeenPressedOnce = False
 
     elif show_game_screens:
-        roundedtime =0
+        roundedtime = 0
+        frame_count += 1
         current_background = backgrounds[Background.background_index]
         CANVAS.blit(current_background.generate_return_surface(), (0, 0))
         if (joysticks[0].get_axis(0) > 0.5):
@@ -188,12 +190,7 @@ while running:
             
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
-            
-       
-        badger_boss.badger_attack(capybarda, counter)
-        #collide = pygame.Rect.colliderect(collision_rect, collision_rect2)
-        #if collide:
-            #print("works")
+     
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
         pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
@@ -227,6 +224,20 @@ while running:
         notes_right = check_and_clear_notes(notes_right)
         notes_up = check_and_clear_notes(notes_up)
         notes_down = check_and_clear_notes(notes_down)
+
+        for note in notes_left:
+            if (badger_boss.enemy_hit(note, capybarda, counter)):
+                notes_left.remove(note)
+                print(badger_boss.health)
+        for note in notes_right:
+            if (badger_boss.enemy_hit(note, capybarda, counter)):
+                notes_right.remove(note)
+        for note in notes_up:
+            if (badger_boss.enemy_hit(note, capybarda, counter)):
+                notes_up.remove(note)
+        for note in notes_down:
+            if (badger_boss.enemy_hit(note, capybarda, counter)):
+                notes_down.remove(note)
         
       #  for note in notes_left:
        #     badger_boss.enemy_hit(note)
@@ -234,6 +245,7 @@ while running:
 
         for note in notes_left:
             note.move_in_straight_line('L')
+            note.rect_center
             CANVAS.blit(note.projectile_image, (note.x, note.y))
         for note in notes_right:
             note.move_in_straight_line('R')
@@ -248,7 +260,6 @@ while running:
         
 
         if Background.background_index == 0 and badger_boss.alive == True:
-
             CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
             #pygame.draw.rect(CANVAS, (255,0,0), badger_boss.collision_rect, 2)
 
@@ -267,6 +278,7 @@ while running:
             show_end_screen = False
             show_game_screens = False
             show_start_screen = True
+        frame_count = 0
     # play sounds
     if show_game_screens:
         if Background.background_index == 0:
@@ -287,6 +299,6 @@ while running:
         previous_counter = 0
     else:
         counter += 1
-    frame_count += 1
+    
     pygame.display.flip()
     clock.tick(FPS)
