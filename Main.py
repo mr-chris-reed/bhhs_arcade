@@ -130,6 +130,7 @@ while running:
 
     if show_start_screen:
         leaderboard = leaderboard_instance.read_leaderboard()
+        start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
         if joysticks[0].get_button(11):
             show_start_screen = False
             show_game_screens = True
@@ -141,6 +142,7 @@ while running:
             
     if show_start_screen: 
         leaderboard = leaderboard_instance.read_leaderboard()
+        start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
         Background.background_index = 0
