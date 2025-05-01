@@ -133,6 +133,7 @@ while running:
             end_screen.name = ""
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
+            frame_count = 0 
             
             
     if show_start_screen: 
