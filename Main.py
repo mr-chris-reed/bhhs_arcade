@@ -191,7 +191,6 @@ while running:
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
             
-        badger_boss.move_towards_player(capybarda, counter
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
         pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
@@ -232,6 +231,7 @@ while running:
 
         for note in notes_left:
             note.move_in_straight_line('L')
+            note.rect_center
             CANVAS.blit(note.projectile_image, (note.x, note.y))
         for note in notes_right:
             note.move_in_straight_line('R')
