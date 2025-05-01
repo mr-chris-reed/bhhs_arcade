@@ -33,5 +33,5 @@ class HUD:
         self.surface.fill(self.hud_color)
         self.surface.set_alpha(90)
         self.draw_HUD(self.time)
-        self.update_time(self.time)
+        #self.update_time(self.time) - Not needed if timer exists in main.
         return self.surface
