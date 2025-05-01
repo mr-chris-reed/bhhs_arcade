@@ -189,7 +189,7 @@ while running:
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
             
-        badger_boss.move_towards_player(capybarda, counter)
+       
         badger_boss.badger_attack(capybarda, counter)
         #collide = pygame.Rect.colliderect(collision_rect, collision_rect2)
         #if collide:
