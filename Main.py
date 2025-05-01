@@ -8,6 +8,7 @@ from Start_Screen import Start_Screen
 from Background import Background
 from Player import Player
 from Projectile import Projectile
+from Leaderboard import Leaderboard
 from HUD import HUD
 
 # initialize pygame and pygame joystick
@@ -23,13 +24,14 @@ HEIGHT = 1024
 FPS = 30
 
 # global variables
+leaderboard_instance = Leaderboard()
+leaderboard = leaderboard_instance.read_leaderboard()
 current_background = None
 previous_background_index = 0
 running = True
 joysticks = []
 counter = 0
 previous_counter = 0
-leaderboard = [['CMC', "7.5"], ['CWJ', "7.8"], ['TGP', "8.1"]]
 notes_left = []
 notes_right = []
 notes_up = []
@@ -127,6 +129,7 @@ while running:
             joysticks.append(joy)
 
     if show_start_screen:
+        leaderboard = leaderboard_instance.read_leaderboard()
         if joysticks[0].get_button(11):
             show_start_screen = False
             show_game_screens = True
@@ -137,6 +140,7 @@ while running:
             
             
     if show_start_screen: 
+        leaderboard = leaderboard_instance.read_leaderboard()
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
         Background.background_index = 0
