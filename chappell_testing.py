@@ -14,6 +14,19 @@ pygame.joystick.init()
 
 # creating the clock
 clock = pygame.time.Clock()
+<<<<<<< HEAD
+=======
+screen = pygame.display.set_mode((1280, 1024))
+player = Player(
+    200, 200,
+    "assets/CapybardaRun_back.png", "assets/CapybardaRun_front.png", "assets/CapybardaRun_Side2.png", "assets/CapybardaRun_side.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_back.png",
+    "assets/CapybardaIdle_back.png", "assets/CapybardaIdle_front.png", "assets/CapybardaIdle_side2.png", "assets/CapybardaIdle_side.png",
+    6, 4, 4, 6, 4, 4, 4, 4, 4, 4,
+    0.6, 0.6, 0.6, 0.6, 0.6,
+    10, 10
+)
+hud = HUD(1280, 100, player, player.health, clock)
+>>>>>>> 57f0d26d408a6c0788a819ccf68f815f9e67cbe6
 
 # constants
 WIDTH = 1280
@@ -42,8 +55,17 @@ castle_sound.set_volume(0.20)
 hell_sound = pygame.mixer.Sound("sounds/Boss_Intro_Concept.mp3")
 hell_sound.set_volume(0.20)
 
+<<<<<<< HEAD
 # note image
 note_image = Asset_Reader("assets/note.png", 1, 0.5).get_asset_list()[0]
+=======
+    screen.fill((255, 255, 255))  # Fill the screen with white
+    
+    # Display the current background
+    #screen.blit(background1.generate_return_surface(), (125, 0))
+    h = hud.generate_return_surface(clock)
+    screen.blit(h, (0, 0))
+>>>>>>> 57f0d26d408a6c0788a819ccf68f815f9e67cbe6
 
 # clearing notes that are off screen
 def check_and_clear_notes(list):
