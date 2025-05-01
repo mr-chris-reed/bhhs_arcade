@@ -134,7 +134,7 @@ class Player:
             self.right(counter)
 
 
-    def enemy_hit(self, projectile, player, counter):
+    def enemy_hit(self, projectile, counter):
         if self.collision_rect.colliderect(projectile.projectile_rect):
             self.health -= 1
             return True

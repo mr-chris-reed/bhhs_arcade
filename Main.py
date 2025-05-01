@@ -226,26 +226,22 @@ while running:
         notes_down = check_and_clear_notes(notes_down)
 
         for note in notes_left:
-            if (badger_boss.enemy_hit(note, capybarda, counter)):
+            if (badger_boss.enemy_hit(note, counter)):
                 notes_left.remove(note)
                 print(badger_boss.health)
         for note in notes_right:
-            if (badger_boss.enemy_hit(note, capybarda, counter)):
+            if (badger_boss.enemy_hit(note, counter)):
                 notes_right.remove(note)
         for note in notes_up:
-            if (badger_boss.enemy_hit(note, capybarda, counter)):
+            if (badger_boss.enemy_hit(note, counter)):
                 notes_up.remove(note)
         for note in notes_down:
-            if (badger_boss.enemy_hit(note, capybarda, counter)):
+            if (badger_boss.enemy_hit(note, counter)):
                 notes_down.remove(note)
-        
-      #  for note in notes_left:
-       #     badger_boss.enemy_hit(note)
         
 
         for note in notes_left:
             note.move_in_straight_line('L')
-            note.rect_center
             CANVAS.blit(note.projectile_image, (note.x, note.y))
         for note in notes_right:
             note.move_in_straight_line('R')
