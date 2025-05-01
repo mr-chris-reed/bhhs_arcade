@@ -1,5 +1,6 @@
 import pygame
 from Asset_Reader import Asset_Reader
+from Leaderboard import Leaderboard
 
 class End_Screen:
     ###
