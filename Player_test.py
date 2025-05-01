@@ -76,7 +76,8 @@ capybarda = Player(
     6, 4, 4, 6, 4, 4, 4, 4, 4, 4,
     0.6, 0.6, 0.6, 0.6, 0.6,
     10, 10
-)
+    )
+
 badger_boss = Player(
     500, 200, 
     "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_walking_LEFT.png", "assets/badger_walking_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_slashing_RIGHT.png", "assets/badger_slashing_LEFT.png", "assets/badger_walking_RIGHT.png", 

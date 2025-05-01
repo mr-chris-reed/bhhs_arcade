@@ -190,7 +190,7 @@ while running:
             
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
-            
+     
 
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
         pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
