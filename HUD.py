@@ -19,6 +19,27 @@ class HUD:
         self.draw_text("HP: " + str(self.health), "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 1150, 10)
         self.draw_text("Time " + str(time), "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 50, 10)
 
+    def draw_heart(self, center, size, number):
+        cx, cy = center
+        s = size
+        i = 0
+        while (i < number):
+            points = [
+                (cx - (50*i), cy + s),             # Bottom tip of the heart
+                (cx - (50*i)- s, cy),             # Left bottom curve
+                (cx - (50*i)- s, cy - s // 2),    # Upper left curve
+                (cx - (50*i)- s // 2, cy - s),    # Top left bump
+                (cx - (50*i), cy - s // 2),        # Center dip at top
+                (cx - (50*i) + s // 2, cy - s),    # Top right bump
+                (cx - (50*i) + s, cy - s // 2),    # Upper right curve
+                (cx - (50*i) + s, cy),             # Right bottom curve
+            ]
+            heart = pygame.draw.polygon(screen, (255,0,0), points)
+            heart_surface = pygame.Surface((self.width, self.height))
+            heart_surface.set_alpha(50)
+            self.surface.blit(heart_surface, heart)
+            i+=1
+
     #Copied from start_screen with some tweaks.
     def draw_text(self, text, font_name, color, size, x, y):
         font = pygame.font.Font(font_name if font_name else None, size)
@@ -31,6 +52,7 @@ class HUD:
     def generate_return_surface(self, time):
         self.surface = pygame.Surface((self.width, self.height))
         self.surface.fill(self.hud_color)
-        self.surface.set_alpha(90)
+        self.surface.set_alpha(0)
         self.draw_HUD(self.time)
+        self.draw_heart((1150, 50), 20, self.health)
         return self.surface
