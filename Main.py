@@ -224,6 +224,20 @@ while running:
         notes_right = check_and_clear_notes(notes_right)
         notes_up = check_and_clear_notes(notes_up)
         notes_down = check_and_clear_notes(notes_down)
+
+        for note in notes_left:
+            if (badger_boss.enemy_hit(note, capybarda, counter)):
+                notes_left.remove(note)
+                print(badger_boss.health)
+        for note in notes_right:
+            if (badger_boss.enemy_hit(note, capybarda, counter)):
+                notes_right.remove(note)
+        for note in notes_up:
+            if (badger_boss.enemy_hit(note, capybarda, counter)):
+                notes_up.remove(note)
+        for note in notes_down:
+            if (badger_boss.enemy_hit(note, capybarda, counter)):
+                notes_down.remove(note)
         
       #  for note in notes_left:
        #     badger_boss.enemy_hit(note)

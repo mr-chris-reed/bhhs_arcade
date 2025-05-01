@@ -106,7 +106,6 @@ class Player:
         self.last_idle_sprite = self.spritePicker(counter, self.idle_right_list)
         self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
 
-    #LOOKS GOOFY AS $@#& IDK HOW SPRITES WORK MAKE IT LOOK GOOD PLS, might be an issue with num_attack_list when we make the boss object im main.
     def attack_right(self, counter):
         self.last_sprite = self.spritePicker(counter, self.attack_list_right)
     def attack_left(self, counter):
@@ -137,12 +136,13 @@ class Player:
 
     def enemy_hit(self, projectile, player, counter):
         if self.collision_rect.colliderect(projectile.projectile_rect):
-            self.health -= 1 
+            self.health -= 1
+            return True
         if self.health == 0:
             self.alive = False
-        print(self.health)
+        return False
+        
 
-        #LOOKS GOOFY AS $@#& IDK HOW SPRITES WORK MAKE IT LOOK GOOD PLS, might be an issue with num_attack_list when we make the boss object im main.
     def badger_attack(self, player, counter):
         if self.collision_rect.colliderect(player.collision_rect) == True & self.last_button == "d":
             self.attack_right(counter)
