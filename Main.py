@@ -106,7 +106,7 @@ badger_boss = Player(
     5, 5
 )
 end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
-hud = HUD(1280, 75, capybarda, capybarda.health,0, (255,0,0))
+hud = HUD(1280, 75, capybarda, 0, (255,0,0))
 
 # initial position of capybarda
 capybarda.x_coord = 100
@@ -270,7 +270,7 @@ while running:
         roundedtime=round(total_seconds,2)# rounds time to 2 decimal places
         hud.time= f"{roundedtime:.2f}" # sets hud.time to the rounded time
         
-        h = hud.generate_return_surface(0)
+        h = hud.generate_return_surface(0, capybarda.health)
         CANVAS.blit(h, (0, 0))
 
 
