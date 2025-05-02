@@ -1,5 +1,6 @@
 import pygame
 from Asset_Reader import Asset_Reader
+from Leaderboard import Leaderboard
 
 class End_Screen:
     ###
@@ -10,6 +11,9 @@ class End_Screen:
     # would want it to hold position, player's initials, and time to complete.
     # We would also want a message to tell players how to get back to the start.
     ###
+
+    Leaderboard = Leaderboard()
+    updated_leaderboard = ''
     
     def __init__(
             self,
@@ -111,6 +115,8 @@ class End_Screen:
                 if self.button_move > 0.5 and self.pressedVisiblity==False:
                     self.pressedVisiblity = True            
                     self.inputVisible = False
+                    name = self.name
+                    Leaderboard.add_to_leaderboard(self.Leaderboard, name, 20)
                     ###
                     self.name = ''
                     ###
