@@ -245,7 +245,7 @@ while running:
 
         for note in notes_left:
             note.move_in_straight_line('L')
-            note.rect_center
+            #note.rect_center
             CANVAS.blit(note.projectile_image, (note.x, note.y))
         for note in notes_right:
             note.move_in_straight_line('R')
