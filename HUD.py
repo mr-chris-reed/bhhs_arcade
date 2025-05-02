@@ -50,7 +50,7 @@ class HUD:
     def generate_return_surface(self, time, health):
         self.surface = pygame.Surface((self.width, self.height))
         self.surface.fill(self.hud_color)
-        self.surface.set_alpha(90)
+        self.surface.set_alpha(0)
         self.draw_HUD(self.time)
         self.update_time(self.time)
         self.draw_heart((1200, 40), 25, 60, health)
