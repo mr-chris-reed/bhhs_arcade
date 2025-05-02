@@ -12,13 +12,13 @@ class Projectile:
     def move_in_straight_line(self, direction):
         if direction == 'L':
             self.x -= self.speed
-            self.projectile_rect.move(self.x, self.y)
+            self.projectile_rect= self.projectile_rect.move(self.x, self.y)
         elif direction == 'R':
             self.x += self.speed
-            self.projectile_rect.move(self.x, self.y)
+            self.projectile_rect=self.projectile_rect.move(self.x, self.y)
         elif direction == 'U':
             self.y -= self.speed
-            self.projectile_rect.move(self.x, self.y)
+            self.projectile_rect=self.projectile_rect.move(self.x, self.y)
         elif direction == 'D':
             self.y += self.speed
-            self.projectile_rect.move(self.x, self.y)
+            self.projectile_rect=self.projectile_rect.move(self.x, self.y)

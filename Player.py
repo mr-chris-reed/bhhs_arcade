@@ -137,9 +137,9 @@ class Player:
     def enemy_hit(self, projectile, counter):
         if self.collision_rect.colliderect(projectile.projectile_rect):
             self.health -= 1
+            if self.health == 0:
+                self.alive = False
             return True
-        if self.health == 0:
-            self.alive = False
         return False
         
 

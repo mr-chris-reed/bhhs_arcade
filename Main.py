@@ -234,9 +234,9 @@ while running:
         for note in notes_left:
             if (badger_boss.enemy_hit(note, counter)):
                 notes_left.remove(note)
-                print(badger_boss.health)
         for note in notes_right:
             if (badger_boss.enemy_hit(note, counter)):
+                badger_boss.enemy_hit(note, counter)
                 notes_right.remove(note)
         for note in notes_up:
             if (badger_boss.enemy_hit(note, counter)):
