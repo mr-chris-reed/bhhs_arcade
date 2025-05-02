@@ -106,7 +106,7 @@ badger_boss = Player(
     5, 5
 )
 end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
-hud = HUD(1280, 75, capybarda, capybarda.health,0, (255,0,0))
+hud = HUD(1280, 75, capybarda, 0, (255,0,0))
 
 # initial position of capybarda
 capybarda.x_coord = 100
@@ -130,6 +130,7 @@ while running:
 
     if show_start_screen:
         leaderboard = leaderboard_instance.read_leaderboard()
+        start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
         if joysticks[0].get_button(11):
             show_start_screen = False
             show_game_screens = True
@@ -141,6 +142,7 @@ while running:
             
     if show_start_screen: 
         leaderboard = leaderboard_instance.read_leaderboard()
+        start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
         Background.background_index = 0
@@ -230,26 +232,22 @@ while running:
         notes_down = check_and_clear_notes(notes_down)
 
         for note in notes_left:
-            if (badger_boss.enemy_hit(note, capybarda, counter)):
+            if (badger_boss.enemy_hit(note, counter)):
                 notes_left.remove(note)
                 print(badger_boss.health)
         for note in notes_right:
-            if (badger_boss.enemy_hit(note, capybarda, counter)):
+            if (badger_boss.enemy_hit(note, counter)):
                 notes_right.remove(note)
         for note in notes_up:
-            if (badger_boss.enemy_hit(note, capybarda, counter)):
+            if (badger_boss.enemy_hit(note, counter)):
                 notes_up.remove(note)
         for note in notes_down:
-            if (badger_boss.enemy_hit(note, capybarda, counter)):
+            if (badger_boss.enemy_hit(note, counter)):
                 notes_down.remove(note)
-        
-      #  for note in notes_left:
-       #     badger_boss.enemy_hit(note)
         
 
         for note in notes_left:
             note.move_in_straight_line('L')
-            note.rect_center
             CANVAS.blit(note.projectile_image, (note.x, note.y))
         for note in notes_right:
             note.move_in_straight_line('R')
@@ -272,7 +270,7 @@ while running:
         roundedtime=round(total_seconds,2)# rounds time to 2 decimal places
         hud.time= f"{roundedtime:.2f}" # sets hud.time to the rounded time
         
-        h = hud.generate_return_surface(0)
+        h = hud.generate_return_surface(0, capybarda.health)
         CANVAS.blit(h, (0, 0))
 
 
