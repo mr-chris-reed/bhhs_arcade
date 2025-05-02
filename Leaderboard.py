@@ -12,7 +12,9 @@ class Leaderboard:
                 leaderboard_data.append(stat)
         return leaderboard_data
     
-    def add_to_leaderboard(self, name, score):
+    def add_to_leaderboard(self, name, decimal_score):
+        score = round(decimal_score)
+
         # Read existing data
         leaderboard = self.read_leaderboard()
 
