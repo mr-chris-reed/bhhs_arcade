@@ -175,7 +175,8 @@ while running:
             capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
 
         ### enemy AI - "follow" ###
-        badger_boss.move_towards_player(capybarda, counter)
+        if (badger_boss.move_towards_player(capybarda, counter)):
+            capybarda.player_hit(counter)
 
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
             Background.background_index += 1
