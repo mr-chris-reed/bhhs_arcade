@@ -53,6 +53,7 @@ class Player:
         self.last_button = "d"
         self.collision_rect = Rect(self.x_coord, self.y_coord, self.width - 100, self.height)
         self.alive = True
+        self.last_attack = "d"
 
     def spritePicker(self, counter, sprite_list): # <== maybe we can have the counter be originated in the main file and it gets passed into this function as an argument
         if counter % 10 == 0: # adjust the number to the right of the "%" symbol to increase/decrease animation speed
@@ -149,11 +150,23 @@ class Player:
             self.health -= 1
         
     def badger_attack(self, player, counter):
-        if self.collision_rect.colliderect(player.collision_rect) == True and self.last_button == "d":
+        if self.collision_rect.colliderect(player.collision_rect) == True and (self.last_button == "d" or self.last_button == "ad"):
+            if self.last_button == "d":
+                self.sprite_index = 0
             self.attack_right(counter)
-        if self.collision_rect.colliderect(player.collision_rect) == True and self.last_button == "a":
+            self.last_button = "ad"
+        if self.collision_rect.colliderect(player.collision_rect) == True and (self.last_button == "a" or self.last_button == "aa"):
+            if self.last_attack != "a":
+                self.sprite_index = 0
             self.attack_left(counter)
-        if self.collision_rect.colliderect(player.collision_rect) == True and self.last_button == "w":
+            self.last_button = "aa"
+        if self.collision_rect.colliderect(player.collision_rect) == True and (self.last_button == "w" or self.last_button == "aw"):
+            if self.last_button != "w":
+                self.sprite_index = 0
             self.attack_up(counter)
-        if self.collision_rect.colliderect(player.collision_rect) == True and self.last_button == "s":
-            self.attack_down(counter)
+            self.last_button = "aw"
+        if self.collision_rect.colliderect(player.collision_rect) == True and (self.last_button == "s" or self.last_button == "as"):
+            if self.last_button != "s":
+                self.sprite_index = 0
+            self.attack_down(counter) 
+            self.last_button = "as"
