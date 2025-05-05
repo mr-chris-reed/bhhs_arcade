@@ -121,7 +121,7 @@ class Player:
         dy = player.y_coord - self.y_coord
         distance = math.hypot(dx, dy)
         if distance == 0:
-            return 
+            return  # WHY IS THIS RETURN HERE, WHAT DOES IT DO? 
         dx /= distance
         dy /= distance
         if dy < 0 and self.collision_rect.colliderect(player.collision_rect) != True:
@@ -132,7 +132,9 @@ class Player:
             self.left(counter)
         if dx > 0 and self.collision_rect.colliderect(player.collision_rect) != True:
             self.right(counter)
-
+        if self.collision_rect.colliderect(player.collision_rect) == True:
+            self.badger_attack(player, counter)
+            return True
 
     def enemy_hit(self, projectile, counter):
         if self.collision_rect.colliderect(projectile.projectile_rect):
@@ -141,14 +143,17 @@ class Player:
         if self.health == 0:
             self.alive = False
         return False
+    
+    def player_hit(self, counter):
+        if counter % 30 == 0:
+            self.health -= 1
         
-
     def badger_attack(self, player, counter):
-        if self.collision_rect.colliderect(player.collision_rect) == True & self.last_button == "d":
+        if self.collision_rect.colliderect(player.collision_rect) == True and self.last_button == "d":
             self.attack_right(counter)
-        if self.collision_rect.colliderect(player.collision_rect) == True & self.last_button == "a":
+        if self.collision_rect.colliderect(player.collision_rect) == True and self.last_button == "a":
             self.attack_left(counter)
-        if self.collision_rect.colliderect(player.collision_rect) == True & self.last_button == "w":
+        if self.collision_rect.colliderect(player.collision_rect) == True and self.last_button == "w":
             self.attack_up(counter)
-        if self.collision_rect.colliderect(player.collision_rect) == True & self.last_button == "s":
+        if self.collision_rect.colliderect(player.collision_rect) == True and self.last_button == "s":
             self.attack_down(counter)
