@@ -39,7 +39,7 @@ class Start_Screen:
     def generate_return_surface(self, counter):
         self.surface = pygame.Surface((self.width, self.height))
         self.surface.blit(self.background[0], (self.x,self.y))
-        self.draw_text("Press Any Button To Start!", "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 640, 800, counter, 30) # bigger numbers for i = slower flash
+        self.draw_text("Press Any Button To Start!", "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 600, 700, counter, 30) # bigger numbers for i = slower flash
         self.draw_leaderboard("fonts/PirataOne-Regular.ttf", (255, 255, 255), 40, 100, 25, counter)
         return self.surface
 
