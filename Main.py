@@ -67,7 +67,7 @@ def check_and_clear_notes(list):
 CANVAS = pygame.display.set_mode((0, 0), FULLSCREEN)
 
 # object creation
-start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
+start_screen = Start_Screen("assets/Start_Screen_NEW_5_6_25.png", leaderboard, 1, 100, 50, HEIGHT, WIDTH)
 forest_path = Background("assets/Forest_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
 castle = Background("assets/Castle_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
 hell = Background("assets/Hell_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
@@ -130,7 +130,7 @@ while running:
 
     if show_start_screen:
         leaderboard = leaderboard_instance.read_leaderboard()
-        start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
+        # start_screen = Start_Screen("assets/Start_Screen_NEW_5_5_25.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
         if joysticks[0].get_button(11):
             show_start_screen = False
             show_game_screens = True
@@ -142,7 +142,7 @@ while running:
             
     if show_start_screen: 
         leaderboard = leaderboard_instance.read_leaderboard()
-        start_screen = Start_Screen("assets/start_screen.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
+        # start_screen = Start_Screen("assets/Start_Screen_NEW_5_5_25.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
         Background.background_index = 0
