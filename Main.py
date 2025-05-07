@@ -315,11 +315,9 @@ while running:
             CANVAS.blit(note.projectile_image, (note.x, note.y))
 
         #timer
-        total_seconds = frame_count / (FPS * 2) # gets the time unrounded
-        roundedtime=round(total_seconds,2)# rounds time to 2 decimal places
-        hud.time= f"{roundedtime:.2f}" # sets hud.time to the rounded time
-        
-        h = hud.generate_return_surface(0, capybarda.health)
+       
+        frame_count += 1
+        h = hud.generate_return_surface(0, capybarda.health, frame_count)
         CANVAS.blit(h, (0, 0))
 
 
