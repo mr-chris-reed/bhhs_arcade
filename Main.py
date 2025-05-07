@@ -1,6 +1,6 @@
 # Main file where pygame game loop will exist.
 
-import pygame
+import pygame, time
 from pygame.locals import *
 from Asset_Reader import Asset_Reader
 from End_Screen import End_Screen
@@ -71,55 +71,94 @@ start_screen = Start_Screen("assets/Start_Screen_NEW_5_6_25.png", leaderboard, 1
 forest_path = Background("assets/Forest_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
 castle = Background("assets/Castle_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
 hell = Background("assets/Hell_NEW.png", 1, 1, 0, 0, 50, WIDTH - 50, 50, HEIGHT - 50)
-capybarda = Player(
-    200, 200, 
-    "assets/CapybardaRun_back.png", 
-    "assets/CapybardaRun_front.png", 
-    "assets/CapybardaRun_Side2.png", 
-    "assets/CapybardaRun_side.png", 
-    "assets/CapybardaIdle_front.png", 
-    "assets/CapybardaIdle_side.png",
-    "assets/CapybardaIdle_back.png",
-    "assets/CapybardaIdle_back.png", 
-    "assets/CapybardaIdle_front.png", 
-    "assets/CapybardaIdle_side2.png", 
-    "assets/CapybardaIdle_side.png",
-    6, 4, 4, 6, 4, 4, 4, 4, 4, 4,
-    0.6, 0.6, 0.6, 0.6, 0.6,
-    10, 10
-)
-badger_boss = Player(
-    500, 200, 
-    "assets/badger_walking_LEFT.png",
-    "assets/badger_walking_RIGHT.png",
-    "assets/badger_walking_LEFT.png",
-    "assets/badger_walking_RIGHT.png",
-    "assets/badger_slashing_RIGHT.png",
-    "assets/badger_slashing_LEFT.png",
-    "assets/badger_slashing_RIGHT.png",
-    "assets/badger_slashing_LEFT.png",
-    "assets/badger_slashing_RIGHT.png",
-    "assets/badger_slashing_LEFT.png",
-    "assets/badger_walking_RIGHT.png", 
-    23, 23, 23, 23, 9, 9, 9, 9, 9, 23,
-    3, 3, 3, 3, 3,
-    5, 5
-)
+capybarda = None
+badger_boss = None
+tangerine_mimic = None
+
+def constructCapyBarda(capybarda):
+    capybarda = Player(
+        200, 200, 
+        "assets/CapybardaRun_back.png", 
+        "assets/CapybardaRun_front.png", 
+        "assets/CapybardaRun_Side2.png", 
+        "assets/CapybardaRun_side.png", 
+        "assets/CapybardaIdle_front.png", 
+        "assets/CapybardaIdle_side.png",
+        "assets/CapybardaIdle_back.png",
+        "assets/CapybardaIdle_back.png", 
+        "assets/CapybardaIdle_front.png", 
+        "assets/CapybardaIdle_side2.png", 
+        "assets/CapybardaIdle_side.png",
+        6, 4, 4, 6, 4, 4, 4, 4, 4, 4,
+        0.6, 0.6, 0.6, 0.6, 0.6,
+        10, 10
+    )
+
+    # initial position of capybarda
+    capybarda.x_coord = 100
+    capybarda.y_coord = HEIGHT // 2
+
+    return capybarda
+
+def constructBadgerBoss(badger_boss):
+    badger_boss = Player(
+        500, 200, 
+        "assets/badger_walking_LEFT.png",
+        "assets/badger_walking_RIGHT.png",
+        "assets/badger_walking_LEFT.png",
+        "assets/badger_walking_RIGHT.png",
+        "assets/badger_slashing_RIGHT.png",
+        "assets/badger_slashing_LEFT.png",
+        "assets/badger_slashing_RIGHT.png",
+        "assets/badger_slashing_LEFT.png",
+        "assets/badger_slashing_RIGHT.png",
+        "assets/badger_slashing_LEFT.png",
+        "assets/badger_walking_RIGHT.png", 
+        23, 23, 23, 23, 9, 9, 9, 9, 9, 23,
+        3, 3, 3, 3, 3,
+        5, 5
+    )
+
+    # initial position of badger_boss
+    badger_boss.x_coord = 500
+    badger_boss.y_coord = HEIGHT // 2
+
+    return badger_boss
+
+def constructTangerineMimic(tangerine_mimic):
+    tangerine_mimic = Player(
+        500, 200, 
+        "assets/tangerine_mimic_NEW_5_5_25.png",
+        "assets/tangerine_mimic_NEW_5_5_25.png",
+        "assets/tangerine_mimic_NEW_5_5_25.png",
+        "assets/tangerine_mimic_NEW_5_5_25.png",
+        "assets/tangerine_mimic_NEW_5_5_25.png",
+        "assets/tangerine_mimic_NEW_5_5_25.png",
+        "assets/tangerine_mimic_NEW_5_5_25.png",
+        "assets/tangerine_mimic_NEW_5_5_25.png",
+        "assets/tangerine_mimic_NEW_5_5_25.png",
+        "assets/tangerine_mimic_NEW_5_5_25.png",
+        "assets/tangerine_mimic_NEW_5_5_25.png",
+        7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+        3, 3, 3, 3, 3,
+        5, 5
+    )
+
+    # initial position of badger_boss
+    tangerine_mimic.x_coord = 500
+    tangerine_mimic.y_coord = HEIGHT // 2
+
+    return tangerine_mimic
+
 end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
 hud = HUD(1280, 75, capybarda, 0, (255,0,0))
-
-# initial position of capybarda
-capybarda.x_coord = 100
-capybarda.y_coord = HEIGHT // 2
-
-badger_boss.x_coord = 500
-badger_boss.y_coord = HEIGHT // 2
 
 backgrounds = [forest_path, castle, hell]
 current_background = start_screen
 
 # main game loop
 while running:
+
     for event in pygame.event.get():
         if event.type == QUIT: 
             running = False
@@ -129,8 +168,14 @@ while running:
             joysticks.append(joy)
 
     if show_start_screen:
+        # construct player and enimies at start of game
+        if capybarda == None:
+            capybarda = constructCapyBarda(capybarda)
+            badger_boss = constructBadgerBoss(badger_boss)
+            capybarda.health = 5
+            badger_boss.health = 5
+
         leaderboard = leaderboard_instance.read_leaderboard()
-        # start_screen = Start_Screen("assets/Start_Screen_NEW_5_5_25.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
         if joysticks[0].get_button(11):
             show_start_screen = False
             show_game_screens = True
@@ -138,8 +183,7 @@ while running:
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
             frame_count = 0 
-            
-            
+                       
     if show_start_screen: 
         leaderboard = leaderboard_instance.read_leaderboard()
         # start_screen = Start_Screen("assets/Start_Screen_NEW_5_5_25.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
@@ -175,8 +219,9 @@ while running:
             capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
 
         ### enemy AI - "follow" ###
-        if (badger_boss.move_towards_player(capybarda, counter)):
-            capybarda.player_hit(counter)
+        if badger_boss != None:
+            if (badger_boss.move_towards_player(capybarda, counter)):
+                    capybarda.player_hit(counter)
 
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2):
             Background.background_index += 1
@@ -198,14 +243,15 @@ while running:
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
      
-
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
         pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
 
-        if Background.background_index == 0:
+        if badger_boss != None and Background.background_index == 0 and badger_boss.alive == True:
             CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
             pygame.draw.rect(CANVAS, (255,0,0), badger_boss.collision_rect, 2)
-      
+        else: # badger_boss is no more
+            badger_boss = None
+
         if (joysticks[0].get_button(9)):
             if counter > 5 + previous_counter:
                 notes_left.append(Projectile(note_image, capybarda.x_coord + capybarda.width // 2,
@@ -232,21 +278,29 @@ while running:
         notes_up = check_and_clear_notes(notes_up)
         notes_down = check_and_clear_notes(notes_down)
 
-        for note in notes_left:
-            if (badger_boss.enemy_hit(note, counter)):
-                notes_left.remove(note)
-        for note in notes_right:
-            if (badger_boss.enemy_hit(note, counter)):
-                badger_boss.enemy_hit(note, counter)
-                notes_right.remove(note)
-        for note in notes_up:
-            if (badger_boss.enemy_hit(note, counter)):
-                notes_up.remove(note)
-        for note in notes_down:
-            if (badger_boss.enemy_hit(note, counter)):
-                notes_down.remove(note)
-        
+        if badger_boss != None:
+            for note in notes_left:
+                if (badger_boss.enemy_hit(note, counter)):
+                    notes_left.remove(note)
+            for note in notes_right:
+                if (badger_boss.enemy_hit(note, counter)):
+                    notes_right.remove(note)
+            for note in notes_up:
+                if (badger_boss.enemy_hit(note, counter)):
+                    notes_up.remove(note)
+            for note in notes_down:
+                if (badger_boss.enemy_hit(note, counter)):
+                    notes_down.remove(note)
 
+        ### tangerine mimic ###
+        if Background.background_index == 1:
+            if tangerine_mimic == None:
+                tangerine_mimic = constructTangerineMimic(tangerine_mimic)
+            else:
+                tangerine_mimic.move_towards_player(capybarda, counter)
+                CANVAS.blit(tangerine_mimic.last_sprite, (tangerine_mimic.x_coord, tangerine_mimic.y_coord))
+        #######################
+        
         for note in notes_left:
             note.move_in_straight_line('L')
             CANVAS.blit(note.projectile_image, (note.x, note.y))
@@ -260,12 +314,6 @@ while running:
             note.move_in_straight_line('D')
             CANVAS.blit(note.projectile_image, (note.x, note.y))
 
-        
-
-        if Background.background_index == 0 and badger_boss.alive == True:
-            CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
-            #pygame.draw.rect(CANVAS, (255,0,0), badger_boss.collision_rect, 2)
-
         #timer
         total_seconds = frame_count / (FPS * 2) # gets the time unrounded
         roundedtime=round(total_seconds,2)# rounds time to 2 decimal places
@@ -276,6 +324,7 @@ while running:
 
 
     elif show_end_screen:
+        capybarda = None
         end_screen.drawEndScreen(CANVAS, joysticks)
         if end_screen.pressedVisiblity == True and end_screen.inputVisible == False:
             show_end_screen = False
