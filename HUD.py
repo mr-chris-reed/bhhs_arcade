@@ -12,10 +12,6 @@ class HUD:
         self.player = player
         self.time = time
         self.hud_color = hud_color
-    
-    def draw_HUD(self, time):
-        # use the draw_text function.
-        self.draw_text("Time " + str(time), "fonts/PirataOne-Regular.ttf", (255,255,255), 45, 50, 10)
 
     def draw_heart(self, center, size, distance, health):
         cx, cy = center
@@ -47,24 +43,21 @@ class HUD:
         self.surface.blit(text_surface, text_rect)
 
     #Copied from start_screen with some tweaks.
-    def generate_return_surface(self, time, health):
+    def generate_return_surface(self, time, health, frame_count):
         self.surface = pygame.Surface((self.width, self.height))
         self.surface.fill(self.hud_color)
-        self.surface.set_alpha(0)
-        self.draw_HUD(self.time)
-        self.update_time(self.time)
+        self.surface.set_alpha(100)
+        self.update_time(self.time, frame_count)
         self.draw_heart((1200, 40), 25, 60, health)
         return self.surface
 
     #Doesn't work yet.
-    def update_time(self, time):
+    def update_time(self, time, frame_count):
         font = pygame.font.Font("fonts/PirataOne-Regular.ttf", 25)
         scorelist = []
-        frame_count = 0
         frame_rate = 60
-        total_seconds = frame_count // frame_rate  # total seconds passed
-        score= f"Time: {total_seconds}"
-        text = font.render(score, True, (0, 0, 0)) # render _ display
-        screen.blit(text, [250, 20])
-        frame_count += 1
+        total_seconds = frame_count / (frame_rate) # gets the time unrounded
+        roundedtime=round(total_seconds,2)# rounds time to 2 decimal places
+        score= f"{roundedtime:.2f}" # sets hud.time to the rounded time
+        self.draw_text("Time " + str(score),"fonts/PirataOne-Regular.ttf", (255,255,255), 45, 50, 10)
         #time.tick(frame_rate)
