@@ -128,17 +128,17 @@ def constructBadgerBoss(badger_boss):
 def constructTangerineMimic(tangerine_mimic):
     tangerine_mimic = Player(
         500, 200, 
-        "assets/tangerine_mimic_NEW_5_5_25.png",
-        "assets/tangerine_mimic_NEW_5_5_25.png",
-        "assets/tangerine_mimic_NEW_5_5_25.png",
-        "assets/tangerine_mimic_NEW_5_5_25.png",
-        "assets/tangerine_mimic_NEW_5_5_25.png",
-        "assets/tangerine_mimic_NEW_5_5_25.png",
-        "assets/tangerine_mimic_NEW_5_5_25.png",
-        "assets/tangerine_mimic_NEW_5_5_25.png",
-        "assets/tangerine_mimic_NEW_5_5_25.png",
-        "assets/tangerine_mimic_NEW_5_5_25.png",
-        "assets/tangerine_mimic_NEW_5_5_25.png",
+        "assets/vineup.png",
+        "assets/vinedown.png",
+        "assets/vineleft.png",
+        "assets/vineright.png",
+        "assets/vineface.png",
+        "assets/vineface.png",
+        "assets/vineface.png",
+        "assets/vineup.png",
+        "assets/vinedown.png",
+        "assets/vineleft.png",
+        "assets/vineright.png",
         7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
         3, 3, 3, 3, 3,
         5, 5
@@ -299,6 +299,7 @@ while running:
             else:
                 tangerine_mimic.move_towards_player(capybarda, counter)
                 CANVAS.blit(tangerine_mimic.last_sprite, (tangerine_mimic.x_coord, tangerine_mimic.y_coord))
+                pygame.draw.rect(CANVAS, (255,0,0), tangerine_mimic.collision_rect, 2)
         #######################
         
         for note in notes_left:

@@ -35,6 +35,8 @@ class Player:
         self.size = self.up_list[0].get_rect()
         self.width = self.size.width
         self.height = self.size.height
+        print("self.width = ", self.width)
+        print("self.height = ", self.height)
         self.down_list = Asset_Reader(ss_down, num_down, down_scale).get_asset_list()
         self.left_list = Asset_Reader(ss_left, num_left, left_scale).get_asset_list()
         self.right_list = Asset_Reader(ss_right, num_right, right_scale).get_asset_list()
