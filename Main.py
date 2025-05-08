@@ -77,6 +77,7 @@ tangerine_mimic = None
 
 def constructCapyBarda(capybarda):
     capybarda = Player(
+        'capybarda',
         200, 200, 
         "assets/CapybardaRun_back.png", 
         "assets/CapybardaRun_front.png", 
@@ -102,6 +103,7 @@ def constructCapyBarda(capybarda):
 
 def constructBadgerBoss(badger_boss):
     badger_boss = Player(
+        'badger_boss',
         500, 200, 
         "assets/badger_walking_LEFT.png",
         "assets/badger_walking_RIGHT.png",
@@ -127,6 +129,7 @@ def constructBadgerBoss(badger_boss):
 
 def constructTangerineMimic(tangerine_mimic):
     tangerine_mimic = Player(
+        'tangerine_mimic',
         500, 200, 
         "assets/vineface-reduced3.png",
         "assets/vineface-reduced3.png",
@@ -297,9 +300,27 @@ while running:
             if tangerine_mimic == None:
                 tangerine_mimic = constructTangerineMimic(tangerine_mimic)
             else:
-                tangerine_mimic.move_towards_player(capybarda, counter)
-                CANVAS.blit(tangerine_mimic.last_sprite, (tangerine_mimic.x_coord, tangerine_mimic.y_coord))
-                pygame.draw.rect(CANVAS, (255,0,0), tangerine_mimic.collision_rect, 2)
+                if (tangerine_mimic.move_towards_player(capybarda, counter)):
+                    capybarda.player_hit(counter)
+                if tangerine_mimic != None and Background.background_index == 1 and tangerine_mimic.alive == True:
+                    CANVAS.blit(tangerine_mimic.last_sprite, (tangerine_mimic.x_coord, tangerine_mimic.y_coord))
+                    pygame.draw.rect(CANVAS, (255,0,0), tangerine_mimic.collision_rect, 2)
+                else: # tangerine_mimic is no more
+                    tangerine_mimic = None
+
+        if tangerine_mimic != None:
+            for note in notes_left:
+                if (tangerine_mimic.enemy_hit(note, counter)):
+                    notes_left.remove(note)
+            for note in notes_right:
+                if (tangerine_mimic.enemy_hit(note, counter)):
+                    notes_right.remove(note)
+            for note in notes_up:
+                if (tangerine_mimic.enemy_hit(note, counter)):
+                    notes_up.remove(note)
+            for note in notes_down:
+                if (tangerine_mimic.enemy_hit(note, counter)):
+                    notes_down.remove(note)
         #######################
         
         for note in notes_left:

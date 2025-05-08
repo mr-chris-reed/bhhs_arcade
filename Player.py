@@ -8,13 +8,14 @@ class Player:
 
 
     def __init__(self, 
-                x_coord, y_coord, 
+                char_name, x_coord, y_coord, 
                 ss_up, ss_down, ss_left, ss_right, ss_interact, ss_attack_left, ss_attack_right,
                 idle_up,idle_down,idle_left,idle_right,
                 num_up, num_down, num_left, num_right, num_interact, num_attack, num_up_idle, num_down_idle, num_left_idle, num_right_idle,
                 scale,up_scale,down_scale, left_scale, right_scale,
                 x_speed, y_speed):
 
+        self.char_name = char_name
         self.health = 5
         self.gold = 0
         self.damage = 1
@@ -51,7 +52,10 @@ class Player:
         self.last_idle_sprite_list = self.idle_right_list
         self.last_idle_sprite = self.idle_right_list[0]
         self.last_button = "d"
-        self.collision_rect = Rect(self.x_coord, self.y_coord, self.width - 100, self.height)
+        if char_name == 'tangerine_mimic':
+            self.collision_rect = Rect(self.x_coord+200, self.y_coord+100, self.width-200, self.height-100)
+        else:
+            self.collision_rect = Rect(self.x_coord, self.y_coord, self.width - 100, self.height)
         self.alive = True
         self.last_attack = "d"
 
@@ -72,7 +76,10 @@ class Player:
         self.last_idle_sprite_list = self.idle_up_list
         self.last_button ="w"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_up_list)
-        self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
+        if self.char_name == 'tangerine_mimic':
+            self.collision_rect.center = (self.x_coord + 175,self.y_coord + 115)
+        else:
+            self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
 
     def down(self, counter):
         if (self.last_button != "s"):
@@ -83,7 +90,10 @@ class Player:
         self.last_idle_sprite_list = self.idle_down_list
         self.last_button = "s"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_down_list)
-        self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
+        if self.char_name == 'tangerine_mimic':
+            self.collision_rect.center = (self.x_coord + 175,self.y_coord + 115)
+        else:
+            self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
 
     def left(self, counter):
         if (self.last_button != "a"):
@@ -94,7 +104,10 @@ class Player:
         self.last_idle_sprite_list = self.idle_left_list
         self.last_button = "a"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_left_list)
-        self.collision_rect.center = (self.x_coord + 85,self.y_coord + 90)
+        if self.char_name == 'tangerine_mimic':
+            self.collision_rect.center = (self.x_coord + 175,self.y_coord + 115)
+        else:
+            self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
 
     def right(self, counter):
         if (self.last_button != "d"):
@@ -105,7 +118,10 @@ class Player:
         self.last_idle_sprite_list = self.idle_right_list
         self.last_button = "d"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_right_list)
-        self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
+        if self.char_name == 'tangerine_mimic':
+            self.collision_rect.center = (self.x_coord + 175,self.y_coord + 115)
+        else:
+            self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
 
     def attack_right(self, counter):
         self.last_sprite = self.spritePicker(counter, self.attack_list_right)
@@ -156,17 +172,17 @@ class Player:
             self.attack_right(counter)
             self.last_button = "ad"
         if self.collision_rect.colliderect(player.collision_rect) == True and (self.last_button == "a" or self.last_button == "aa"):
-            if self.last_attack != "a":
+            if self.last_button == "a":
                 self.sprite_index = 0
             self.attack_left(counter)
             self.last_button = "aa"
         if self.collision_rect.colliderect(player.collision_rect) == True and (self.last_button == "w" or self.last_button == "aw"):
-            if self.last_button != "w":
+            if self.last_button == "w":
                 self.sprite_index = 0
             self.attack_up(counter)
             self.last_button = "aw"
         if self.collision_rect.colliderect(player.collision_rect) == True and (self.last_button == "s" or self.last_button == "as"):
-            if self.last_button != "s":
+            if self.last_button == "s":
                 self.sprite_index = 0
             self.attack_down(counter) 
             self.last_button = "as"
