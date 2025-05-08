@@ -128,19 +128,19 @@ def constructBadgerBoss(badger_boss):
 def constructTangerineMimic(tangerine_mimic):
     tangerine_mimic = Player(
         500, 200, 
-        "assets/vineface-reduced2.png",
-        "assets/vineface-reduced2.png",
-        "assets/vineface-reduced2.png",
-        "assets/vineface-reduced2.png",
-        "assets/vineface-reduced2.png",
-        "assets/vineface-reduced2.png",
-        "assets/vineface-reduced2.png",
-        "assets/vineface-reduced2.png",
-        "assets/vineface-reduced2.png",
-        "assets/vineface-reduced2.png",
-        "assets/vineface-reduced2.png",
-        14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
-        1, 1, 1, 1, 1,
+        "assets/vineface-reduced3.png",
+        "assets/vineface-reduced3.png",
+        "assets/vineface-reduced3.png",
+        "assets/vineface-reduced3.png",
+        "assets/vineface-reduced3.png",
+        "assets/vineface-reduced3.png",
+        "assets/vineface-reduced3.png",
+        "assets/vineface-reduced3.png",
+        "assets/vineface-reduced3.png",
+        "assets/vineface-reduced3.png",
+        "assets/vineface-reduced3.png",
+        7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+        1.5, 1.5, 1.5, 1.5, 1.5,
         5, 5
     )
 
