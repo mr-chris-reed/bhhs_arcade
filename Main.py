@@ -63,7 +63,6 @@ def check_and_clear_notes(list):
             temp.append(note)
     return temp
 
-# canvas        if (current_background.check_if_in_prev_box(capybarda)):
 CANVAS = pygame.display.set_mode((0, 0), FULLSCREEN)
 
 # object creation
@@ -186,7 +185,6 @@ while running:
                        
     if show_start_screen: 
         leaderboard = leaderboard_instance.read_leaderboard()
-        # start_screen = Start_Screen("assets/Start_Screen_NEW_5_5_25.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
         Background.background_index = 0
@@ -218,7 +216,7 @@ while running:
         else:
             capybarda.last_sprite = capybarda.spritePicker(counter, capybarda.last_idle_sprite_list)
 
-        ### enemy AI - "follow" ###
+        # enemy AI - "follow" #
         if badger_boss != None:
             if (badger_boss.move_towards_player(capybarda, counter)):
                     capybarda.player_hit(counter)
@@ -231,7 +229,7 @@ while running:
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index == 2):
             show_end_screen = True
             show_game_screens = False
-
+        '''
         if (current_background.check_if_in_prev_box(capybarda)):
             if Background.background_index >= 0:
                 Background.background_index -= 1
@@ -242,7 +240,7 @@ while running:
             
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
-     
+        '''     
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
         pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
 
@@ -292,7 +290,7 @@ while running:
                 if (badger_boss.enemy_hit(note, counter)):
                     notes_down.remove(note)
 
-        ### tangerine mimic ###
+        # tangerine mimic #
         if Background.background_index == 1:
             if tangerine_mimic == None:
                 tangerine_mimic = constructTangerineMimic(tangerine_mimic)
@@ -300,7 +298,6 @@ while running:
                 tangerine_mimic.move_towards_player(capybarda, counter)
                 CANVAS.blit(tangerine_mimic.last_sprite, (tangerine_mimic.x_coord, tangerine_mimic.y_coord))
                 pygame.draw.rect(CANVAS, (255,0,0), tangerine_mimic.collision_rect, 2)
-        #######################
         
         for note in notes_left:
             note.move_in_straight_line('L')

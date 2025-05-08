@@ -156,7 +156,7 @@ class Player:
             self.attack_right(counter)
             self.last_button = "ad"
         if self.collision_rect.colliderect(player.collision_rect) == True and (self.last_button == "a" or self.last_button == "aa"):
-            if self.last_attack != "a":
+            if self.last_button != "a":
                 self.sprite_index = 0
             self.attack_left(counter)
             self.last_button = "aa"
