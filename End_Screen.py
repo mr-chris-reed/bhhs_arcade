@@ -32,7 +32,7 @@ class End_Screen:
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
       # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
-        self.credits = ["Cole", "Colton", "Connor", "Rowan", "Tyler", "Nick", "Eli", "James", "Isobel", "Archer", "Eliza", "Dylan", "Colin"]
+        self.credits = ["Computer Science Department:", "Cole Shook", "Colton Chappell", "Connor James", "Rowan Pederson", "Tyler Pham", "Nick Winkler", "Eli Ulman","  ","Art Department:", "James", "Isobel Hein", "Archer Scaffidi", "Eliza Melcher","  ", "Music Department:", "Dylan Teel", "Colin Seidel"]
         self.input_box = pygame.Rect((1280 //2)-75,280,100,100) #intial letter cycling box
         self.name_box =  pygame.Rect(450,480,335,125) #initals box 
         self.instruction_box = pygame.Rect(240, 50, 800, 100)
@@ -127,21 +127,28 @@ class End_Screen:
 
 
 
-    def drawCredits(self,canvas):
-        
+    def drawCredits(self, canvas):
         HEIGHT = 1000
-        y_pos = self.vert_move2  # Use vert_move to track position
-        credit_height = len(self.credits) * 60  # Total height for all the credits
-        for i, credit in enumerate(self.credits):
-            text_surface = self.font2.render(credit, True, (255,255,255))
-            canvas.blit(text_surface, (250, y_pos + (i * 60)))  # Draw each credit line
-            
-        # Update the scroll position
-            self.vert_move2 -= 1  # Move the credits upwards
+        WIDTH = 1280
+        #canvas.get_width()  # Get canvas width to center horizontally
+        y_pos = self.vert_move2  # Track vertical scroll position
 
-        # If the credits have completely moved off the screen, stop scrolling
-            if y_pos + credit_height < 0:
-                self.vert_move2 = HEIGHT  # Reset position to start from bottom ag
+        # height for cred
+        credit_height = len(self.credits) * 60  
+
+        for i, credit in enumerate(self.credits):
+            text_surface = self.font2.render(credit, True, (255, 255, 255))
+            text_width = text_surface.get_width()
+            #centers text in the middle of the screen
+            x_pos = (WIDTH - text_width) // 2
+            #draws text
+            canvas.blit(text_surface, (x_pos, y_pos + (i * 60)))  
+        # scroll upwards
+        self.vert_move2 -= 9  
+        # continously scrolling
+        if y_pos + credit_height < 0:
+            self.vert_move2 = HEIGHT
+
         
         
     def drawEndScreen(self, canvas, joysticks):
@@ -159,7 +166,7 @@ class End_Screen:
             self.inputVisible = True  # shows input box   
             
 
-          #draws input box and stuff if it is true
+          #draws input box and name box if inputvisilbe is set to true
         if self.inputVisible:
             self.inputName(canvas)
             self.handleInput(canvas,joysticks)
