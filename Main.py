@@ -142,6 +142,7 @@ tangerine_mimic = Player(
     # initial position of badger_boss
 tangerine_mimic.x_coord = 500
 tangerine_mimic.y_coord = HEIGHT // 2
+tangerine_mimic.health = 15
 
 
 end_screen = End_Screen(1,1,1,1,1,1,"assets/gameover.png")
@@ -215,11 +216,19 @@ while running:
             if (badger_boss.move_towards_player(capybarda, counter)):
                     capybarda.player_hit(counter)
 
-        if (current_background.check_if_in_next_box(capybarda) and Background.background_index < 2 ):
+        if (current_background.check_if_in_next_box(capybarda) and Background.background_index == 0 and badger_boss.alive == False ):
             Background.background_index += 1
             
             capybarda.x_coord = 100
             capybarda.y_coord = HEIGHT // 2
+        
+        if (current_background.check_if_in_next_box(capybarda) and Background.background_index == 1 and tangerine_mimic.alive == False ):
+            Background.background_index += 1
+
+            capybarda.x_coord = 100
+            capybarda.y_coord = HEIGHT // 2
+        
+
         if (current_background.check_if_in_next_box(capybarda) and Background.background_index == 2):
             show_end_screen = True
             show_game_screens = False
@@ -336,7 +345,7 @@ while running:
             badger_boss.y_coord = HEIGHT // 2
 
             tangerine_mimic.alive = True
-            tangerine_mimic.health = 5
+            tangerine_mimic.health = 15
             tangerine_mimic.x_coord = 500
             tangerine_mimic.y_coord = HEIGHT // 2
 

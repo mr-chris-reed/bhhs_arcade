@@ -28,10 +28,10 @@ class Background:
         #pygame.draw.line(surface, (0, 0, 0), (self.low_x, self.low_y), (self.low_x, self.high_y), width=3)
         #pygame.draw.line(surface, (0, 0, 0), (self.high_x, self.low_y), (self.high_x, self.high_y), width=3)
         #pygame.draw.line(surface, (0, 0, 0), (self.low_x, self.high_y), (self.high_x, self.high_y), width=3)
-        pygame.draw.rect(self.in_box, (255, 255, 255, 64), (0, 0, 200, 1000))
-        surface.blit(self.in_box, (self.low_x, self.low_y))
-        pygame.draw.rect(self.out_box, (255, 255, 255, 64), (0, 0, 200, 1000))
-        surface.blit(self.out_box, (self.high_x - 200, self.high_y - 1000))
+        #pygame.draw.rect(self.in_box, (255, 255, 255, 64), (0, 0, 200, 1000))
+        #surface.blit(self.in_box, (self.low_x, self.low_y))
+        #pygame.draw.rect(self.out_box, (255, 255, 255, 64), (0, 0, 200, 1000))
+        #surface.blit(self.out_box, (self.high_x - 200, self.high_y - 1000))
         return surface
 
     def check_can_move_left(self, player):
