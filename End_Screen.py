@@ -88,7 +88,7 @@ class End_Screen:
         
 
         
-    def handleInput(self,canvas, joysticks):
+    def handleInput(self,canvas, joysticks, hud):
         # keys=pygame.key.get_pressed()
         #cycles through the alphabet when the arrows keys are moved and prints, will be changed once joystick is added
         if len(self.name) < 3:
@@ -103,20 +103,20 @@ class End_Screen:
                         self.currentLetter = (self.currentLetter - 1) % len(self.alphabet)
                         self.currentLetterString = self.alphabet[self.currentLetter]
                         
-                if self.button_move != round(joysticks[0].get_button(10)):
-                    self.button_move = round(joysticks[0].get_button(10))
+                if self.button_move != round(joysticks[0].get_button(11)):
+                    self.button_move = round(joysticks[0].get_button(11))
                     if self.button_move > 0.5 and self.hasBeenPressedOnce ==False:
                         self.hasBeenPressedOnce = True
                     elif self.button_move > 0.5 and self.hasBeenPressedOnce ==True:
                         self.name += self.currentLetterString
         elif len(self.name)==3:
-            if self.button_move != round(joysticks[0].get_button(10)):
-                self.button_move = round(joysticks[0].get_button(10))
+            if self.button_move != round(joysticks[0].get_button(11)):
+                self.button_move = round(joysticks[0].get_button(11))
                 if self.button_move > 0.5 and self.pressedVisiblity==False:
                     self.pressedVisiblity = True            
                     self.inputVisible = False
                     name = self.name
-                    Leaderboard.add_to_leaderboard(self.Leaderboard, name, 20)
+                    Leaderboard.add_to_leaderboard(self.Leaderboard, name, int(hud.score.replace(".", "")))
                     ###
                     self.name = ''
                     ###
@@ -144,7 +144,7 @@ class End_Screen:
                 self.vert_move2 = HEIGHT  # Reset position to start from bottom ag
         
         
-    def drawEndScreen(self, canvas, joysticks):
+    def drawEndScreen(self, canvas, joysticks, hud):
     # Fills screen black
         
         canvas.fill((0,0,0))
@@ -153,7 +153,7 @@ class End_Screen:
         if self.visible:
             self.drawCredits(canvas)
     
-        if joysticks[0].get_button(10) == 1 and self.visible:
+        if joysticks[0].get_button(11) == 1 and self.visible:
             self.visible = False  # hide credits
             pygame.time.delay(200)
             self.inputVisible = True  # shows input box   
@@ -162,5 +162,5 @@ class End_Screen:
           #draws input box and stuff if it is true
         if self.inputVisible:
             self.inputName(canvas)
-            self.handleInput(canvas,joysticks)
+            self.handleInput(canvas,joysticks, hud)
         

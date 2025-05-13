@@ -189,7 +189,7 @@ while running:
                        
     if show_start_screen: 
         leaderboard = leaderboard_instance.read_leaderboard()
-        # start_screen = Start_Screen("assets/Start_Screen_NEW_5_5_25.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
+        start_screen = Start_Screen("assets/Start_Screen_NEW_5_6_25.png", leaderboard, 1, 0, 0, HEIGHT, WIDTH)
         current_background = start_screen
         CANVAS.blit(current_background.generate_return_surface(counter), (0, 0))
         Background.background_index = 0
@@ -345,7 +345,7 @@ while running:
 
     elif show_end_screen:
         capybarda = None
-        end_screen.drawEndScreen(CANVAS, joysticks)
+        end_screen.drawEndScreen(CANVAS, joysticks, hud)
         if end_screen.pressedVisiblity == True and end_screen.inputVisible == False:
             show_end_screen = False
             show_game_screens = False

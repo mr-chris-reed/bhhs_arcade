@@ -12,6 +12,7 @@ class HUD:
         self.player = player
         self.time = time
         self.hud_color = hud_color
+        self.score = None
 
     def draw_heart(self, center, size, distance, health):
         cx, cy = center
@@ -51,13 +52,12 @@ class HUD:
         self.draw_heart((1200, 40), 25, 60, health)
         return self.surface
 
-    #Doesn't work yet.
     def update_time(self, time, frame_count):
         font = pygame.font.Font("fonts/PirataOne-Regular.ttf", 25)
         scorelist = []
         frame_rate = 60
         total_seconds = frame_count / (frame_rate) # gets the time unrounded
         roundedtime=round(total_seconds,2)# rounds time to 2 decimal places
-        score= f"{roundedtime:.2f}" # sets hud.time to the rounded time
-        self.draw_text("Time " + str(score),"fonts/PirataOne-Regular.ttf", (255,255,255), 45, 50, 10)
+        self.score= f"{roundedtime:.2f}" # sets hud.time to the rounded time
+        self.draw_text("Time " + str(self.score),"fonts/PirataOne-Regular.ttf", (255,255,255), 45, 50, 10)
         #time.tick(frame_rate)
