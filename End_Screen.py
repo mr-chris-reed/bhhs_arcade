@@ -88,7 +88,7 @@ class End_Screen:
         
 
         
-    def handleInput(self,canvas, joysticks):
+    def handleInput(self,canvas, joysticks, hud):
         # keys=pygame.key.get_pressed()
         #cycles through the alphabet when the arrows keys are moved and prints, will be changed once joystick is added
         if len(self.name) < 3:
@@ -116,7 +116,7 @@ class End_Screen:
                     self.pressedVisiblity = True            
                     self.inputVisible = False
                     name = self.name
-                    Leaderboard.add_to_leaderboard(self.Leaderboard, name, 20)
+                    Leaderboard.add_to_leaderboard(self.Leaderboard, name, int(hud.score.replace(".", "")))
                     ###
                     self.name = ''
                     ###
@@ -151,7 +151,7 @@ class End_Screen:
 
         
         
-    def drawEndScreen(self, canvas, joysticks):
+    def drawEndScreen(self, canvas, joysticks, hud):
     # Fills screen black
         
         canvas.fill((0,0,0))
@@ -169,5 +169,5 @@ class End_Screen:
           #draws input box and name box if inputvisilbe is set to true
         if self.inputVisible:
             self.inputName(canvas)
-            self.handleInput(canvas,joysticks)
+            self.handleInput(canvas,joysticks, hud)
         
