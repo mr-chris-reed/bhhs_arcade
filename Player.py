@@ -53,7 +53,9 @@ class Player:
         self.last_idle_sprite = self.idle_right_list[0]
         self.last_button = "d"
         if char_name == 'tangerine_mimic':
-            self.collision_rect = Rect(self.x_coord+200, self.y_coord+100, self.width-200, self.height-100)
+            self.collision_rect = Rect(self.x_coord+225, self.y_coord+175, self.width-300, self.height-200)
+        elif char_name == 'wizard':
+            self.collision_rect = Rect(self.x_coord+300, self.y_coord+275, self.width-375, self.height-75)
         else:
             self.collision_rect = Rect(self.x_coord, self.y_coord, self.width - 100, self.height)
         self.alive = True
@@ -77,7 +79,9 @@ class Player:
         self.last_button ="w"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_up_list)
         if self.char_name == 'tangerine_mimic':
-            self.collision_rect.center = (self.x_coord + 175,self.y_coord + 115)
+            self.collision_rect.center = (self.x_coord + 225,self.y_coord + 175)
+        elif self.char_name == 'wizard':
+            self.collision_rect.center = (self.x_coord + 235,self.y_coord + 100)
         else:
             self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
 
@@ -91,7 +95,9 @@ class Player:
         self.last_button = "s"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_down_list)
         if self.char_name == 'tangerine_mimic':
-            self.collision_rect.center = (self.x_coord + 175,self.y_coord + 115)
+            self.collision_rect.center = (self.x_coord + 225,self.y_coord + 175)
+        elif self.char_name == 'wizard':
+            self.collision_rect.center = (self.x_coord + 235,self.y_coord + 100)
         else:
             self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
 
@@ -105,7 +111,9 @@ class Player:
         self.last_button = "a"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_left_list)
         if self.char_name == 'tangerine_mimic':
-            self.collision_rect.center = (self.x_coord + 175,self.y_coord + 115)
+            self.collision_rect.center = (self.x_coord + 225,self.y_coord + 175)
+        elif self.char_name == 'wizard':
+            self.collision_rect.center = (self.x_coord + 235,self.y_coord + 100)
         else:
             self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
 
@@ -119,7 +127,9 @@ class Player:
         self.last_button = "d"
         self.last_idle_sprite = self.spritePicker(counter, self.idle_right_list)
         if self.char_name == 'tangerine_mimic':
-            self.collision_rect.center = (self.x_coord + 175,self.y_coord + 115)
+            self.collision_rect.center = (self.x_coord + 225,self.y_coord + 175)
+        elif self.char_name == 'wizard':
+            self.collision_rect.center = (self.x_coord + 235,self.y_coord + 100)
         else:
             self.collision_rect.center = (self.x_coord + 100,self.y_coord + 90)
 
