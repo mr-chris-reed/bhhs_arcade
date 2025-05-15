@@ -387,7 +387,11 @@ while running:
 
     elif show_end_screen:
       
+
+        
+
         end_screen.drawEndScreen(CANVAS, joysticks, hud)
+
         if end_screen.pressedVisiblity == True and end_screen.inputVisible == False:
             capybarda.alive = True
             capybarda.health = 5
