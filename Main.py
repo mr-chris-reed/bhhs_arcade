@@ -152,8 +152,8 @@ wizard = Player(
     500, 200, 
     "assets/wizard_frontwalk.png",
     "assets/wizard_frontwalk.png",
-    "assets/wizard_frontwalk.png",
-    "assets/wizard_frontwalk.png",
+    "assets/wizard walking frames left (1).png",
+    "assets/wizard walking frames right (1).png",
     "assets/wizard_frontwalk.png",
     "assets/wizard_frontwalk.png",
     "assets/wizard_frontwalk.png",
@@ -161,7 +161,7 @@ wizard = Player(
     "assets/wizard_frontwalk.png",
     "assets/wizard_frontwalk.png",
     "assets/wizard_frontwalk.png", 
-    8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+    8, 8, 11, 11, 8, 8, 8, 8, 8, 8,
     1.5, 1.5, 1.5, 1.5, 1.5,
     5, 5
     )
