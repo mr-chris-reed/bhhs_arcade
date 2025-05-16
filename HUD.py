@@ -6,16 +6,13 @@ screen = pygame.display.set_mode((1280, 1024))
 
 class HUD:
 
-    def __init__(self, width, height, player, time, hud_color, arrow_image): #timer might be moved.
+    def __init__(self, width, height, player, time, hud_color): #timer might be moved.
         self.width = width
         self.height = height
         self.player = player
         self.time = time
         self.hud_color = hud_color
         self.score = None
-        self.arrow_image = arrow_image
-        self.arrow_image_width = arrow_image.get_width()
-        self.arrow_image_height = arrow_image.get_height()
 
     def draw_heart(self, center, size, distance, health):
         cx, cy = center
@@ -53,10 +50,6 @@ class HUD:
         self.surface.set_alpha(100)
         self.update_time(self.time, frame_count)
         self.draw_heart((1200, 40), 25, 60, health)
-        if not(current_boss.alive):
-            arrow_surface = pygame.Surface((self.arrow_image_width, self.arrow_image_height))
-            arrow_surface.blit(self.arrow_image, (0, 0))
-            self.surface.blit(arrow_surface, (500, 25))
         return self.surface
 
     def update_time(self, time, frame_count):

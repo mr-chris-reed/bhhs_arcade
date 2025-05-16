@@ -196,3 +196,23 @@ class Player:
                 self.sprite_index = 0
             self.attack_down(counter) 
             self.last_button = "as"
+
+    # wizard functions
+    """
+    def check_if_can_fire_bolt(self, player):
+        if player.collision_rect.left > self.collision_rect.left and player.collision_rect.left < self.collision_rect.right and player.collision_rect.bottom < self.collision_rect.bottom:
+            return "fire up"
+        elif player.collision_rect.right > self.collision_rect.left and player.collision_rect.right < self.collision_rect.right and player.collision_rect.bottom < self.collition_rect.bottom:
+            return "fire up"
+        elif player.collision_rect.left > self.collision_rect.left and player.collision_rect.left < self.collision_rect.right and player.collision_rect.top > self.collision_rect.top:
+            return "fire down"
+        elif player.collision_rect.right > self.collision_rect.left and player.collision_rect.right < self.collision_rect.right and player.collision_rect.top > self.collition_rect.top:
+            return "fire down"
+        elif player.collision_rect
+        elif player.collision_rect.top < self.collision_rect.top and player.collision_rect.top > self.collision_rect.bottom:
+            return True
+        elif player.collision_rect.bottom < self.collision_rect.bottom and player.collision_rect.bottom > self.collision_rect.top:
+            return True
+        else:
+            return False
+    """
