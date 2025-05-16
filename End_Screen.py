@@ -32,7 +32,7 @@ class End_Screen:
         self.leaderboard = leaderboard
         self.gameOverMessage = gameOverMessage
       # self.backgroundGraphic = Asset_Reader("assets/gameover.png", 1, 1).get_asset_list()
-        self.credits = ["Computer Science Department:", "Mr Reed", "Colton Chappell", "Connor James", "Rowan Pedersen", "Tyler Pham","Cole Shook", "Eli Ulman","Nick Winkler","","Art Department:", "Mrs Greiss", "James Dzikowski", "Isobel Hein", "Eliza Melcher", "Archer Scaffidi", " ",  "Music Department:", "Mr Rabenold", "Colin Seidel", "Dylan Teel", "", "Woodshop:", "Mr Schmidt" ]
+        self.credits = ["Computer Science Department:", "Mr Reed", "Colton Chappell", "Connor James", "Rowan Pedersen", "Tyler Pham","Cole Shook", "Eli Ulman","Nick Winkler","","Art Department:", "Mrs Greiss", "James Dzikowski", "Isobel Hein", "Eliza Melcher", "Archer Scaffidi", " ",  "Music Department:", "Mr Rabenold", "Colin Seidel", "Dylan Teel", "", "Woodshop:", "Mr Schmidt","Mr Sheeler","","Graphic Design:","Mr Lundy" ]
         self.input_box = pygame.Rect((1280 //2)-75,280,100,100) #intial letter cycling box
         self.name_box =  pygame.Rect(450,480,335,125) #initals box 
         self.instruction_box = pygame.Rect(240, 50, 800, 100)
