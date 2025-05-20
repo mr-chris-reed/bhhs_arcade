@@ -196,6 +196,14 @@ while running:
 
     if show_start_screen:
         # construct player and enimies at start of game
+        notes_left = []
+        notes_right = []
+        notes_up = []
+        notes_down= []
+        bolts_left = []
+        bolts_right = []
+        bolts_up = []
+        bolts_down = []
         capybarda.health = 7
         badger_boss.health = 7
 
@@ -283,17 +291,17 @@ while running:
         #capybarda.y_coord = HEIGHT // 2
      
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
-        pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
+        #pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
 
         if Background.background_index == 0 and badger_boss.alive == True:
             CANVAS.blit(badger_boss.last_sprite, (badger_boss.x_coord, badger_boss.y_coord))
-            pygame.draw.rect(CANVAS, (255,0,0), badger_boss.collision_rect, 2)
+            #pygame.draw.rect(CANVAS, (255,0,0), badger_boss.collision_rect, 2)
 
         if Background.background_index == 2:
             
             if wizard.alive == True:
                 CANVAS.blit(wizard.last_sprite, (wizard.x_coord, wizard.y_coord))
-                pygame.draw.rect(CANVAS, (255,0,0), wizard.collision_rect, 2)
+                #pygame.draw.rect(CANVAS, (255,0,0), wizard.collision_rect, 2)
 
         if (joysticks[0].get_button(9)):
             if counter > 10 + previous_counter:
@@ -405,9 +413,9 @@ while running:
             if (tangerine_mimic.move_towards_player(capybarda, counter)):
                 capybarda.player_hit(counter)
             CANVAS.blit(tangerine_mimic.last_sprite, (tangerine_mimic.x_coord, tangerine_mimic.y_coord))
-            pygame.draw.rect(CANVAS, (255,0,0), tangerine_mimic.collision_rect, 2)
+            #pygame.draw.rect(CANVAS, (255,0,0), tangerine_mimic.collision_rect, 2)
 
-        if tangerine_mimic.alive == True:
+        if tangerine_mimic.alive == True and Background.background_index == 1:
             for note in notes_left:
                 if (tangerine_mimic.enemy_hit(note, counter)):
                     notes_left.remove(note)
@@ -446,6 +454,7 @@ while running:
         end_screen.drawEndScreen(CANVAS, joysticks, hud)
 
         if end_screen.pressedVisiblity == True and end_screen.inputVisible == False:
+    
             capybarda.alive = True
             capybarda.health = 7
 
@@ -460,7 +469,7 @@ while running:
             tangerine_mimic.y_coord = HEIGHT // 2
 
             wizard.alive = True
-            wizard.health = 25
+            wizard.health = 15
             wizard.x_coord = 500
             wizard.y_coord = HEIGHT // 2
 
@@ -511,7 +520,7 @@ while running:
             tangerine_mimic.alive = True
             tangerine_mimic.health = 10
             wizard.alive = True
-            wizard.health = 25
+            wizard.health = 15
             forest_sound.stop()
             castle_sound.stop()
             hell_sound.stop()
