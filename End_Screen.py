@@ -48,6 +48,7 @@ class End_Screen:
         self.vert_move = 0
         self.vert_move2 = 0
         self.button_move = 0
+        self.back_button_move = 0
         self.hasBeenPressedOnce = False
         self.pressedVisiblity=False
         
@@ -109,7 +110,19 @@ class End_Screen:
                         self.hasBeenPressedOnce = True
                     elif self.button_move > 0.5 and self.hasBeenPressedOnce ==True:
                         self.name += self.currentLetterString
+                if self.back_button_move != round(joysticks[0].get_button(11)):
+                    self.back_button_move = round(joysticks[0].get_button(11))
+                    if self.back_button_move > 0.5 and self.hasBeenPressedOnce == False:
+                        self.hasBeenPressedOnce = True
+                    elif self.back_button_move > 0.5 and self.hasBeenPressedOnce == True:
+                        self.name = self.name[:-1]
         elif len(self.name)==3:
+            if self.back_button_move != round(joysticks[0].get_button(11)):
+                    self.back_button_move = round(joysticks[0].get_button(11))
+                    if self.back_button_move > 0.5 and self.hasBeenPressedOnce == False:
+                        self.hasBeenPressedOnce = True
+                    elif self.back_button_move > 0.5 and self.hasBeenPressedOnce == True:
+                        self.name = self.name[:-1]
             if self.button_move != round(joysticks[0].get_button(10)):
                 self.button_move = round(joysticks[0].get_button(10))
                 if self.button_move > 0.5 and self.pressedVisiblity==False:

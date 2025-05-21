@@ -13,10 +13,10 @@ class Player:
                 idle_up,idle_down,idle_left,idle_right,
                 num_up, num_down, num_left, num_right, num_interact, num_attack, num_up_idle, num_down_idle, num_left_idle, num_right_idle,
                 scale,up_scale,down_scale, left_scale, right_scale,
-                x_speed, y_speed):
+                x_speed, y_speed, health):
 
         self.char_name = char_name
-        self.health = 5
+        self.health = health
         self.gold = 0
         self.damage = 1
         self.x_coord = x_coord
