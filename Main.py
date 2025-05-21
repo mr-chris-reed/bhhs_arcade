@@ -102,7 +102,7 @@ capybarda = Player(
     "assets/CapybardaIdle_side.png",
     6, 4, 4, 6, 4, 4, 4, 4, 4, 4,
     0.6, 0.6, 0.6, 0.6, 0.6,
-    10, 10)
+    10, 10, 7)
 
     # initial position of capybarda
 capybarda.x_coord = 100
@@ -124,7 +124,7 @@ badger_boss = Player(
     "assets/badger_walking_RIGHT.png", 
     23, 23, 23, 23, 9, 9, 9, 9, 9, 23,
     3, 3, 3, 3, 3,
-    5, 5
+    5, 5, 5
     )
 
 # initial position of badger_boss
@@ -147,7 +147,7 @@ tangerine_mimic = Player(
     "assets/no_trim_no_repage.png",
     11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
     1.5, 1.5, 1.5, 1.5, 1.5,
-    5, 5
+    5, 5, 12
 )
 
 # initial position of tangerine_mimic
@@ -170,7 +170,7 @@ wizard = Player(
     "assets/wizard_frontwalk.png", 
     8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
     1.5, 1.5, 1.5, 1.5, 1.5,
-    5, 5
+    5, 5, 20
     )
 
 # initial position of wizard
@@ -289,7 +289,16 @@ while running:
         ''' 
         #capybarda.x_coord = 100
         #capybarda.y_coord = HEIGHT // 2
-     
+
+        # flashing arrow for next screen
+        if counter % 30 > 0 and counter % 30 < 15 and not(show_end_screen):
+            if Background.background_index == 0 and badger_boss.alive == False:
+                CANVAS.blit(arrow_image, (1000, 415))
+            elif Background.background_index == 1 and tangerine_mimic.alive == False:
+                CANVAS.blit(arrow_image, (1000, 415))
+            elif Background.background_index == 2 and wizard.alive == False:
+                CANVAS.blit(arrow_image, (1000, 415))
+        
         CANVAS.blit(capybarda.last_sprite, (capybarda.x_coord, capybarda.y_coord))
         #pygame.draw.rect(CANVAS, (255,0,0), capybarda.collision_rect, 2)
 
@@ -364,7 +373,7 @@ while running:
             # clear lightning bolts when off screen
             # fire bolts indiscriminately
 
-            if counter2 > 5 + previous_counter2:
+            if counter2 > 10 + previous_counter2:
                 bolts_up.append(Projectile(bolt_vertical_image, wizard.x_coord + wizard.width // 2,
                                            wizard.y_coord + wizard.height // 3, 20))
                 bolts_down.append(Projectile(bolt_vertical_image, wizard.x_coord + wizard.width // 2,
@@ -459,17 +468,17 @@ while running:
             capybarda.health = 7
 
             badger_boss.alive = True
-            badger_boss.health = 7
+            badger_boss.health = 5
             badger_boss.x_coord = 500
             badger_boss.y_coord = HEIGHT // 2
 
             tangerine_mimic.alive = True
-            tangerine_mimic.health = 10
+            tangerine_mimic.health = 12
             tangerine_mimic.x_coord = 500
             tangerine_mimic.y_coord = HEIGHT // 2
 
             wizard.alive = True
-            wizard.health = 15
+            wizard.health = 20
             wizard.x_coord = 500
             wizard.y_coord = HEIGHT // 2
 
@@ -516,11 +525,11 @@ while running:
             capybarda.alive = True
             capybarda.health = 7
             badger_boss.alive = True
-            badger_boss.health = 7
+            badger_boss.health = 5
             tangerine_mimic.alive = True
-            tangerine_mimic.health = 10
+            tangerine_mimic.health = 12
             wizard.alive = True
-            wizard.health = 15
+            wizard.health = 20
             forest_sound.stop()
             castle_sound.stop()
             hell_sound.stop()
@@ -531,14 +540,7 @@ while running:
             wizard.x_coord = WIDTH - 200
             wizard.y_coord = HEIGHT // 2
 
-    # flashing arrow for next screen
-    if counter % 30 > 0 and counter % 30 < 15 and not(show_end_screen):
-        if Background.background_index == 0 and badger_boss.alive == False:
-            CANVAS.blit(arrow_image, (1000, 512))
-        elif Background.background_index == 1 and tangerine_mimic.alive == False:
-            CANVAS.blit(arrow_image, (1000, 512))
-        elif Background.background_index == 2 and wizard.alive == False:
-            CANVAS.blit(arrow_image, (1000, 512))
+   
     
     pygame.display.flip()
     clock.tick(FPS)
