@@ -373,7 +373,7 @@ while running:
             # clear lightning bolts when off screen
             # fire bolts indiscriminately
 
-            if counter2 > 10 + previous_counter2:
+            if counter2 > 15 + previous_counter2:
                 bolts_up.append(Projectile(bolt_vertical_image, wizard.x_coord + wizard.width // 2,
                                            wizard.y_coord + wizard.height // 3, 20))
                 bolts_down.append(Projectile(bolt_vertical_image, wizard.x_coord + wizard.width // 2,
@@ -473,12 +473,12 @@ while running:
             badger_boss.y_coord = HEIGHT // 2
 
             tangerine_mimic.alive = True
-            tangerine_mimic.health = 12
+            tangerine_mimic.health = 20
             tangerine_mimic.x_coord = 500
             tangerine_mimic.y_coord = HEIGHT // 2
 
             wizard.alive = True
-            wizard.health = 20
+            wizard.health = 16
             wizard.x_coord = 500
             wizard.y_coord = HEIGHT // 2
 
@@ -527,9 +527,9 @@ while running:
             badger_boss.alive = True
             badger_boss.health = 5
             tangerine_mimic.alive = True
-            tangerine_mimic.health = 12
+            tangerine_mimic.health = 20
             wizard.alive = True
-            wizard.health = 20
+            wizard.health = 16
             forest_sound.stop()
             castle_sound.stop()
             hell_sound.stop()
